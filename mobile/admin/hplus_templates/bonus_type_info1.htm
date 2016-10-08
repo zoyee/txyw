@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+
+{include file='head.htm'}
+<link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#datepicker").datepicker({
+		keyboardNavigation : !1,
+		forceParse : !1,
+		autoclose : !0
+	});
+	
+	$('#send_start_date').datepicker({
+		dateFormat : "yyyy-mm-dd"
+	}).datepicker("setDate", '{$bonus_arr.send_start_date}');
+	$('#send_end_date').datepicker({
+		dateFormat : "yyyy-mm-dd"
+	}).datepicker("setDate", '{$bonus_arr.send_end_date}');	
+	$('#use_start_date').datepicker({
+		dateFormat : "yyyy-mm-dd"
+	}).datepicker("setDate", '{$bonus_arr.use_start_date}');
+	$('#use_end_date').datepicker({
+		dateFormat : "yyyy-mm-dd"
+	}).datepicker("setDate", '{$bonus_arr.use_end_date}');
+	
+	$("#theForm button[type=submit]").trigger('click');
+});
+
+
+</script>
+
+<body class="gray-bg">
+
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>所有表单元素 <small>包括自定义样式的复选和单选按钮</small></h5>
+                        
+                    </div>
+                    <div class="ibox-content">
+                        <form action="bonus.php" id="theForm" method="post" name="theForm" enctype="multipart/form-data"  class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$lang.type_name}</label>
+
+                                <div class="col-sm-5">
+                                    <input type="text" name='type_name' maxlength="30" value="{$bonus_arr.type_name}" size='20' class="form-control" required /> 
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$lang.type_money}</td></label>
+                                <div class="col-sm-5">
+                                    <input  class="form-control" name="type_money" value="{$bonus_arr.type_money}" size="20" required /> <span class="notice-span" {if $help_open}style="display:block" {else} style="display:none" {/if} id="Type_money_a">{$lang.type_money_notic}</span>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$lang.min_goods_amount}</label>
+
+                                <div class="col-sm-5">
+                                    <input name="min_goods_amount"  id="min_goods_amount" value="{$bonus_arr.min_goods_amount}" size="20" class="form-control" >
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>                            
+                  
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                {$lang.send_method}
+                                </label>
+
+                                <div class="col-sm-5">
+                                    <div class="radio">
+                                        <label style="margin-left: 10px;">
+                                        <input type="radio" name="send_type" value="0" {if $bonus_arr.send_type eq 0} checked="true" {/if} onClick="showunit(0)"  style="margin-top: 2px;"/>{$lang.send_by[0]}</label><label style="margin-left: 10px;">
+      									<input type="radio" name="send_type" value="1" {if $bonus_arr.send_type eq 1} checked="true" {/if} onClick="showunit(1)"  style="margin-top: 2px;"/>{$lang.send_by[1]}</label><label style="margin-left: 10px;">
+      									<input type="radio" name="send_type" value="2" {if $bonus_arr.send_type eq 2} checked="true" {/if} onClick="showunit(2)"  style="margin-top: 2px;"/>{$lang.send_by[2]}</label><label style="margin-left: 10px;">
+      									<input type="radio" name="send_type" value="3" {if $bonus_arr.send_type eq 3} checked="true" {/if} onClick="showunit(3)" style="margin-top: 2px;">{$lang.send_by[3]}</label><label style="margin-left: 10px;">
+      									<input type="radio" name="send_type" value="4" {if $bonus_arr.send_type eq 4} checked="true" {/if} onClick="showunit(4)" style="margin-top: 2px;">{$lang.send_by[4]}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">红包对应商品</label>
+
+                                <div class="col-sm-5">
+                                    <input type="text" id="type_goods_name" name='type_goods_name' maxlength="30" value="{$bonus_arr.type_goods_name}" size='20' class="form-control" />
+                                    <input type="hidden" id="type_goods_id" name="type_goods_id" value="{$bonus_arr.type_goods_id}" /> 
+                                </div>
+                                 <div class="col-sm-1"><a  target="modal" href="bonus.php?act=get_goods">选择商品</a>
+                                </div>
+                            </div>
+                            
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$lang.min_amount}
+                                </label>
+                                <div class="col-sm-5">
+                                    <input name="min_amount" type="number" id="min_amount" value="{$bonus_arr.min_amount}" size="20" class="form-control" />
+                                    <span class="notice-span" {if $help_open}style="display:block" {else} style="display:none" {/if} id="Order_money_a">{$lang.order_money_notic}</span>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$lang.send_startdate}</label>
+
+                                <div class="col-sm-5">
+                                    <div class="input-daterange col-sm-9 input-group" id="datepicker">
+	                                    <input id="send_start_date" name="send_start_date" value="{$bonus_arr.send_start_date}" readonly="readonly" class="form-control" type="text">
+										
+	                                </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$lang.send_enddate}</label>
+
+                                <div class="col-sm-5">
+                                    <div class="input-daterange col-sm-9 input-group" id="datepicker">
+	                                    
+	                                    <input id="send_end_date" name="send_end_date" value="{$bonus_arr.send_end_date}" readonly="readonly" class="form-control" type="text">
+	                                </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$lang.use_startdate}</label>
+
+                                <div class="col-sm-5">
+                                    <div class="input-daterange col-sm-9 input-group" id="datepicker">
+	                                    
+	                                    <input id="use_start_date" name="use_start_date" value="{$bonus_arr.use_start_date}" readonly="readonly" class="form-control" type="text">
+	                                </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$lang.use_enddate}</label>
+
+                                <div class="col-sm-5">
+                                    <div class="input-daterange col-sm-9 input-group" id="datepicker">
+	                                    
+	                                    <input id="use_end_date" name="use_end_date" value="{$bonus_arr.use_end_date}" readonly="readonly" class="form-control" type="text">
+	                                </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <input type="submit" class="btn btn-primary" value="{$lang.button_submit}" class="button" />
+								    <input type="reset" class="btn btn-white" value="{$lang.button_reset}" class="button" />
+								    <input type="hidden" name="act" value="{$form_act}" />
+								    <input type="hidden" name="type_id" value="{$bonus_arr.type_id}" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        
+        <div class="modal inmodal" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+           <div class="modal-dialog modal-lg">
+               <div class="modal-content animated bounceInRight">
+                   <div class="modal-header">
+                       <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+                       </button>
+                       <div class="modal-title">                       
+                       <form action="javascript:void(0);" method="post" class="bs-example bs-example-form" id="query_form" style="padding-bottom: 10px;">
+                    			<div class="col-md-2 form-group">
+                    			   <div class="input-group">
+                                	<select name="is_on_sale" id="is_on_sale" class="form-control m-b">
+                                        <option selected value="1">上架</option>
+                                        <option value="0">下架</option>                                        
+                                    </select>
+                                    </div>
+                      			</div>
+                      			<div class="col-md-2" style="font-size: 15px;text-align: right;">
+                      			商品名称：
+                      			</div>
+	                            <div class="col-md-3">
+	                                <div class="input-group">
+	                                    <input name="goods_name" type="text" onkeypress="jsquery();" id="goods_name" size="25" class="form-control" />
+	                                </div>
+	                            </div>
+	                            <div class="col-md-2">
+	                                <div class="input-group">
+	                                     <input type="button" class="btn btn-primary" value="查询" onclick="jsquery()" class="button" />
+	                                     <a id="aquery" target="modal" href="bonus.php?act=get_goods"></a>
+	                                </div>
+	                            </div>
+	                    </form>
+                       </div>
+                       
+                   </div>
+                   <div class="modal-body">
+                   </div>
+                   <div class="modal-footer">
+                       <button id="butClose" type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                   </div>
+               </div>
+           </div>
+       </div>
+       
+{literal}
+<script language="javascript">
+<!--
+document.forms['theForm'].elements['type_name'].focus();
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+	alert(1);
+  validator = new Validator("theForm");
+  validator.required("type_name",      type_name_empty);
+  validator.required("type_money",     type_money_empty);
+  validator.isNumber("type_money",     type_money_isnumber, true);
+  validator.islt('send_start_date', 'send_end_date', send_start_lt_end);
+  validator.islt('use_start_date', 'use_end_date', use_start_lt_end);
+  if (document.getElementById(1).style.display == "")
+  {
+    var minAmount = parseFloat(document.forms['theForm'].elements['min_amount'].value);
+    if (isNaN(minAmount) || minAmount <= 0)
+    {
+	  validator.addErrorMsg(invalid_min_amount);
+    }	
+  }
+  return validator.passed();
+}
+onload = function()
+{
+  {/literal}
+  get_value = '{$bonus_arr.send_type}';
+  {literal}
+
+  showunit(get_value)
+  // 开始检查订单
+  startCheckOrder();
+}
+/* 红包类型按订单金额发放时才填写 */
+function gObj(obj)
+{
+  var theObj;
+  if (document.getElementById)
+  {
+    if (typeof obj=="string") {
+      return document.getElementById(obj);
+    } else {
+      return obj.style;
+    }
+  }
+  return null;
+}
+
+function showunit(get_value)
+{
+  gObj("1").style.display =  (get_value == 2) ? "" : "none";
+  //document.forms['theForm'].elements['selbtn1'].disabled  = (get_value != 1 && get_value != 2);
+  //document.forms['theForm'].elements['selbtn2'].disabled  = (get_value != 1 && get_value != 2);
+
+  return;
+}
+
+
+function jsquery()
+{
+	 var sale = $("#is_on_sale").val();
+	 var name = $("#goods_name").val();
+	 $("#aquery").attr("href","bonus.php?act=get_goods&is_on_sale="+sale+"&goods_name="+name);
+	 $("#aquery").click();
+}
+
+function setTypeGoods(id,name){
+	$("#type_goods_id").val(id);
+	$("#type_goods_name").val(name);
+	$("#butClose").click();
+}
+
+function getKey(e) {
+	var e = e || window.event; 
+	alert(e.keyCode);
+	if(event.keyCode==13){
+		jsquery();
+		return false;
+	}
+	return false;
+}
+//-->
+</script>
+<script src="../js/plugins/validate/jquery.validate.min.js"></script>
+<script src="../js/plugins/validate/messages_zh.min.js"></script>
+<script src="../js/demo/form-validate-demo.min.js"></script>
+{/literal}
+    </body>
+</html>

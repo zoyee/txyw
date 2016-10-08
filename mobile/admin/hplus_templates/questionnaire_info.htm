@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+{include file='head.htm'}
+<link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<style type="text/css">
+  .div_show {margin:auto;width:360px;margin:5px 5px;background: #FFFFFF;float:left;}
+  
+  .div_show .div_title {height:30px;margin:2px;font-size:18px;line-height: 30px;text-align: center;color: #2C4A93;}
+  .div_body .div_z {margin: 5px 5px 0;border:1px solid #EEEEEE;padding:5px 2px 5px 10px;}
+  .div_body .div_z  div {margin:3px 10px;}
+  .div_name {font-size:18px;color:#000;}
+  .div_daan {margin-top:5px;margin-left: 16px;font-size: 14px;color:#686262;}
+  .div_show span {font-size:12px;margin-left:5px;}
+
+  .div_table {width:360px;float:right;margin:5px 0;background:#ffffff;}
+  .div_table table{width:340px;margin:5px auto;}
+  .div_table tr {margin:5px 5px;}
+  .div_table tr td {width:100px;}
+</style>
+<script type="text/javascript">
+
+
+</script>
+
+<body class="gray-bg">
+	<!-- 前端显示页面 -->
+	<div class="div_show">
+    <div class="div_title">
+      <b>{$bonus_arr.title}</b>
+      <span>已有 {$naire.zong} 人参与调查</span>
+    </div>
+    <div class="div_body">
+      {foreach from=$text key=k item=foo}
+        <div class="div_z">
+          <div class="div_name">{$foo.xuhao}. {$foo.intro}{if $foo.type==1} （可多选）{/if}</div>
+          <div class="div_daan">
+          	{if $foo.type!=2}
+	            {foreach from=$foo.extra key=k1 item=v1}
+	            <label><input type="{if $foo.type==0}radio{elseif $foo.type==1}checkbox{elseif $foo.type==2}text{/if}" name="{$foo.id}{if $foo.type==1}[]{/if}" value="{if $foo.type!=2}{$k1}{/if}">{if $foo.type!=2}{$v1}{/if}</label>
+	            <span>共 {$naire.$foo.id.$k1} 个</span>
+	            <br/>
+	            
+	            {/foreach}
+	         {else}
+	         	<label><input type="text" name="" value=""></label>
+	         {/if}
+          </div>
+        </div>
+      {/foreach}
+    </div>
+    <input type="hidden" name="num" value="{$num}">
+    <input type="hidden" name='act' value='add'>
+    <input type="hidden" name="id" value="{$bonus_arr.id}">
+    <div style="width:30px;margin:10px auto;">
+      <input type="button" value="提交">
+    </div>
+  </div>
+	
+	<!-- 前端显示  end -->
+	
+	<!-- 回答详情 -->
+		<div class="div_table">
+			<table>
+				<tr><th>参与用户</th><th>问题</th><th>回答问题</th></tr>
+				{foreach from=$daan item=v}
+				<tr><td>{$v.username}</td><td>{$v.wenti}</td><td>{$v.answer}</td></tr>
+				{/foreach}
+			</table>
+		</div>
+	<!-- 回答详情  end -->
+	
+{literal}
+<script src="../js/plugins/validate/jquery.validate.min.js"></script>
+<script src="../js/plugins/validate/messages_zh.min.js"></script>
+<script src="../js/demo/form-validate-demo.min.js"></script>
+{/literal}
+</body>
+</html>

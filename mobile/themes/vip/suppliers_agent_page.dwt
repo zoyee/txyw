@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>{$page_title}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<link href="{$ectouch_themes}/images/touch-icon.png" rel="apple-touch-icon-precomposed" />
+<link href="{$ectouch_themes}/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="{$ectouch_themes}/css/public.css?v=1.2"/>
+<link href="{$ectouch_themes}/ectouch.css?v=1.1" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="js/mtoch/css/swiper-3.3.1.min.css"/>
+<link rel="stylesheet" type="text/css" href="{$ectouch_themes}/css/zlb.css?v=3"/>
+<script type="text/javascript" src="{$ectouch_themes}/js/jquery.min.js"></script>
+<script type="text/javascript" src="js/mtoch/js/swiper-3.3.1.min.js"></script>
+{insert_scripts files='common.js'}
+{$stats_code}
+</head>
+<body>
+<div id="page">
+<div id="tbh5v0">
+<div class="swiper-container swiper-container-horizontal">
+  <!-- 分类 -->
+  <div class="swiper-wrapper">
+  	 <div class="swiper-slide active-nav" onclick="location.href='suppliers.php?act=agent_page'">我的代理</div>
+  	 <div class="swiper-slide" onclick="location.href='suppliers.php?act=not_agent_page'">邀请代理</div>
+  	 <div class="swiper-slide" onclick="location.href='suppliers.php?act=f2f_agent_page'">面对面邀请</div>
+  </div>
+</div>
+
+  <div class="content"> 
+    
+    <section class="user_list">
+    	<section class="content order_box padd1 radius10 single_item" style="border: 1px solid #cccccc;">
+       	<div class="item">
+       		<dl style="position:relative;">
+	        	<dt class="headimgurl"></dt>
+	            <div>
+	              <p style="font-weight: bold;">用户昵称：<span class="nickname"></span><span class="shop-img"></span></p>
+	              <p>订单数量：<span class="order_count"></span></p>
+	              <p>成交金额：￥<span class="total_money"></span></p>
+	              <div class="supplier-agent-status"></div>
+	              <div class="supplier-agent-button"></div>
+	         	</div>
+	        </dl>
+        </div>
+    	</section>
+    	<a href="javascript:;" style="text-align:center" class="get_more"></a>
+    </section>
+
+
+</div>
+</div>
+ </div>
+  <!-- #BeginLibraryItem "/library/footer_nav_suppliers.lbi" --><!-- #EndLibraryItem -->
+</body>
+<script type="text/javascript" src="{$ectouch_themes}/js/jquery.more.js"></script>
+<script type="text/javascript">
+	var more_status = 0;
+	jQuery(function($){
+		$('.user_list').more({'address': 'suppliers.php?act=query_suppliers_agent', amount: 6, 'spinner_code':'<div style="text-align:center; margin:10px;"><img src="{$ectouch_themes}/images/loader.gif" /></div>'})
+		$(window).scroll(function () {
+			if (more_status == 0 && $(window).scrollTop() == $(document).height() - $(window).height()) {
+				$('.get_more').click();
+				more_status = 1;
+				setTimeout(function(){
+					more_status = 0;
+				}, '1000');
+			}
+		}); 
+		
+		var mySwiper = new Swiper('.swiper-container',{
+			 direction : "horizontal",
+			 watchSlidesProgress : true,
+			 watchSlidesVisibility : true,
+			 slidesPerView : 3,
+			 onInit: function(swiper){
+			 },
+			 onTap: function(){
+			 }
+		 });
+		
+		$(window).scroll(function(){
+    	    var mytop = $(window).scrollTop();
+    	    if( mytop > $(".swiper-container").offset().top){
+    	    	if(!$(".swiper-container").hasClass("float-top")){
+    	        	$(".swiper-container").addClass("float-top")
+    	    	}
+    	    }else if(mytop == 0){
+    	    	$(".swiper-container").removeClass("float-top")
+    	    }
+
+    	});
+	});
+
+	function do_operate_agent(opt, user_id){
+		$.get('suppliers.php?act=do_operate_agent&opt=' + opt + '&user_id=' + user_id, function(result){
+			openAlertDiv('操作成功', 'location.reload()');
+		});
+	}
+	function del_agent(user_id){
+		openConfirmDiv('您确定要解除该认证代理商吗？',"cancel_div();do_operate_agent('del', " + user_id + ")");
+	}
+	function invite_agent(user_id){
+		openConfirmDiv('您确定要邀请该用户成为认证代理商吗？',"cancel_div();do_operate_agent('invite', " + user_id + ")");
+	}
+	function cancel_invite(user_id){
+		openConfirmDiv('您确定要取消邀请该用户成为认证代理商吗？',"cancel_div();do_operate_agent('cancel', " + user_id + ")");
+	}
+	function refuse_agent(user_id){
+		openConfirmDiv('您确定要拒绝该用户的认证代理申请吗？',"cancel_div();do_operate_agent('refuse', " + user_id + ")");
+	}
+	function agent_pass(user_id){
+		openConfirmDiv('您确定要同意该用户成为您的认证代理吗？',"cancel_div();do_operate_agent('pass', " + user_id + ")");
+	}
+</script>
+</html>

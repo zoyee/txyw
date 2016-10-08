@@ -1,0 +1,24 @@
+
+<div class="col-md-3 col-sm-6 masonry-grid-item">
+	<div class="listing-item white-bg bordered mb-20">
+		<div class="overlay-container">
+			<img src="{$_CFG.site_url}{if $goods.goods_thumb}{$goods.goods_thumb}{elseif $goods.thumb}{$goods.thumb}{/if}" alt="">
+			<a class="overlay-link popup-img-single" href="{$site_url}{if $goods.goods_thumb}{$goods.goods_thumb}{elseif $goods.thumb}{$goods.thumb}{/if}"><i class="fa fa-search-plus"></i></a>
+			<span class="badge">销量:{$goods.sales_volume}</span>
+			<div class="overlay-to-top links">
+				<span class="small">
+					<a href="#" class="btn-sm-link"><i class="fa fa-heart-o pr-10"></i>加入收藏</a>
+					<a href="{$goods.url}" class="btn-sm-link"><i class="icon-link pr-5"></i>查看详情</a>
+				</span>
+			</div>
+		</div>
+		<div class="body">
+			<h3><a href="{$goods.url}">{$goods.short_name}</a></h3>
+			<p class="small">{$goods.goods_guide}</p>
+			<div class="elements-list clearfix">
+				<span class="price"><del>{$goods.market_price}</del>{if $goods.promote_price neq "" }{$goods.promote_price}{else}{$goods.shop_price}{/if}</span>
+				<a href="#" class="pull-right margin-clear btn btn-sm btn-default-transparent btn-animated">加入购物车<i class="fa fa-shopping-cart"></i></a>
+			</div>
+		</div>
+	</div>
+</div>

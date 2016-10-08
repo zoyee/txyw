@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>{$page_title}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<link href="{$ectouch_themes}/images/touch-icon.png" rel="apple-touch-icon-precomposed" />
+<link href="{$ectouch_themes}/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="{$ectouch_themes}/css/public.css?v=1.2"/>
+<link href="{$ectouch_themes}/ectouch.css" rel="stylesheet" type="text/css" />
+<link href="css/css.css" rel="stylesheet" type="text/css" />
+{* <link rel="stylesheet" href="css/footer.css" /> *}
+{* 包含脚本文件 *}
+
+{insert_scripts files='transport.js,common.js,user.js'}
+<script type="text/javascript" src="{$ectouch_themes}/js/jquery-1.4.4.min.js"></script>
+{* <script type="text/javascript" src="js/jquery-1.7.2.min.js" ></script> *}
+<script type="text/javascript" src="js/12.js"></script>
+<script type="text/javascript">
+function get_search_box(){
+	try{
+		document.getElementById('get_search_box').click();
+	}catch(err){
+		document.getElementById('keywordfoot').focus();
+ 	}
+}
+</script>
+
+<script>
+			$(function(){
+			$('.tab_per').click(function(){
+			$(this).next('ul').slideToggle()
+		})
+	})
+</script>
+<style type="text/css">
+	.box{
+		border: 1px solid #BEBEBE;
+		border-radius: 5px;
+		margin-bottom:10px;
+	}
+	.box-title{
+		background-color:#93FF93;
+		padding:10px;
+	}
+	.box-content{
+		padding:5px;
+	}
+	
+	
+	<!--
+body,table{
+    font-size:12px;
+}
+table{
+    table-layout:fixed;
+    empty-cells:show; 
+    border-collapse: collapse;
+    margin:0 auto;
+}
+td{
+    height:20px;
+}
+h1,h2,h3{
+    font-size:12px;
+    margin:0;
+    padding:0;
+}
+
+.title { background: #FFF; border: 1px solid #9DB3C5; padding: 1px; width:90%;margin:20px auto; }
+    .title h1 { line-height: 31px; text-align:center;  background: #2F589C url(th_bg2.gif); background-repeat: repeat-x; background-position: 0 0; color: #FFF; }
+        .title th, .title td { border: 1px solid #CAD9EA; padding: 5px; }
+
+
+/*这个是借鉴一个论坛的样式*/
+table.t1{
+    border:1px solid #cad9ea;
+    color:#666;
+}
+table.t1 th {
+    background-image: url(th_bg1.gif);
+    background-repeat::repeat-x;
+    height:30px;
+}
+table.t1 td,table.t1 th{
+    border:1px solid #cad9ea;
+    padding:0 1em 0;
+}
+table.t1 tr.a1{
+    background-color:#f5fafe;
+}
+
+
+
+table.t2{
+    border:1px solid #9db3c5;
+    color:#666;
+}
+table.t2 th {
+    background-image: url(th_bg2.gif);
+    background-repeat::repeat-x;
+    height:30px;
+    color:#fff;
+}
+table.t2 td{
+    border:1px dotted #cad9ea;
+    padding:0 2px 0;
+}
+table.t2 th{
+    border:1px solid #a7d1fd;
+    padding:0 2px 0;
+}
+table.t2 tr.a1{
+    background-color:#e8f3fd;
+}
+
+
+
+table.t3{
+    border:1px solid #fc58a6;
+    color:#720337;
+}
+table.t3 th {
+    background-image: url(th_bg3.gif);
+    background-repeat::repeat-x;
+    height:30px;
+    color:#35031b;
+}
+table.t3 td{
+    border:1px dashed #feb8d9;
+    padding:0 1.5em 0;
+}
+table.t3 th{
+    border:1px solid #b9f9dc;
+    padding:0 2px 0;
+}
+table.t3 tr.a1{
+    background-color:#fbd8e8;
+}
+
+#vertical-timeline::before {
+    content: "";
+    height: 100%;
+    left: 18px;
+    position: absolute;
+    top: 0;
+    width: 4px;
+    
+}
+
+.vertical-timeline-block::after {
+    clear: both;
+    content: "";
+    display: table;
+    margin-top: 12px;
+}
+
+.vertical-timeline-block:first-child {
+    margin-top: 0;
+}
+
+body {
+    color: #676a6c;
+    font-family: "open sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    
+}
+
+.dark-timeline .vertical-timeline-content, .dark-timeline.center-orientation .vertical-timeline-content {
+    background: #f5f5f5 none repeat scroll 0 0;top: 12px;
+}
+
+.dark-timeline .vertical-timeline-content::before {
+    border-color: transparent #f5f5f5 transparent transparent;
+}
+.vertical-timeline-content::before {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: transparent #fff transparent transparent;
+    border-image: none;
+    border-style: solid;
+    border-width: 7px;
+    content: "";
+    height: 0;
+    position: absolute;
+    right: 100%;
+    top: 16px;
+    width: 0;
+}
+
+.vertical-timeline-content::after {
+    clear: both;
+    content: "";
+    display: table;
+}
+
+.dark-timeline .vertical-timeline-content, .dark-timeline.center-orientation .vertical-timeline-content {
+    background: #f5f5f5 none repeat scroll 0 0;
+}
+.vertical-timeline-content {
+    background: #fff none repeat scroll 0 0;
+    border-radius: 0.25em;
+    margin-left: 8px;
+    padding: 1em;
+    position: relative;
+}
+
+.ibox-content h1, .ibox-content h2, .ibox-content h3, .ibox-content h4, .ibox-content h5, .ibox-title h1, .ibox-title h2, .ibox-title h3, .ibox-title h4, .ibox-title h5 {
+    margin-top: 5px;
+}
+h3, h4, h5 {
+    font-weight: 600;
+    margin-top: 5px;
+}
+h4 {
+    font-size: 14px;
+}
+
+.h4, .h5, .h6, h4, h5, h6 {
+    margin-bottom: 10px;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    color: inherit;
+    font-family: inherit;
+    line-height: 1.1;
+}
+
+.vertical-date small {
+    color: #1ab394;
+    font-weight: 400;
+}
+.small, small {
+    font-size: 85%;
+}
+.icon_list li a span {
+    color: #000;
+    height: 40px;
+    padding-top: 20px;
+    font-size: 16px;
+    
+    }
+.icon_list{
+	background: #fff none repeat scroll 0 0;
+	padding-top: 0px;
+}
+.per_con .name_right {
+    color: #000;
+    }
+    
+.icon_list li {
+	 
+}
+
+.person_top {
+    padding-bottom: 0px;
+    }
+    
+ .name_right{
+ padding-bottom: 20px;
+ }
+-->
+</style>
+{$stats_code}
+</head>
+<body>
+<div id="page">
+<!-- *用户中心默认显示页面 start-->
+<!-- {if $action eq 'problem_lists'} -->
+<div class="wrap">
+<header id="header" style="display:block;background-color:#fff;">
+      <div class="header_l header_return"> <a class="ico_10" href="user.php"> 返回 </a> </div>
+      <h1 style="color:#676767;"> 问题查询  </h1>
+     
+    </header>
+<section class="wrap">
+
+		
+			<div class="per_icon_list">
+		
+			{foreach from=$problem_list item=item}
+			<a class="per_list" href="article.php?id={$item.article_id}" >
+				<!-- <img src="images/pl.png" class="icon"/> -->
+				<span style="font-size:13px;">{$item.title}</span>
+				<img src="images/right.png" class="right_img"/>
+			</a>
+			{/foreach}
+		</div>
+		
+
+</section>
+<input type="hidden" class="page_problem" value="0" />
+</div>
+</div>
+<!-- {/if} -->
+<!-- #用户中心默认显示页面 end-->
+
+<!-- #BeginLibraryItem "/library/footer_nav.lbi" --><!-- #EndLibraryItem -->
+<div style="width:1px; height:1px; overflow:hidden">{foreach from=$lang.p_y item=pv}{$pv}{/foreach}</div>
+</body>
+<script type="text/javascript">
+	$(function(){
+		//到页面最后时动态加载数据
+		
+	});
+</script>
+</html>
+

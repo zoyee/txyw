@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+
+{include file='head.htm'}
+
+<script type="text/javascript">
+	function select_country(name){
+		$.get("push_article.php?act=get_area&parent=" + name + "&parent_name=country&child_name=province", function(data){
+			$("#province").find("option").remove(); 
+			$("#city").find("option").remove(); 
+			for(var i in data){
+				$("#province").append("<option value='"+data[i]['name']+"'>"+data[i]['name']+"</option>");
+			}
+		}, "json");
+		get_fanc_num();
+	}
+	function select_province(name){
+		if(name=="0"){
+			$("#city").find("option").remove(); 
+			return;
+		}
+		$.get("push_article.php?act=get_area&parent=" + name + "&parent_name=province&child_name=city", function(data){
+			$("#city").find("option").remove(); 
+			for(var i in data){
+				$("#city").append("<option value='"+data[i]['name']+"'>"+data[i]['name']+"</option>");
+			}
+		}, "json");
+		get_fanc_num();
+	}
+	function select_city(name){
+		get_fanc_num();
+	}
+	function get_fanc_num(){
+		$("#act").val("get_fanc_num");
+		var url = $("#pushForm").attr('action');
+		var data = $("#pushForm").serializeArray();
+		//var sex = $('#wrap input[name="payMethod"]:checked ').val();
+		$.post(url,data, function(data){
+			$("#fanc_num").html(data);
+		}, "json");
+		$("#act").val("push");
+	}
+	$(function(){
+		select_country("中国");
+	});
+</script>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        
+        <div class="row">
+            <div class="col-sm-9">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>文章推送</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t" id="pushForm" action="push_article.php" method="post">
+                        	<div class="form-group">
+                                <label class="col-sm-2 control-label">性别：</label>
+                                <div class="col-sm-1">
+	                                <div class="radio">
+	                                	<p class="form-control-static">
+								        <label>
+								          <input type="radio" name="sex" value="1" onclick='get_fanc_num()'/>男 
+								        </label>
+								        </p>
+								    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                	<div class="radio">
+	                                	<p class="form-control-static">
+								        <label>
+                                    	<input type="radio" name="sex" value="2" onclick='get_fanc_num()'/>女 
+                                    	</label>
+                                    	</p>
+								    </div> 
+                                </div>
+                                <div class="col-sm-1">
+                                	<div class="checkbox">
+	                                	<p class="form-control-static">
+								        <label>
+                                    	<input type="checkbox" name="sex_invert" value="1" onclick='get_fanc_num()'/>取反 
+                                    	</label>
+                                    	</p>
+								    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">有无金牌窝友：</label>
+                                <div class="col-sm-1">
+                                	<div class="radio">
+	                                	<p class="form-control-static">
+								        <label>
+                                    		<input type="radio" name="lonely" value="2" onclick='get_fanc_num()'/>有
+                                    	</label>
+                                    	</p>
+								    </div>
+								</div> 
+                                <div class="col-sm-5">
+                                	<div class="radio">
+	                                	<p class="form-control-static">
+								        <label>
+                                    		<input type="radio" name="lonely" value="1" onclick='get_fanc_num()'/>无
+                                    	</label>
+                                    	</p>
+								    </div> 
+                                </div>
+                                <div class="col-sm-1">
+                                	<div class="checkbox">
+	                                	<p class="form-control-static">
+								        <label>
+                                    	<input type="checkbox" name="lonely_invert" value="1" onclick='get_fanc_num()'/>取反 
+                                    	</label>
+                                    	</p>
+								    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">是否下过单：</label>
+                                <div class="col-sm-1">
+	                                <div class="radio">
+	                                	<p class="form-control-static">
+								        <label>
+								          <input type="radio" name="has_order" value="1" onclick='get_fanc_num()'/>有 
+								        </label>
+								        </p>
+								    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                	<div class="radio">
+	                                	<p class="form-control-static">
+								        <label>
+                                    	<input type="radio" name="has_order" value="2" onclick='get_fanc_num()'/>无 
+                                    	</label>
+                                    	</p>
+								    </div> 
+                                </div>
+                                <div class="col-sm-1">
+                                	<div class="checkbox">
+	                                	<p class="form-control-static">
+								        <label>
+                                    	<input type="checkbox" name="has_order_invert" value="1" onclick='get_fanc_num()'/>取反 
+                                    	</label>
+                                    	</p>
+								    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">是否是会员：</label>
+                                <div class="col-sm-1">
+	                                <div class="radio">
+	                                	<p class="form-control-static">
+								        <label>
+								          <input type="radio" name="is_user" value="1" onclick='get_fanc_num()'/>是 
+								        </label>
+								        </p>
+								    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                	<div class="radio">
+	                                	<p class="form-control-static">
+								        <label>
+                                    	<input type="radio" name="is_user" value="2" onclick='get_fanc_num()'/>否 
+                                    	</label>
+                                    	</p>
+								    </div> 
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">地区：</label>
+                                <div class="col-sm-2">
+                                    <select name="country[]" multiple="multiple" id="country" onchange="select_country(this.value)" class="form-control">
+                                    {foreach from=$country_list item=area}
+                                    	<option value="{$area.name}">{$area.name}</option>
+                                    {/foreach}
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <select name="province[]" multiple="multiple" id="province" onchange="select_province(this.value)" class="form-control">
+                                    </select>
+                                </div>
+                                <div class="col-sm-2">
+                                    <select name="city[]" multiple="multiple" id="city" onchange="select_city(this.value)" class="form-control">
+                                    </select>
+                                </div>
+                                <div class="col-sm-1">
+                                	<div class="checkbox">
+	                                	<p class="form-control-static">
+								        <label>
+                                    	<input type="checkbox" name="area_invert" value="1" onclick='get_fanc_num()'/>取反 
+                                    	</label>
+                                    	</p>
+								    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">粉丝数：</label>
+                                <div class="col-sm-8">
+                                    <p id="fanc_num" class="form-control-static"></p>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <div class="col-sm-8 col-sm-offset-5">
+                                	<input type="hidden" id="act" name="act" value="push" />
+      								<input type="hidden" name="id" value="{$art_id}" />
+                                    <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i> 推送</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+.user_profile_head{
+	width: 3rem;
+	border: 1px solid white;
+	border-radius: 50%;
+	margin-top: 1rem;
+}
+.user_profile_bg{
+	width: 100%;
+	z-index: -1;
+	position: absolute;
+}

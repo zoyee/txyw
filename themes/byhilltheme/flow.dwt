@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+	<!--<![endif]-->
+
+	<head>
+		<meta charset="utf-8">
+		<title>{$page_title}</title>
+		<!-- #BeginLibraryItem "/library/header_include.lbi" --> <!-- #EndLibraryItem -->
+	</head>
+
+	<!-- body classes:  -->
+	<!-- "boxed": boxed layout mode e.g. <body class="boxed"> -->
+	<!-- "pattern-1 ... pattern-9": background patterns for boxed layout mode e.g. <body class="boxed pattern-1"> -->
+	<!-- "transparent-header": makes the header transparent and pulls the banner to top -->
+	<!-- "gradient-background-header": applies gradient background to header -->
+	<!-- "page-loader-1 ... page-loader-6": add a page loader to the page (more info @components-page-loaders.html) -->
+	<body class="no-trans    ">
+
+		<!-- scrollToTop -->
+		<!-- ================ -->
+		<div class="scrollToTop circle"><i class="icon-up-open-big"></i></div>
+		
+		<!-- page wrapper start -->
+		<!-- ================ -->
+		<div class="page-wrapper">
+		
+			<!-- header-container start -->
+			
+				
+			<!-- header-container end -->
+		
+			<!-- breadcrumb start -->
+			<!-- ================ -->
+			<div class="breadcrumb-container">
+				<div class="container">
+					<ol class="breadcrumb">
+						<li><i class="fa fa-home pr-10"></i><a href="/">主页</a></li>
+						<li class="active">购物车</li>
+					</ol>
+				</div>
+			</div>
+			<!-- breadcrumb end -->
+
+			<!-- main-container start -->
+			<!-- ================ -->
+			<section class="main-container">
+
+				<div class="container">
+					<div class="row">
+
+						<!-- main start -->
+						<!-- ================ -->
+						<div class="main col-md-12">
+
+							<!-- page-title start -->
+							<!-- ================ -->
+							<h4 class="page-title">购物车列表</h4>
+							<div class="separator-2"></div>
+							<!-- page-title end -->
+
+							<table class="table cart table-hover table-colored">
+								<thead>
+									<tr>
+										<th>商品详情 </th>
+										<th>价格 </th>
+										<th>数量</th>
+										<th>删除 </th>
+										<th class="amount">商品总价 </th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr class="remove-data">
+										<td class="product"><a href="shop-product.html">【双重补水】【1盒装】水光玻尿酸保湿精华黑面膜25ml/片</a> <small>水光玻尿酸保湿精华黑面膜25ml/片</small></td>
+										<td class="price">￥99.50 </td>
+										<td class="quantity">
+											<div class="form-group">
+												<input type="text" class="form-control" value="2">
+											</div>											
+										</td>
+										<td class="remove"><a class="btn btn-remove btn-sm btn-default">删除</a></td>
+										<td class="amount">￥199.00 </td>
+									</tr>
+									<tr class="remove-data">
+										<td class="product"><a href="shop-product.html">【随你怎么吃】水果谷物麦片 380g/袋</a> <small>水果谷物麦片</small></td>
+										<td class="price"> ￥99.66 </td>
+										<td class="quantity">
+											<div class="form-group">
+												<input type="text" class="form-control" value="3">
+											</div>											
+										</td>
+										<td class="remove"><a class="btn btn-remove btn-sm btn-default">删除</a></td>
+										<td class="amount">￥299.00 </td>
+									</tr>
+									<!-- 循环购物车列表 -->
+									<!-- <foreach > -->
+									<tr class="remove-data">
+										<td class="product"><a href="shop-product.html">【十种谷物精华】【2袋装】十谷米精华营养餐35g*10条/袋</a> <small>十谷米精华营养餐35g*10条</small></td>
+										<td class="price"> ￥499.66 </td>
+										<td class="quantity">
+											<div class="form-group">
+												<input type="text" class="form-control" value="3">
+											</div>											
+										</td>
+										<td class="remove"><a class="btn btn-remove btn-sm btn-default">删除</a></td>
+										<td class="amount">￥1499.00 </td>
+									</tr>
+									<!-- 循环购物车列表  end-->
+									<tr>
+										<td colspan="3">红包</td>
+										<td colspan="2">
+											<div class="form-group">
+												<input type="text" class="form-control">
+											</div>											
+										</td>
+									</tr>
+									<tr>
+										<td class="total-quantity" colspan="4">总价 </td>
+										<td class="total-amount">￥1997.00</td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="text-right">	
+								<!-- <a href="shop-cart.html" class="btn btn-group btn-default">Update Cart</a> -->
+								<a href="shop-checkout.html" class="btn btn-group btn-default">结算</a>
+							</div>
+
+						</div>
+						<!-- main end -->
+
+					</div>
+				</div>
+			</section>
+			<!-- main-container end -->
+
+			<!-- section start -->
+			<!-- ================ -->
+			<!-- section start -->
+			<!-- ================ -->
+			<!-- #BeginLibraryItem "/library/topRated_related_BestSellers.lbi" --> <!-- #EndLibraryItem -->
+			<!-- section end -->
+					
+			<section class="pv-30 dark-translucent-bg padding-bottom-clear" style="background-image:url('images/shop-banner.jpg');background-position: 50% 32%;">
+				<div class="container">
+					<div class="row grid-space-10">
+						<div class="col-md-3 col-sm-6">
+							<div class="pv-30 ph-20 feature-box text-center object-non-visible" data-animation-effect="fadeInDownSmall" data-effect-delay="100">
+								<span class="icon default-bg"><i class="fa fa-diamond"></i></span>
+								<h3>Premium &amp; Guaranteed Quality</h3>
+								<div class="separator clearfix"></div>
+								<p>Voluptatem ad provident non repudiandae beatae cupiditate.</p>
+								<a href="page-services.html" class="link-dark">Read More<i class="pl-5 fa fa-angle-double-right"></i></a>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="pv-30 ph-20 feature-box text-center object-non-visible" data-animation-effect="fadeInDownSmall" data-effect-delay="150">
+								<span class="icon default-bg"><i class="icon-lock"></i></span>
+								<h3>Secure &amp; Safe Payment</h3>
+								<div class="separator clearfix"></div>
+								<p>Iure sequi unde hic. Sapiente quaerat sequi inventore.</p>
+								<a href="page-services.html" class="link-dark">Read More<i class="pl-5 fa fa-angle-double-right"></i></a>
+							</div>
+						</div>
+						<div class="clearfix visible-sm"></div>
+						<div class="col-md-3 col-sm-6">
+							<div class="pv-30 ph-20 feature-box text-center object-non-visible" data-animation-effect="fadeInDownSmall" data-effect-delay="200">
+								<span class="icon default-bg"><i class="icon-globe"></i></span>
+								<h3 class="pl-10 pr-10">Free &amp; Fast Shipping</h3>
+								<div class="separator clearfix"></div>
+								<p>Inventore dolores aut laboriosam cum consequuntur.</p>
+								<a href="page-services.html" class="link-dark">Read More<i class="pl-5 fa fa-angle-double-right"></i></a>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-6">
+							<div class="pv-30 ph-20 feature-box text-center object-non-visible" data-animation-effect="fadeInDownSmall" data-effect-delay="250">
+								<span class="icon default-bg"><i class="icon-thumbs-up"></i></span>
+								<h3>24/7 Customer Support</h3>
+								<div class="separator clearfix"></div>
+								<p>Inventore dolores aut laboriosam cum consequuntur.</p>
+								<a href="page-services.html" class="link-dark">Read More<i class="pl-5 fa fa-angle-double-right"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- section end -->
+
+		
+			
+			<!-- 引用 footer -->
+		<!-- #BeginLibraryItem "/library/footer.lbi" --> <!-- #EndLibraryItem -->
+		</div>
+		<!-- page-wrapper end -->
+
+	</body>
+</html>

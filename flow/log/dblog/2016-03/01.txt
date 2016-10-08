@@ -1,0 +1,126 @@
+2016-03-01 07:52:23 查询 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLswFZjPeqyFDrAg-CNKrjDVI' limit 1
+2016-03-01 07:52:23 获取一条记录 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLswFZjPeqyFDrAg-CNKrjDVI' limit 1
+2016-03-01 07:52:23 查询 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu24554' limit 1
+2016-03-01 07:52:23 获取一条记录 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu24554' limit 1
+2016-03-01 07:52:23 释放结果集
+2016-03-01 07:52:23 完成整个查询任务,所用时间为0.0058839321136475
+2016-03-01 09:16:52 查询 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs8OGZOwaHXIIPWoTPoifoX8' limit 1
+2016-03-01 09:16:52 获取一条记录 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs8OGZOwaHXIIPWoTPoifoX8' limit 1
+2016-03-01 09:16:52 查询 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu4257' limit 1
+2016-03-01 09:16:52 获取一条记录 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu4257' limit 1
+2016-03-01 09:16:52 释放结果集
+2016-03-01 09:16:52 完成整个查询任务,所用时间为0.0023369789123535
+2016-03-01 09:50:33 查询 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs_cm3B14sKy5sMjcqzYr35Q' limit 1
+2016-03-01 09:50:33 获取一条记录 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs_cm3B14sKy5sMjcqzYr35Q' limit 1
+2016-03-01 09:50:33 查询 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu16902' limit 1
+2016-03-01 09:50:33 获取一条记录 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu16902' limit 1
+2016-03-01 09:50:33 释放结果集
+2016-03-01 09:50:33 完成整个查询任务,所用时间为0.0040860176086426
+2016-03-01 11:30:11 查询 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLswzdT7UTUGuR4td5y9KH6oY' limit 1
+2016-03-01 11:30:11 获取一条记录 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLswzdT7UTUGuR4td5y9KH6oY' limit 1
+2016-03-01 11:30:11 查询 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu6718' limit 1
+2016-03-01 11:30:11 获取一条记录 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu6718' limit 1
+2016-03-01 11:30:11 释放结果集
+2016-03-01 11:30:11 完成整个查询任务,所用时间为0.006904125213623
+2016-03-01 12:48:01 查询 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs_MuNARlEwgEAihvb3NuXj8' limit 1
+2016-03-01 12:48:01 获取一条记录 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs_MuNARlEwgEAihvb3NuXj8' limit 1
+2016-03-01 12:48:01 查询 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu24598' limit 1
+2016-03-01 12:48:01 获取一条记录 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu24598' limit 1
+2016-03-01 12:48:01 释放结果集
+2016-03-01 12:48:01 完成整个查询任务,所用时间为0.013965129852295
+2016-03-01 13:29:27 查询 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLsyeAyr4Xc5pLbaaCMZXe2tc' limit 1
+2016-03-01 13:29:27 获取一条记录 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLsyeAyr4Xc5pLbaaCMZXe2tc' limit 1
+2016-03-01 13:29:27 查询 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu17767' limit 1
+2016-03-01 13:29:27 获取一条记录 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu17767' limit 1
+2016-03-01 13:29:27 释放结果集
+2016-03-01 13:29:27 完成整个查询任务,所用时间为0.0027399063110352
+2016-03-01 13:35:36 查询 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs5rmSJumpf5HxOtsjZWtWWc' limit 1
+2016-03-01 13:35:36 获取一条记录 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs5rmSJumpf5HxOtsjZWtWWc' limit 1
+2016-03-01 13:35:36 查询 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu5032' limit 1
+2016-03-01 13:35:36 获取一条记录 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu5032' limit 1
+2016-03-01 13:35:36 释放结果集
+2016-03-01 13:35:36 完成整个查询任务,所用时间为0.0062358379364014
+2016-03-01 15:28:32 查询 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs2lcKyz5n215-TeABubWdSo' limit 1
+2016-03-01 15:28:32 获取一条记录 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs2lcKyz5n215-TeABubWdSo' limit 1
+2016-03-01 15:28:32 查询 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu24696' limit 1
+2016-03-01 15:28:32 获取一条记录 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu24696' limit 1
+2016-03-01 15:28:32 释放结果集
+2016-03-01 15:28:32 完成整个查询任务,所用时间为0.013036966323853
+2016-03-01 15:46:28 查询 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs1fGTuOpRQ8RCh5cltDWXhI' limit 1
+2016-03-01 15:46:28 获取一条记录 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs1fGTuOpRQ8RCh5cltDWXhI' limit 1
+2016-03-01 15:46:28 查询 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu24708' limit 1
+2016-03-01 15:46:28 获取一条记录 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu24708' limit 1
+2016-03-01 15:46:28 释放结果集
+2016-03-01 15:46:28 完成整个查询任务,所用时间为0.017446994781494
+2016-03-01 16:05:48 查询 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLsxmjEmEWtI7VUboStneyxvc' limit 1
+2016-03-01 16:05:48 获取一条记录 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLsxmjEmEWtI7VUboStneyxvc' limit 1
+2016-03-01 16:05:48 查询 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu16854' limit 1
+2016-03-01 16:05:48 获取一条记录 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu16854' limit 1
+2016-03-01 16:05:48 释放结果集
+2016-03-01 16:05:48 完成整个查询任务,所用时间为0.0023751258850098
+2016-03-01 16:25:45 查询 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs7QHfI0j1U2oPuOV-bYT3DQ' limit 1
+2016-03-01 16:25:45 获取一条记录 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs7QHfI0j1U2oPuOV-bYT3DQ' limit 1
+2016-03-01 16:25:45 查询 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu23918' limit 1
+2016-03-01 16:25:45 获取一条记录 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu23918' limit 1
+2016-03-01 16:25:45 释放结果集
+2016-03-01 16:25:45 完成整个查询任务,所用时间为0.0026609897613525
+2016-03-01 16:26:41 查询 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs5CVR9pl-cHtppzpBjHLmo8' limit 1
+2016-03-01 16:26:41 获取一条记录 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs5CVR9pl-cHtppzpBjHLmo8' limit 1
+2016-03-01 16:26:41 查询 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu10237' limit 1
+2016-03-01 16:26:41 获取一条记录 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu10237' limit 1
+2016-03-01 16:26:41 释放结果集
+2016-03-01 16:26:41 完成整个查询任务,所用时间为0.0020089149475098
+2016-03-01 17:04:45 查询 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLsxWXoPazi7lQ6PWGSXfzyDE' limit 1
+2016-03-01 17:04:45 获取一条记录 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLsxWXoPazi7lQ6PWGSXfzyDE' limit 1
+2016-03-01 17:04:45 查询 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu4279' limit 1
+2016-03-01 17:04:45 获取一条记录 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu4279' limit 1
+2016-03-01 17:04:45 释放结果集
+2016-03-01 17:04:45 完成整个查询任务,所用时间为0.0068638324737549
+2016-03-01 18:58:12 查询 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLsyZyZK0UEy7ZlfYt8cUdkR0' limit 1
+2016-03-01 18:58:12 获取一条记录 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLsyZyZK0UEy7ZlfYt8cUdkR0' limit 1
+2016-03-01 18:58:12 查询 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu24766' limit 1
+2016-03-01 18:58:12 获取一条记录 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu24766' limit 1
+2016-03-01 18:58:12 释放结果集
+2016-03-01 18:58:12 完成整个查询任务,所用时间为0.0021450519561768
+2016-03-01 19:28:22 查询 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs1Rn2YHG_nP3I0NhW_tkVSk' limit 1
+2016-03-01 19:28:22 获取一条记录 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs1Rn2YHG_nP3I0NhW_tkVSk' limit 1
+2016-03-01 19:28:22 查询 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu24806' limit 1
+2016-03-01 19:28:22 获取一条记录 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu24806' limit 1
+2016-03-01 19:28:22 释放结果集
+2016-03-01 19:28:22 完成整个查询任务,所用时间为0.017069101333618
+2016-03-01 19:32:28 查询 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs9n5w9RaESbFK0p7UQJZN5w' limit 1
+2016-03-01 19:32:28 获取一条记录 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs9n5w9RaESbFK0p7UQJZN5w' limit 1
+2016-03-01 19:32:28 查询 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu6564' limit 1
+2016-03-01 19:32:28 获取一条记录 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu6564' limit 1
+2016-03-01 19:32:28 释放结果集
+2016-03-01 19:32:28 完成整个查询任务,所用时间为0.0023648738861084
+2016-03-01 20:46:17 查询 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs9RqxnoDa4GzQc1kplPuDBM' limit 1
+2016-03-01 20:46:17 获取一条记录 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs9RqxnoDa4GzQc1kplPuDBM' limit 1
+2016-03-01 20:46:17 查询 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu24777' limit 1
+2016-03-01 20:46:17 获取一条记录 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu24777' limit 1
+2016-03-01 20:46:17 释放结果集
+2016-03-01 20:46:17 完成整个查询任务,所用时间为0.0042350292205811
+2016-03-01 21:28:17 查询 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs8EJwG9Rcuis-xOYH66OmoU' limit 1
+2016-03-01 21:28:17 获取一条记录 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs8EJwG9Rcuis-xOYH66OmoU' limit 1
+2016-03-01 21:28:17 查询 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu24897' limit 1
+2016-03-01 21:28:17 获取一条记录 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu24897' limit 1
+2016-03-01 21:28:17 释放结果集
+2016-03-01 21:28:17 完成整个查询任务,所用时间为0.0024781227111816
+2016-03-01 22:10:30 查询 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs3J2yBT0egSjVhIlM5WdfrA' limit 1
+2016-03-01 22:10:30 获取一条记录 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs3J2yBT0egSjVhIlM5WdfrA' limit 1
+2016-03-01 22:10:30 查询 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu24822' limit 1
+2016-03-01 22:10:30 获取一条记录 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu24822' limit 1
+2016-03-01 22:10:30 释放结果集
+2016-03-01 22:10:30 完成整个查询任务,所用时间为0.0027229785919189
+2016-03-01 22:33:19 查询 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs961wefFj7iPlykTKhkpkns' limit 1
+2016-03-01 22:33:19 获取一条记录 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs961wefFj7iPlykTKhkpkns' limit 1
+2016-03-01 22:33:19 查询 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu5149' limit 1
+2016-03-01 22:33:19 获取一条记录 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu5149' limit 1
+2016-03-01 22:33:19 释放结果集
+2016-03-01 22:33:19 完成整个查询任务,所用时间为0.0022070407867432
+2016-03-01 23:03:36 查询 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs6nO5YsZD6yHe-nY5AejJrI' limit 1
+2016-03-01 23:03:36 获取一条记录 SELECT uname FROM wxch_user WHERE wxid='oQ5ZLs6nO5YsZD6yHe-nY5AejJrI' limit 1
+2016-03-01 23:03:36 查询 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu18360' limit 1
+2016-03-01 23:03:36 获取一条记录 SELECT user_id,pay_points,user_name FROM ecs_users WHERE user_name='qingsu18360' limit 1
+2016-03-01 23:03:36 释放结果集
+2016-03-01 23:03:36 完成整个查询任务,所用时间为0.0027370452880859

@@ -1,0 +1,85 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+
+#comment h2 span {
+    float: left;
+}
+#count {
+    border-left: 4px solid #b61426;
+    height: 20px;
+    line-height: 20px;
+    margin-top: 15px;
+    padding-left: 6px;
+}
+em, footer, h1, h2, h3, h4, input, li, mark, nav, ol, p, section, span, textarea, ul {
+    font-style: normal;
+    font-weight: 400;
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+}
+
+
+#comment li p.txt {
+    color: #222;
+    line-height: 20px;
+    margin-top: 5px;
+    word-break: break-all;
+}
+
+.navContent li p {
+    height: 25px;
+    line-height: 25px;
+    margin: auto;
+    overflow: hidden;
+    width: 100%;
+}
+.footer {
+    background-color: #ffffff;
+    overflow: hidden;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    text-align: left;
+    width: 100%;
+}
+
+#moreContent {
+    border-top: 1px solid #e3e3e3;
+    display: block;
+    height: 45px;
+    line-height: 45px;
+    padding: 4px 0;
+    text-align: center;
+}
+a {
+    color: #323232;
+    outline-style: none;
+    text-decoration: none;
+}
+</style>
+
+<div id="comment">
+    <h2 style="border-bottom: 1px solid #e3e3e3;"><span id="count">商品评价（{$pager.record_count}）</span>
+    <span id="scoreNum" class="scoreNumber hide">
+    	<a><em id="score"></em></a>
+    </span>
+    </h2>
+    <ul class="hide" id="commentList" style="display: block;">
+    <!-- {if $comments} -->
+<!-- {foreach from=$comments item=comment} -->
+    <li id="commentList" class="" style="border-bottom: 1px solid #e3e3e3;">
+    	<p class="title">
+    	<span style="font-size: 14px;"><!-- {if $comment.username} -->{$comment.email|escape:html}<!-- {else} -->{$lang.anonymous}<!-- {/if} --></span>
+    	<span style="float: right;display: none;">
+    	<a><em style="width:80px"><img style="width:5.8rem" src="{$ectouch_themes}/images/stars{$comment.rank}.png" class="star" alt="{$comment.comment_rank}" /></em></a>
+    	</span></p><p class="txt" style="font-size: 14px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">{$comment.content}</p>
+    	<p style="display: none;" class="footer">
+    	<span class="show_time" style="font-size: 14px;">{$comment.add_time}</span>
+    	<span class="show_sku"></span>
+    	</p>
+    	</li>
+    	<!-- {/foreach} --> 
+<!-- {/if} -->
+    	</ul>
+    <a href="goods_pinglun.php?id={$goods_id}" data-for-gaq="更多评价" class="for_gaq" style="display:none" id="moreContent">查看更多评论</a>
+</div>

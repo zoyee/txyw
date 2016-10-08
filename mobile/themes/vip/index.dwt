@@ -1,0 +1,430 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>{if $name}{$name}的{/if}{$shop_name}</title>
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<link rel="stylesheet" type="text/css" href="{$ectouch_themes}/css/public.css?v=1.2"/>
+<link rel="stylesheet" type="text/css" href="{$ectouch_themes}/css/index.css?v=1.3"/>
+<link href="{$ectouch_themes}/ectouch.css?v=4" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="js/mtoch/css/swiper-3.3.1.min.css"/>
+<script type="text/javascript" src="{$ectouch_themes}/js/jquery.js"></script>
+<script type="text/javascript" src="{$ectouch_themes}/js/TouchSlide.1.1.js"></script>
+{insert_scripts files='jquery.json.js,transport_index.js'}
+<script type="text/javascript" src="{$ectouch_themes}/js/touchslider.dev.js"></script>
+<script type="text/javascript" src="{$ectouch_themes}/js/jquery.more.js"></script>
+<script type="text/javascript" src="{$ectouch_themes}/js/ectouch.js"></script>
+{insert_scripts files='common.js'}
+<script type="text/javascript" src="js/mtoch/js/swiper-3.3.1.jquery.min.js"></script>
+<style type="text/css">
+body{
+	font-size: 13px !important;
+	line-height: 1.5em !important;
+}
+.scrollimg .hd li{
+	background-color: #f6f7f9 !important;
+}
+.scrollimg .hd li.on{
+	background-color: #f6f7f9 !important;
+}
+.index_floor{
+	padding-bottom: 0 !important;
+	margin-bottom:20px;
+}
+.floor_images{
+	margin-top: 0 !important;
+}
+.floor_body1 h2{
+	margin-bottom: 0 !important;
+}
+
+body{
+	text-align: left;
+}
+.swiper-container{
+	width: 100%;
+	padding:0 5px;
+}
+.swiper-container .swiper-slide{
+	padding:0 5px;
+}
+.swiper-container .swiper-slide .proImg-wrap img{
+	width: 100%;
+	border: 1px solid #e3e3e3
+}
+.swiper-container .swiper-slide .proTitle{
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	overflow:hidden;
+	font-size:12px;
+	line-height:30px;
+	color:#575757;
+}
+.swiper-container .swiper-slide .proPrice{
+	font-size:13px;
+	width:100%; 
+	margin:auto;
+	color: red;
+	position: relative;
+}
+.swiper-container .swiper-slide .delService{
+	/* float:right;
+	position:absolute; */
+	right:1px;
+	margin:0;
+	font-size:10px;
+	color:#575757;
+}
+.swiper-container .swiper-slide .proSales{
+	float:right;
+	position:relative;
+	margin:0;
+	color: #fff;
+	font-size: 10px;
+	line-height: 18px;
+	background-color: #c60a1e;
+	opacity: 0.7;
+	padding: 1px 4px;
+	bottom: 69px;
+	right: 0;
+}
+.floor_images {
+	position:relative;
+}
+.floor_images .triangle{
+	position:absolute;
+	bottom: 0;
+	width: 100%;
+	text-align:center;
+	display: none;
+}
+.floor_images .triangle img{
+	width:5%;
+	margin-bottom:-8px;
+}
+.brand{
+	margin-top: 10px;
+	background-color: white;
+}
+.brand .title{
+	font-weight: bold;
+	background-color: #f6f6f6;
+	height: 3em;
+    line-height: 3em;
+    border-top: 1px solid white;
+    padding-left: 10px;
+}
+.brand .title .more-brand{
+	width: 50px;
+	float: right;
+	margin-right: 10px;
+	cursor: pointer;
+}
+.brand ul{
+	width: 98%;
+}
+.brand li img{
+	margin-left: 1px;
+	margin-right: 1px;
+}
+</style>
+{$stats_code}
+</head>
+
+<body>
+<div id="page" class="showpage">
+<div>
+<!--网站头部-->
+<header id="header"> <!-- #BeginLibraryItem "/library/page_header.lbi" --> <!-- #EndLibraryItem --> </header>
+<!--banner--> 
+<!-- #BeginLibraryItem "/library/index_ad.lbi" --> <!-- #EndLibraryItem --> 
+<!--banner end-->
+<!---搜索--->
+<!-- <div id="fake-search" class="index_search">
+  <div class="index_search_mid">
+  <span><img src="{$ectouch_themes}/images/xin/icosousuo.png"></span>
+    <input  type="text" id="search_text" class="search_text" value="请输入您所搜索的商品"/>
+  </div>
+</div> -->
+
+ 
+	{if $userid eq 0}
+	<!-- #BeginLibraryItem "/library/top_tianxin100_guanzhu.lbi" --><!-- #EndLibraryItem -->
+	{/if}
+
+<div class="brand entry-list clearfix">
+	<div class="title">
+		卡客车轮胎
+		<span class="more-brand" onclick="more_brand(235)">更多...</span>
+	</div>
+	<ul>
+	{foreach from=$brand_list1 item=brand}
+		<li>
+		<a href="category.php?id=235&brand={$brand.brand_id}">
+		{if $brand.brand_logo}
+		<img src="../data/brandlogo/{$brand.brand_logo}" alt="{$brand.brand_name}">
+		{else}
+		{$brand.brand_name}
+		{/if}
+		</a>
+		</li>
+	{/foreach}
+	</ul>
+</div>
+<div class="brand entry-list clearfix">
+	<div class="title">
+		轿车轮胎
+		<span class="more-brand" onclick="more_brand(236)">更多...</span>
+	</div>
+	<ul>
+	{foreach from=$brand_list2 item=brand}
+		<li>
+		<a href="category.php?id=236&brand={$brand.brand_id}">
+		{if $brand.brand_logo}
+		<img src="../data/brandlogo/{$brand.brand_logo}" alt="{$brand.brand_name}">
+		{else}
+		{$brand.brand_name}
+		{/if}
+		</a>
+		</li>
+	{/foreach}
+	</ul>
+</div>
+
+
+<!--促销商品-->
+
+<div class="floor_images">
+	<strong>
+		<!-- TemplateBeginEditable name="手机端首页广告1" -->
+<!-- TemplateEndEditable -->
+	</strong>
+	<div class="triangle"><img src="{$ectouch_themes}/images/三角.png"/></div>
+</div>
+<!-- #BeginLibraryItem "/library/recommend_promotion.lbi" -->
+ <!-- #EndLibraryItem -->
+
+<div class="floor_images">
+	<strong>
+		<!-- TemplateBeginEditable name="手机端首页广告2" -->
+<!-- TemplateEndEditable -->
+	</strong>
+	<div class="triangle"><img src="{$ectouch_themes}/images/三角.png"/></div>
+</div>
+<!-- #BeginLibraryItem "/library/recommend_new.lbi" -->
+ <!-- #EndLibraryItem -->
+
+<div class="floor_images">
+	<strong>
+		<!-- TemplateBeginEditable name="手机端首页广告3" -->
+<!-- TemplateEndEditable -->
+	</strong>
+	<div class="triangle"><img src="{$ectouch_themes}/images/三角.png"/></div>
+</div>
+<!-- #BeginLibraryItem "/library/recommend_best.lbi" -->
+ <!-- #EndLibraryItem -->
+
+<div class="floor_images">
+	<strong>
+		<!-- TemplateBeginEditable name="手机端首页广告4" -->
+<!-- TemplateEndEditable -->
+	</strong>
+	<div class="triangle"><img src="{$ectouch_themes}/images/三角.png"/></div>
+</div>
+<!-- #BeginLibraryItem "/library/recommend_hot.lbi" -->
+ <!-- #EndLibraryItem -->
+
+<!--商品楼层调用 start--> 
+<!-- TemplateBeginEditable name="商品分类" -->
+<!-- TemplateEndEditable --> 
+
+<!--精品推荐轮播广告位--> 
+<div id="index_banner" class="index_banner">
+
+				<div class="bd">
+					<ul>
+			{foreach from=$wap_index_img item=ad name=wap_index_img}
+          <li><a href="{$ad.url}"><img src="{$ad.image}" width="100%" /></a></li>
+          {/foreach}
+					</ul>
+				</div>
+
+				<div class="hd">
+					<ul></ul>
+				</div>
+			</div>
+			
+<!-- #BeginLibraryItem "/library/recommend_more.lbi" -->
+ <!-- #EndLibraryItem -->
+ 
+ <script type="text/javascript">
+ 	var more_status = 0;
+	jQuery(function($){
+   		$('.more').more({'address': "category.php?id=191&ajax_more=1", amount: 4, 'spinner_code':'<div style="text-align:center; margin:10px;"><img src="{$ectouch_themes}/images/loader.gif" /></div>'});
+		$(window).scroll(function () {
+			if (more_status == 0 && $(window).scrollTop() == $(document).height() - $(window).height()) {
+				$('.get_more').click();
+				more_status = 1;
+				setTimeout(function(){
+					more_status = 0;
+				}, '1000');
+			}
+		}); 
+	});
+</script>
+ 
+			<script type="text/javascript">
+				TouchSlide({ 
+					slideCell:"#index_banner",
+					titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+					mainCell:".bd ul", 
+					effect:"leftLoop",
+					delayTime: 5000,
+					interTime: 5000,
+					autoPage:true,//自动分页
+					autoPlay:true //自动播放
+				}); 
+			</script>
+ <!--精品推荐轮播广告位end page_footer_tianxin.lbi-->  
+
+
+
+
+<!---返回顶部-->
+<script>
+function goTop(){
+	$('html,body').animate({'scrollTop':0},600);
+}
+</script>
+<a href="javascript:goTop();" class="gotop"><img src="{$ectouch_themes}/images/topup.png"></a> 
+
+                    </div>
+ <!---搜索弹出层--->
+
+                                           
+</div>
+<footer> <!-- #BeginLibraryItem1 "/library/page_footer.lbi" --> <!-- #EndLibraryItem1 --> <!-- #BeginLibraryItem "/library/footer_nav.lbi" --> <!-- #EndLibraryItem --> </footer>
+<script type="Text/Javascript" language="JavaScript">
+
+{literal}
+function selectPage(sel)
+{
+   sel.form.submit();
+}
+{/literal}
+
+</script>
+	<script type="text/javascript">
+{foreach from=$lang.compare_js item=item key=key}
+{if $key neq 'button_compare'}
+var {$key} = "{$item}";
+{else}
+var button_compare = "";
+{/if}
+{/foreach}
+var compare_no_goods = "{$lang.compare_no_goods}";
+var btn_buy = "{$lang.btn_buy}";
+var is_cancel = "{$lang.is_cancel}";
+var select_spe = "{$lang.select_spe}";
+</script>
+
+
+
+<script>
+$('.search-type li').click(function() {
+    $(this).addClass('cur').siblings().removeClass('cur');
+    $('#searchtype').val($(this).attr('num'));
+});
+$('#searchtype').val($(this).attr('0'));
+</script>
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+<!-- {/literal} -->
+  wx.config({
+    debug: false,
+    appId: '{$signPackage.appId}',
+    timestamp: {$signPackage.timestamp},
+    nonceStr: '{$signPackage.nonceStr}',
+    signature: '{$signPackage.signature}',
+    jsApiList: [
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage' 
+    ]
+  });
+ wx.ready(function () {
+	//青山老农监听“分享给朋友”'{$info.nickname}约您逛逛国内首个“植物素生活”社群商城',
+    wx.onMenuShareAppMessage({
+      title: '{$share_title}',
+      desc: '{$share_content}',
+      link: '{$url}',
+      imgUrl: '{$w_picurl}',
+      trigger: function (res) {
+		{if $autoload}
+			{if $url}
+	        	alert('恭喜！分享可以获取青豆哦！');
+			{else}
+				alert('糟糕，需要分销商登录才能获得青豆哦！');
+			{/if}
+		{/if}
+		
+      },
+      success: function (res) {
+		{if $dourl }
+        window.location.href="{$dourl}&type=1"; 
+		{/if}
+      },
+      cancel: function (res) {
+    	{if $autoload}
+        	alert('很遗憾，您已取消分享');
+        {/if}
+      },
+      fail: function (res) {
+        alert(JSON.stringify(res));
+      }
+    });
+
+	//分享到朋友圈青山老农
+    wx.onMenuShareTimeline({
+      title: '{$share_title}',
+      link: '{$url}',
+      imgUrl: '{$w_picurl}',
+      trigger: function (res) {
+    	{if $autoload}	
+	        {if $url}
+				alert('恭喜！分享可以获取青豆哦！');
+			{else}
+				alert('糟糕，需要分销商登录才能获得青豆哦！');
+			{/if}
+		{/if}
+      },
+      success: function (res) {
+    	{if $autoload}
+	       	{if $dourl }
+	        window.location.href="{$dourl}&type=2"; 
+			{/if}
+		{/if}
+      },
+      cancel: function (res) {
+    	 {if $autoload}
+         alert('很遗憾，您已取消分享');
+         {/if}
+      },
+      fail: function (res) {
+        alert(JSON.stringify(res));
+      }
+    });
+
+
+});
+<!-- {literal} -->
+
+function more_brand(cat_id){
+	location.href="brand.php?cat_id=" + cat_id;
+}
+</script>
+</body>
+</html>

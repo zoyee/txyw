@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- #BeginLibraryItem "/library/include_head.lbi" -->
+<!-- #EndLibraryItem -->
+<link rel="stylesheet" href="{$ectouch_themes}/css/index.css">
+
+</head>
+
+<body>
+	<div class="page-group">
+		<div id="page-index" class="page">
+			<header class="bar bar-nav">
+				{if $login_user}
+				<a class="icon pull-left open-panel" data-panel=".panel-uprofile">
+					<img class="login_user_head" src="{$login_user.headimgurl}" />
+				</a>
+				{else}
+				<a class="icon icon-me pull-left open-popup" data-panel=".popup-subscribe"></a>
+				{/if}
+				
+				<a class="button button-link button-nav pull-right open-popup"
+					data-popup=".popup-search"> <span class="icon icon-search"></span>
+				</a>
+				<h1 class="title">{$shop_name}</h1>
+			</header>
+			<div class="content infinite-scroll infinite-scroll-bottom"
+				data-distance="100" data-url="category.php?id=191&ajax_more=1" 
+				data-number="6" data-template="goods_card.lbi">
+				<!-- #BeginLibraryItem "/library/index_ad.lbi" -->
+				<!-- #EndLibraryItem -->
+				<!-- #BeginLibraryItem "/library/index_icon.lbi" -->
+				<!-- #EndLibraryItem -->
+
+				<div class="list-block">
+					<div class="list-container">
+					</div>
+				</div>
+				<!-- 加载提示符 -->
+				<div class="infinite-scroll-preloader">
+					<div class="preloader"></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel-overlay"></div>
+		<!-- #BeginLibraryItem "/library/user_profile.lbi" -->
+		<!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/search_panel.lbi" -->
+		<!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/subscribe.lbi" -->
+		<!-- #EndLibraryItem -->
+
+	</div>
+	<!-- #BeginLibraryItem "/library/include_footer.lbi" -->
+	<!-- #EndLibraryItem -->
+
+	<script src="{$ectouch_themes}/js/index.js"></script>
+	<script src="{$ectouch_themes}/js/echarts.min.js"></script>
+	<script src="{$ectouch_themes}/js/china.js"></script>
+	<script src="{$ectouch_themes}/js/search.js"></script>
+</body>
+</html>

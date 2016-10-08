@@ -1,0 +1,145 @@
+
+<!-- footer top start -->
+
+<section class="section dark-translucent-bg pv-40"
+	style="background-image: url('{$template_dir}/images/shop-banner.jpg'); background-position: 50% 32%;">
+	<div class="container">
+		<div class="row grid-space-10">
+			<div class="col-md-3 col-sm-6">
+				<div class="pv-30 ph-20 feature-box text-center object-non-visible"
+					data-animation-effect="fadeInDownSmall" data-effect-delay="100">
+					<span class="icon default-bg"><i class="fa fa-diamond"></i></span>
+					<h3>质量保证</h3>
+					<div class="separator clearfix"></div>
+					<p>本店保证所售商品均符合国家质量标准，原厂正品</p>
+					<a href="page-services.html" class="link-dark">详情<i
+						class="pl-5 fa fa-angle-double-right"></i></a>
+				</div>
+			</div>
+			<div class="col-md-3 col-sm-6">
+				<div class="pv-30 ph-20 feature-box text-center object-non-visible"
+					data-animation-effect="fadeInDownSmall" data-effect-delay="150">
+					<span class="icon default-bg"><i class="icon-lock"></i></span>
+					<h3>支付与安全</h3>
+					<div class="separator clearfix"></div>
+					<p>本店采用主流支付方式，承诺不会泄露客户交易信息和其他隐私信息</p>
+					<a href="page-services.html" class="link-dark">详情<i
+						class="pl-5 fa fa-angle-double-right"></i></a>
+				</div>
+			</div>
+			<div class="clearfix visible-sm"></div>
+			<div class="col-md-3 col-sm-6">
+				<div class="pv-30 ph-20 feature-box text-center object-non-visible"
+					data-animation-effect="fadeInDownSmall" data-effect-delay="200">
+					<span class="icon default-bg"><i class="icon-globe"></i></span>
+					<h3 class="pl-10 pr-10">发货与物流</h3>
+					<div class="separator clearfix"></div>
+					<p>一般情况下，早上购买，下午发货，下午晚上购买，隔天发货，节假日和特殊情况可能会略有延迟.</p>
+					<a href="page-services.html" class="link-dark">详情<i
+						class="pl-5 fa fa-angle-double-right"></i></a>
+				</div>
+			</div>
+			<div class="col-md-3 col-sm-6">
+				<div class="pv-30 ph-20 feature-box text-center object-non-visible"
+					data-animation-effect="fadeInDownSmall" data-effect-delay="250">
+					<span class="icon default-bg"><i class="icon-thumbs-up"></i></span>
+					<h3>7×16 小时的客户服务</h3>
+					<div class="separator clearfix"></div>
+					<p>可通过青山老农公众号来找到客服，每日9点-23点前均有客服提供服务，其余时间本店会及时回复留言</p>
+					<a href="page-services.html" class="link-dark">详情<i
+						class="pl-5 fa fa-angle-double-right"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- section end -->
+<!-- ================ -->
+
+<!-- footer top end -->
+
+<!-- footer start (Add "dark" class to #footer in order to enable dark footer) -->
+<!-- ================ -->
+<footer id="footer" class="clearfix ">
+
+	<!-- .footer start -->
+	<!-- ================ -->
+	<div class="footer">
+		<div class="container">
+			<div class="footer-inner">
+				<div class="row">
+					<div class="col-md-3">
+						<div class="footer-content">
+							<h2 class="title">关注我们</h2>
+							<div class="separator-2"></div>
+							<nav class="mb-20">
+								<ul class="nav nav-pills nav-stacked list-style-icons">
+									<li><a href="components-social-icons.html">青山老农</a></li>
+									<li><a href="components-buttons.html">我的花草生活</a></li>
+									<li><a href="components-buttons.html">青素窝</a></li>
+									<li><a href="components-forms.html">官方微博</a></li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="footer-content">
+							<h2 class="title">新手指南</h2>
+							<div class="separator-2"></div>
+							<nav class="mb-20">
+								<ul class="nav nav-pills nav-stacked list-style-icons">
+									<li><a href="components-social-icons.html">会员制度</a></li>
+									<li><a href="components-buttons.html">购物指南</a></li>
+									<li><a href="components-buttons.html">用户协议</a></li>
+									<li><a href="components-forms.html">新用户注册</a></li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="footer-content">
+							<h2 class="title">服务支持</h2>
+							<div class="separator-2"></div>
+							<nav class="mb-20">
+								<ul class="nav nav-pills nav-stacked list-style-icons">
+									<li><a href="components-social-icons.html">售后政策</a></li>
+									<li><a href="components-buttons.html">自助服务</a></li>
+									<li><a href="components-buttons.html">配送时间</a></li>
+									<li><a href="components-forms.html">帮助中心</a></li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="footer-content">
+							<h2 class="title">联系我们</h2>
+							<div class="separator-2"></div>
+							<nav class="mb-20">
+
+								广州本爱电子商务有限公司<br /> 广州市海珠区新港中路376号浩蕴商务大厦16楼<br />Tel：4000521125 E-mail:byhillAdmin@byhill.com<br />
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- .footer end -->
+
+	<!-- .subfooter start -->
+	<!-- ================ -->
+	<div class="subfooter">
+		<div class="container">
+			<div class="subfooter-inner">
+				<div class="row">
+					<div class="col-md-12">
+						<p class="text-center">{$copyright}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- .subfooter end -->
+
+</footer>
+<!-- footer end -->

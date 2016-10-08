@@ -1,0 +1,44 @@
+.goods_info{
+	text-align: center;
+}
+.goods_info .goods_name{
+	font-weight: bold;
+	font-size: 1rem;
+}
+.goods_info .goods_price span{
+	font-weight: bold;
+	font-size: 0.6rem;
+	background-color: red;
+	color: white;
+	padding: 2px;
+}
+.goods_info .goods_guide{
+	font-size: 0.6rem;
+}
+.goods_info .goods_guide .mark{
+	font-weight: bold;
+	font-size: 1.5rem;
+	color: black;
+}
+.goods_desc img{
+	width: 100%;
+}
+.list-block{
+	margin: 0;
+}
+.supplier_head{
+	width: 4rem;
+	height: 4rem;
+	position: fixed;
+	top: 2.5rem;
+	right: 1rem;
+	/* background-color: rgba(243, 241, 241, 0.5);
+    border: 1px solid #ccc; */
+    border-radius: 50%;
+    display: block;
+    cursor: pointer;
+	z-index: 9999;
+}
+.supplier_head img{
+	width: 100%;
+}

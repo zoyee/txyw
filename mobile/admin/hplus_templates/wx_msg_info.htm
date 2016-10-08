@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+{include file='head.htm'}
+<script type="text/javascript" src="js/plugins/ajaxfileupload/ajaxfileupload.js"></script> 
+<script type="text/javascript">
+$(function(){
+	var title = $("#title").val();
+	var content = $("#content").html();
+	var s = "";
+	
+	var paramArr = title.match(/\{\{.*\.DATA\}\}/g);
+	for(var i=0; paramArr != null && i<paramArr.length; i++){
+		//debug(paramArr[i]);
+		var p = paramArr[i].replace('{{', '');
+		p = p.replace('.DATA}}', '');
+		s += '<div class="form-group">                                                                                        '
+			+ '    <label class="col-sm-4 control-label">' + p + '：</label>                                                            '
+			+ '    <div class="col-sm-7">                                                                                      '
+			+ '        <input id="' + p + '" name="' + p + '" value="" placeholder="请输入参数" class="form-control" type="text">'
+			+ '    </div>                                                                                                      '
+			+ '</div>';
+	}
+	
+	paramArr = content.match(/\{\{.*\.DATA\}\}/g);
+	for(var i=0; paramArr != null && i<paramArr.length; i++){
+		//debug(paramArr[i]);
+		var p = paramArr[i].replace('{{', '');
+		p = p.replace('.DATA}}', '');
+		s += '<div class="form-group">                                                                                        '
+			+ '    <label class="col-sm-4 control-label">' + p + '：</label>                                                            '
+			+ '    <div class="col-sm-7">                                                                                      '
+			+ '        <input id="' + p + '" name="' + p + '" value="" placeholder="请输入参数" class="form-control" type="text">'
+			+ '    </div>                                                                                                      '
+			+ '</div>';
+	}
+	$("#testForm div.form-group:last-child").prev().after(s);
+});
+
+function upload_img() {
+		$("#loading").ajaxStart(function(){
+			$(this).show();
+		}).ajaxComplete(function(){
+			$(this).hide();
+		});
+	
+		$.ajaxFileUpload ({
+			url:'upload_image.php?act=ajax_upload&fname=upload_image',
+			secureuri:false,
+			fileElementId:'upload_image',
+			dataType: 'json',
+			data:{},
+			success: function (json, status) {
+				if(json.error == 0) {
+					if($("#img_show").length > 0){
+						$("#img_show").attr('src', '/mobile/' + json.content);
+					}else{
+						$("#img_url").parent().before('<img id="img_show" src="/mobile/' + json.content + '" width="380px"/>');
+					}
+					$("#img_url").val(json.content);
+				}else{
+					swal({
+						title : "操作失败",
+						text : json.message,
+						type : "warning",
+						confirmButtonColor : "#DD6B55",
+						confirmButtonText : "确定",
+						closeOnConfirm : true
+					}, function() {});
+				}
+			},
+			error: function (data, status, e) {
+				//alert(e);
+				swal({
+					title : "异常",
+					text : e,
+					type : "warning",
+					confirmButtonColor : "#DD6B55",
+					confirmButtonText : "确定",
+					closeOnConfirm : true
+				}, function() {});
+			}
+		});
+		return false;
+	};
+</script>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        
+        <div class="row">
+            <div class="col-sm-7">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{if $action eq "add"}添加{else}编辑{/if}微信提醒</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t" enctype="multipart/form-data" id="signupForm" action="wxch-ent.php?act=do_save" method="post">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">关键词：</label>
+                                <div class="col-sm-7">
+                                    <input id="order_name" name="order_name" value="{$data.order_name|escape}" placeholder="请输入英文" class="form-control required" type="text">
+                                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i>关键词为代码匹配字段，必须唯一，不得随意修改</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">标题：</label>
+                                <div class="col-sm-7">
+                                    <input id="title" name="title" value="{$data.title|escape}" placeholder="请输入文本" class="form-control" type="text" class="error">
+                                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i>消息显示的标题，变量使用{{name.DATA}}格式</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">图片：</label>
+                                <div class="col-sm-7">
+                                    {if $data.image}
+                                    <img id="img_show" src="/mobile/{$data.image}" width="380px"/>
+                                    {/if}
+                                    <div class="input-group">
+                                    <input id="img_url" name="img_url" value="{$data.image|escape}" placeholder="不输入则为文本消息" type="text" class="form-control">
+                                    <span class="input-group-btn">
+                                    <label title="上传图片" for="upload_image" class="col-sm-12 btn btn-primary">
+	                                    <input type="file" name="upload_image" id="upload_image" class="hide" value="" onchange="upload_img()"><i class="fa fa-upload"></i> 上传图片
+	                                </label>
+	                                </span>
+	                                </div>
+	                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i>有图片则为图文消息，否则为文本消息</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">内容：</label>
+                                <div class="col-sm-7">
+                                	<textarea id="content" name="content" class="form-control required">{$data.content|escape}</textarea>
+                                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i>消息主体,换行符\r\n,不支持html标签,变量使用{{name.DATA}}格式</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">是否启用消息：</label>
+                                <div class="col-sm-7">
+                                    <label class="radio-inline">
+								        <input {if $data.autoload == 'yes'}checked="checked"{/if} value="yes" name="autoload" type="radio">启用</label>
+								    <label class="radio-inline">
+								        <input {if $data.autoload != 'yes'}checked="checked"{/if} value="no" name="autoload" type="radio">禁用</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">是否使用微信客服消息模板：</label>
+                                <div class="col-sm-7">
+                                    <label class="radio-inline">
+								        <input {if $data.use_template != 0}checked="checked"{/if} value="1" name="use_template" type="radio">使用</label>
+								    <label class="radio-inline">
+								        <input {if $data.use_template == 0}checked="checked"{/if} value="0" name="use_template" type="radio">不使用</label>
+								    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i>客服消息模板必须在微信公众平台设置</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">客服消息模板ID：</label>
+                                <div class="col-sm-7">
+                                    <input id="template_id" name="template_id" value="{$data.template_id|escape}" placeholder="" class="form-control" type="text">
+                                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i>微信公众平台生成的客服消息模板ID</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">客服消息模板内容：</label>
+                                <div class="col-sm-7">
+                                	<textarea id="template_content" name="template_content" class="form-control">{$data.template_content|escape}</textarea>
+                                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i>copy微信公众平台客服消息模板内容</span>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="form-group">
+                                <div class="col-sm-11 col-sm-offset-5">
+      								<input type="hidden" name="id" value="{$data.id}" />
+                                    <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i> 提交</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-sm-5">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>测试微信提醒</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t" id="testForm" action="wxch-ent.php?act=do_test" method="post">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">商城用户：</label>
+                                <div class="col-sm-7">
+                                    <input id="user_name" name="user_name" value="" placeholder="qingsu11390" class="form-control required" type="text">
+                                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i>测试用户在公众号保持活跃</span>
+                                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i>请先保存修改，再进行测试</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">链接地址：</label>
+                                <div class="col-sm-7">
+                                    <input id="url" name="url" value="" placeholder="http://" class="form-control" type="text">
+                                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i>图文消息跳转的链接地址</span>
+                                </div>
+                            </div>                            
+                            <div class="form-group">
+                                <div class="col-sm-11 col-sm-offset-5">
+      								<input type="hidden" name="order_name" value="{$data.order_name}" />
+                                    <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i> 提交</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+{if $full_page}
+<!DOCTYPE html>
+<html>
+
+{include file='head.htm'}
+<script type="text/javascript">
+$(function(){
+	//初始化页面分页
+	initPagination({
+		record_count : {$record_count},
+		page : 1,
+		page_count : {$page_count}
+	});
+});
+</script>
+<body class="gray-bg">
+
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>所有导航菜单(共<span id="total_count"></span>条记录)</h5>
+                        <div class="ibox-tools">
+                            <a href="navigator.php?act=add" class="btn btn-primary btn-xs" target="tab"><i class="fa fa-plus-square"></i> 创建导航菜单</a>
+                            {include file='page_setting.htm'}
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <form action="navigator.php?act=query" method="post" class="bs-example bs-example-form" id="query_form" style="display:none">
+                           	<input type="hidden" id="page_size" name="page_size" value=""/>
+                           	<input type="hidden" id="page" name="page" value=""/>
+                           	<input type="hidden" id="sort_by" name="sort_by" value=""/> 
+                           	<input type="hidden" id="sort_order" name="sort_order" value=""/> 
+                        	<button type="submit" class="btn btn-sm btn-primary">搜索</button>
+                        </form>
+
+                        <div class="project-list">
+							<!-- 全查的表格数据，前台分页请添加dataTable样式 -->
+							<form action="" method="post" class="bs-example bs-example-form" id="batch_form">
+                            <table class="table table-hover dataTable">
+                            	<thead>
+                            		<tr>
+                            			<th sort-by="name">{$lang.item_name}</th>
+                            			<th>小图标</th>
+                            			<th sort-by="ifshow">{$lang.item_ifshow}</th>
+                            			<th class="visible-lg" sort-by="opennew">{$lang.item_opennew}</th>
+                            			<th class="visible-lg" sort-by="vieworder">{$lang.item_vieworder}</th>
+                            			<th class="visible-lg" sort-by="item_type">{$lang.item_type}</th>
+                            			<th></th>
+                            		</tr>
+                            	</thead>
+                                <tbody id="form_table">
+{/if}
+                                	{foreach from=$navdb item=val}
+                                    <tr>
+                                        <td class="project-status">
+                                            {$val.name}
+                                        </td>
+                                        <td class="project-title">
+                                        	{if $val.pic}
+                                            <img src="/mobile/{$val.pic}" width="48" height="48" />
+                                            {/if}
+                                        </td>
+                                        <td class="project-completion">
+                                           	<a href="navigator.php?act=toggle_ifshow&id={$val.id}&val={if $val.ifshow eq '1'}0{else}1{/if}" target="ajax"><img src="images/{if $val.ifshow eq '1'}yes{else}no{/if}.gif"/></a>
+                                        </td>
+                                        <td class="project-completion visible-lg">
+                                           	<a href="navigator.php?act=toggle_opennew&id={$val.id}&val={if $val.opennew eq '1'}0{else}1{/if}" target="ajax"><img src="images/{if $val.opennew eq '1'}yes{else}no{/if}.gif"/></a>
+                                        </td>
+                                        <td class="project-completion visible-lg">
+                                           	{$val.vieworder}
+                                        </td>
+                                        <td class="project-completion visible-lg">
+                                           	{$lang[$val.type]}
+                                        </td>
+                                        <td class="project-actions">
+                                            <a href="navigator.php?act=edit&id={$val.id}" class="btn btn-primary btn-sm" target="tab"><i class="fa fa-edit"></i> 编辑 </a>
+                                            <a href="navigator.php?act=del&id={$val.id}" class="btn btn-warning btn-sm btn-del"><i class="fa fa-remove"></i> 删除 </a>
+                                        </td>
+                                    </tr>
+                                    {/foreach}
+{if $full_page}
+                                    </tbody>
+                                    <tfoot>
+                                    	<tr>
+                                    		<td colspan="7">
+                                    			<div class="ibox-tools">
+                                    				<!-- 分页标签 -->
+	                                    			<ul class="pagination"></ul>
+												</div>
+                                    		</td>
+                                    	</tr>
+                                    </tfoot>
+                                </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+{/if}

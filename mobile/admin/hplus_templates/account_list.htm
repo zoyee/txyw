@@ -1,0 +1,221 @@
+<!-- $Id: account_list.htm 14928 2008-10-06 09:25:48Z testyang $ -->
+
+{include file='head.htm'}
+
+<script type="text/javascript"
+	src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+<link rel="shortcut icon" href="favicon.ico">
+<link href="css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+<link href="css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+<link href="css/animate.min.css" rel="stylesheet">
+<link href="css/style.min.css?v=4.0.0" rel="stylesheet">
+<base target="_blank">
+
+
+<body class="gray-bg">
+
+
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="wrapper wrapper-content">
+				<div class="row animated fadeInRight">
+					<div class="col-sm-4">
+						<div class="ibox ">
+
+							<div class="ibox-content">
+								<div class="tab-content">
+									<div id="contact-1" class="tab-pane active">
+										<div class="row m-b-lg">
+											<div class="col-lg-4 text-center">
+												<h2  id='username'>青山老农</h2>
+
+												<div class="m-b-sm">
+													<img alt="image" class="img-circle" id ="headimg" src="img/a2.jpg"
+														style="width: 62px">
+												</div>
+											</div>
+											<div class="col-lg-8">
+												<h3>个人简介</h3>
+
+												<strong>{$lang.label_user_name}：</strong>{$user.user_name} 
+												
+												<br>
+												<strong>上级会员：</strong><a id ="parent_username"></a>
+												<br>
+												<strong>性别：</strong><nobr id ="sex" ></nobr>
+												<br>
+												<strong>所在地：</strong><nobr id ="province" ></nobr><nobr id ="city" ></nobr>
+												<br>
+												<strong>家庭电话：</strong><nobr id ="home_phone" ></nobr>
+												<br>
+												<strong>公司电话：</strong><nobr id ="office_phone" ></nobr>
+												<br>
+												<strong>移动电话：</strong><nobr id ="mobile_phone" ></nobr>
+												<br>
+
+												
+												<button type="button"
+													class="btn btn-primary btn-sm btn-block">
+													<i class="glyphicon glyphicon-envelope"></i> 发送消息
+												</button>
+											</div>
+										</div>
+										<div class="client-detail">
+											<div class="full-height-scroll">
+
+												<strong>账户状态</strong>
+
+												<ul class="list-group clear-list">
+													<li class="list-group-item fist-item"><span
+														class="pull-right">{$user.formated_user_money}</span> {$lang.label_user_money}</li>
+													<li class="list-group-item"><span class="pull-right">
+															{$user.formated_frozen_money}</span>{$lang.label_frozen_money}</li>
+													<li class="list-group-item"><span class="pull-right">
+															{$user.rank_points}</span> {$lang.label_rank_points}</li>
+													<li class="list-group-item"><span class="pull-right">
+															{$user.pay_points} </span> {$lang.label_pay_points}</li>
+												</ul>
+												<a href="account_log.php?act=add&user_id={$user.user_id}" target="tab"
+													class="btn btn-primary btn-sm btn-block" id = "adjaccount" >
+													<i class="glyphicon glyphicon-pencil"></i> 人工调节账户
+												</a>
+												<small>涉及资金流入流出，请慎重操作</small>
+												<br>
+												<br>
+												<strong>备注</strong>
+												<p>40亿影帝黄渤先生明明可以靠脸吃饭，可是他却偏偏靠才华，唱歌居然也这么好听！</p>
+												<hr />
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-8">
+						<div class="ibox float-e-margins">
+							
+							<div class="ibox-content" id="ibox-content">
+
+								<div id="vertical-timeline"
+									class="vertical-container dark-timeline center-orientation">
+									
+										<div class="vertical-timeline-block">
+										<div class="vertical-timeline-icon navy-bg">
+											<i class="fa fa-briefcase"></i>
+										</div>
+									<div class="vertical-timeline-content">
+											<h2>更多奖励等您来</h2>
+											<p>消费，邀请好友，转发文章，参与老农活动，都能获得积分呢，更多积分等您来~~</p>
+											<span class="vertical-date" >日期<br> <small id = "curdate">2016-01-30 23:22:06</small></span>
+										</div>
+										</div>
+
+									{foreach from=$account_list item=account}
+									<div class="vertical-timeline-block">
+										<div class="vertical-timeline-icon navy-bg">
+											<i class="fa fa-briefcase"></i>
+										</div>
+
+										<div class="vertical-timeline-content">
+
+											<h2>描述</h2>
+											<p>{$account.change_desc|escape:html}</p>
+											{if $account.user_money gt 0}
+											<span class="btn btn-sm btn-danger"
+												style="margin: 2px">可用资金账+{$account.user_money}</span>
+											{elseif $account.user_money lt 0}
+											<span class="btn btn-sm btn-primary"
+												style="margin: 2px">可用资金账-{$account.user_money}</span>
+											{/if} {if $account.frozen_money gt 0}
+											<span class="btn btn-sm btn-danger"
+												style="margin: 2px">冻结资金+{$account.frozen_money}</span>
+											{elseif $account.frozen_money lt 0}
+											<span class="btn btn-sm btn-primary"
+												style="margin: 2px">冻结资金-{$account.frozen_money}</span>
+											{/if} {if $account.rank_points gt 0}
+											<span class="btn btn-sm btn-danger"
+												style="margin: 2px">等级积分+{$account.rank_points}</span>
+											{elseif $account.rank_points lt 0}
+											<span class="btn btn-sm btn-primary"
+												style="margin: 2px">等级积分-{$account.rank_points}</span>
+											{/if} {if $account.pay_points gt 0}
+											<span class="btn btn-sm btn-danger"
+												style="margin: 2px">消费积分+{$account.pay_points}</span>
+											{elseif $account.pay_points lt 0}
+											<span class="btn btn-sm btn-primary"
+												style="margin: 2px">消费积分-{$account.pay_points}</span>
+											{/if} <span class="vertical-date"> 日期<br> <small>{$account.change_time}</small>
+											</span>
+										</div>
+									</div>
+									{/foreach}
+
+										<div class="vertical-timeline-block">
+										<div class="vertical-timeline-icon navy-bg">
+											<i class="fa fa-briefcase"></i>
+										</div>
+										<div class="vertical-timeline-content">
+											<h2>会员注册</h2>
+											<p>来到老农大家庭啦，啦啦啦~~</p>
+											<span class="vertical-date">日期<br> <small  id = "reg_time"></small></span>
+										</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<script type="text/javascript">
+	
+		$(function() {
+			getData();
+		});
+
+		function getData() {
+
+			$.get('user_info.php?act=getUserInfo&userid={$user.user_id}'
+					, function(data) {
+				setUserInfo(data);
+			}, 'json');
+
+		}
+		
+		function setUserInfo(data)
+		{
+			//debug(data.content.headimgurl);
+			$("#username").html(data.content.nickname);
+			$("#headimg").attr("src",data.content.headimgurl);
+			$("#reg_time").html(data.content.reg_time);
+			
+
+			$("#parent_username").html(data.content.parent_username);
+			$("#sex").html(data.content.wxsex);
+			$("#province").html(data.content.province);
+			$("#city").html(data.content.city);
+			$("#home_phone").html(data.content.home_phone);
+			$("#office_phone").html(data.content.office_phone);
+			$("#mobile_phone").html(data.content.mobile_phone);
+			
+			
+			
+			var d = new Date();
+			
+		    //d.setTime(d.getTime()+24*60*60*1000);
+		    var s = d.getFullYear()+"-" + (d.getMonth()+1) + "-" + d.getDate();
+		    var mytime=d.toLocaleTimeString(); //获取当前时间
+		    
+		    $("#curdate").html(s);
+		}
+	</script>
+</body>
+

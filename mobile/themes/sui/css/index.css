@@ -1,0 +1,11 @@
+@charset "utf-8";
+/*首页八个小图标*/
+.entry-list { width:100%; overflow:hidden; padding-top:10px; background:#FFF; padding-bottom:10px;}
+.entry-list ul{ width:90%; overflow:hidden; margin:auto; list-style: outside none none; padding: 0;}
+.entry-list li{ vertical-align: middle}
+.entry-list li a{ display:block; width: 25%; overflow: hidden; float:left;text-align: center; margin-top:5px;}
+.entry-list li a span { height:30px; line-height:30px; color: #979797; font-family: "微软雅黑"; font-size: 0.5rem; }
+.entry-list li a img { display:block; width:100%; margin:auto; }
+
+.card .card-header a{width: 100%; cursor: pointer;}
+

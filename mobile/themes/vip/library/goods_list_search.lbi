@@ -1,0 +1,40 @@
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!-- <div class="filter" style="position:static; top:0px; width:100%;">
+  <form method="GET" class="sort" name="listform">
+    <ul class="filter-inner">
+      <li class="{if $pager.sort == 'goods_id'}filter-cur{/if}"> <a href="{$script_name}.php?category={$category}&display={$pager.display}&brand={$brand_id}&price_min={$price_min}&price_max={$price_max}&filter_attr={$filter_attr}&page={$pager.page}&sort=goods_id&order=<!-- {if $pager.sort == 'goods_id' && $pager.order == 'ASC'} -->DESC<!-- {else} -->ASC<!-- {/if} -->&keywords={$keywords}#goods_list&">综合 <span> <i class="f-ico-triangle-mt {if $pager.sort == 'goods_id' && $pager.order == 'ASC'} f-ico-triangle-slctd{/if}"></i> <i class="f-ico-triangle-mb {if $pager.sort == 'goods_id' && $pager.order == 'DESC'}f-ico-triangle-slctd{/if}"></i> </span></a> </li>
+      <li class="{if $pager.sort =='click_count'}filter-cur{/if}"> <a href="{$script_name}.php?category={$category}&display={$pager.display}&brand={$brand_id}&price_min={$price_min}&price_max={$price_max}&filter_attr={$filter_attr}&page={$pager.page}&sort=click_count&order=<!-- {if $pager.sort == 'click_count' && $pager.order == 'DESC'} -->ASC<!-- {else} -->DESC<!-- {/if} -->&keywords={$keywords}#goods_list">人气 <span> <i class="f-ico-triangle-mt {if $pager.sort == 'click_count' && $pager.order == 'ASC'} f-ico-triangle-slctd{/if}"></i> <i class="f-ico-triangle-mb {if $pager.sort == 'click_count' && $pager.order == 'DESC'}f-ico-triangle-slctd{/if}"></i> </span></a> </li>
+      <li class="{if $pager.sort =='sales_count'}filter-cur{/if}"> <a href="{$script_name}.php?category={$category}&display={$pager.display}&brand={$brand_id}&price_min={$price_min}&price_max={$price_max}&filter_attr={$filter_attr}&page={$pager.page}&sort=sales_count&order=<!-- {if $pager.sort == 'sales_count' && $pager.order == 'DESC'} -->ASC<!-- {else} -->DESC<!-- {/if} -->&keywords={$keywords}#goods_list">销量 <span> <i class="f-ico-triangle-mt {if $pager.sort == 'sales_count' && $pager.order == 'ASC'} f-ico-triangle-slctd{/if}"></i> <i class="f-ico-triangle-mb {if $pager.sort == 'sales_count' && $pager.order == 'DESC'}f-ico-triangle-slctd{/if}"></i> </span></a></li>
+      <li class="{if $pager.sort == 'shop_price'}filter-cur{/if}"> <a href="{$script_name}.php?category={$category}&display={$pager.display}&brand={$brand_id}&price_min={$price_min}&price_max={$price_max}&filter_attr={$filter_attr}&page={$pager.page}&sort=shop_price&order=<!-- {if $pager.sort == 'shop_price' && $pager.order == 'ASC'} -->DESC<!-- {else} -->ASC<!-- {/if} -->&keywords={$keywords}#goods_list">价格 <span> <i class="f-ico-triangle-mt {if $pager.sort == 'shop_price' && $pager.order == 'ASC'} f-ico-triangle-slctd{/if}"></i> <i class="f-ico-triangle-mb {if $pager.sort == 'shop_price' && $pager.order == 'DESC'}f-ico-triangle-slctd{/if}"></i> </span> </a> </li>
+      
+    </ul>
+    <input type="hidden" name="category" value="{$category}" />
+    <input type="hidden" name="display" value="{$pager.display}" id="display" />
+    <input type="hidden" name="brand" value="{$brand_id}" />
+    <input type="hidden" name="price_min" value="{$price_min}" />
+    <input type="hidden" name="price_max" value="{$price_max}" />
+    <input type="hidden" name="filter_attr" value="{$filter_attr}" />
+    <input type="hidden" name="page" value="{$pager.page}" />
+    <input type="hidden" name="sort" value="{$pager.sort}" />
+    <input type="hidden" name="order" value="{$pager.order}" />
+  </form>
+</div> -->
+   	<!--{if $goods_list}-->
+   	
+    <div id="J_ItemList" class="srp j_autoResponsive_container m-ks-autoResponsive-container m-animation list" style="opacity:1;">
+   		
+   	<!--{if $ajax_more}-->	
+      	{include file='library/goods_item_more.lbi'}
+      	<a href="javascript:;" style="text-align:center" class="get_more"></a>
+   <!--{else}-->
+   	  <!--{foreach name=goods_list from=$goods_list item=goods}--> 
+      {include file='library/goods_item.lbi '}
+      <!--{/foreach}--> 
+    <!--{/if}-->  	
+    	</div>
+    <!---{else}-->
+	    <div id="J_ItemList" class="srp album flex-f-row" style="opacity:1;text-align:center;">
+	    <img src="images/nogoods.jpg"/>
+	    </div>
+    <!--{/if}-->

@@ -1,0 +1,12 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<section class="index_floor">
+  <div class="floor_body1">
+    <!-- <h2><em></em>{$lang.more_recommend}</h2> -->
+    
+    <div id="J_ItemList" class="more srp j_autoResponsive_container m-ks-autoResponsive-container m-animation album" style="opacity:1;">
+    {include file='library/goods_item_more.lbi'}
+    <a href="javascript:;" style="text-align:center" class="get_more"></a>
+    </div>
+   </div>
+  </section>

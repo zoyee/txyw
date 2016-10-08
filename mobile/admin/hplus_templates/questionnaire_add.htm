@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+
+{include file='head.htm'}
+<link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#datepicker").datepicker({
+		keyboardNavigation : !1,
+		forceParse : !1,
+		autoclose : !0
+	});
+	
+	$('#send_start_date').datepicker({
+		dateFormat : "yyyy-mm-dd"
+	}).datepicker("setDate", '{$bonus_arr.send_start_date}');
+	$('#send_end_date').datepicker({
+		dateFormat : "yyyy-mm-dd"
+	}).datepicker("setDate", '{$bonus_arr.send_end_date}');	
+	$('#use_start_date').datepicker({
+		dateFormat : "yyyy-mm-dd"
+	}).datepicker("setDate", '{$bonus_arr.use_start_date}');
+	$('#use_end_date').datepicker({
+		dateFormat : "yyyy-mm-dd"
+	}).datepicker("setDate", '{$bonus_arr.use_end_date}');
+	
+	$("#theForm button[type=submit]").trigger('click');
+});
+
+
+</script>
+<style>
+	.div_ul{width:300px;border:1px #e7eaec solid;display:none;}
+	.div_ul li {list-style-type:none;}
+	.div_ul li:hover{background:#e7eaec;}
+	.div_input {height:20px;}
+	.questionnaire hr {margin:10px 0;}
+	.questionnaire input {margin-left:30px;border: 1px solid #E5E6E7;font-size:12px;padding:3px 0;padding-left:5px;color:#5B636B;}
+	.questionnaire select {margin-left:30px;border: 1px solid #E5E6E7;font-size:12px;padding:3px 0;padding-left:5px;color:#5B636B;}
+	.questionnaire textarea {margin-left:30px;border: 1px solid #E5E6E7;font-size:12px;padding:3px 0;padding-left:5px;color:#5B636B;}
+	.div_hongbao_qingdou input {margin-left:30px;}
+</style>
+<body class="gray-bg">
+
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>所有表单元素 <small>包括自定义样式的复选和单选按钮</small></h5>
+                        
+                    </div>
+                    <div class="ibox-content">
+                        <form action="questionnaire.php" id="theForm" method="post" name="theForm" enctype="multipart/form-data"  class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$lang.type_name}</label>
+
+                                <div class="col-sm-5">
+                                    <input type="text"  name='type_name' maxlength="30" value="{$bonus_arr.title}" size='20' class="form-control" required /> 
+                                </div>
+                            </div>
+                            
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">添加问题</label>
+
+                                <div class="col-sm-5 questionnaire" >
+                                	{if $form_act eq 'insert'}
+                                     <div>
+                                     	<label>问题：<input type="text" name="name_0" value=""></label><br/>
+                                     	<label>类型：<select name='type_0'>
+                                     					<option value ="0">单选</option>
+                                     					<option value ="1">多选</option>
+                                     					<option value ="2">填写</option>
+                                     				</select></label>
+                                     				<br/>
+                                     	<label>答案：
+                                     		<textarea name="daan_0" onfocus="if(value=='选择答案之间用+连接如：答案+答案+答案，填写答案为空'){value=''}"
+    onblur="if (value ==''){value='选择答案之间用+连接如：答案+答案+答案，填写答案为空'}">选择答案之间用+连接如：答案+答案+答案，填写答案为空</textarea>
+                                     	</label><br/>
+                                     	<label>排序：<input type="text" name="paixu_0" value=""></label><br/>
+                                     	是否必填：<label><input type="radio" name="is_must_0" value="0">否</label>
+                                     	<label><input type="radio" name="is_must_0" value="1" checked="checked">是</label><br/>
+                                     </div>
+                                     {else}
+                                     
+                                     	{foreach from=$text key=k item=foo}
+                                     	 	<div>
+	                                     	<label>问题：<input type="text" name="name_{$k}" value="{$foo.intro}"></label><br/>
+	                                     	<label>类型：<select name='type_{$k}'>
+	                                     					<option {if $foo.type==0} selected="selected"{/if} value ="0">单选</option>
+	                                     					<option {if $foo.type==1} selected="selected"{/if} value ="1">多选</option>
+	                                     					<option {if $foo.type==2} selected="selected"{/if} value ="2">填写</option>
+	                                     				</select></label>
+	                                     				<br/>
+	                                     	<label>答案：
+	                                     		<textarea name="daan_{$k}"  onfocus="if(value=='选择答案之间用+连接如：答案+答案+答案，填写答案为空'){value=''}"
+    onblur="if (value ==''){value='选择答案之间用+连接如：答案+答案+答案，填写答案为空'}">{if $foo.extra!=''}{$foo.extra}{else}选择答案之间用+连接如：答案+答案+答案，填写答案为空{/if}</textarea>
+	                                     	</label><br/>
+	                                     	<label>排序：<input type="text" name="paixu_{$k}" value="{$foo.sort}"></label><br/>
+	                                     	是否必填：<label><input type="radio" {if $foo.is_must!=1}checked="checked"{/if} name="is_must_{$k}" value="0">否</label>
+	                                     			<label><input type="radio" {if $foo.is_must==1}checked="checked"{/if} name="is_must_{$k}" value="1">是</label>
+	                                     	<input type="hidden" name="daan_id_{$k}" value="{$foo.id}">
+	                                     </div><hr style='height:1px;border:none;border-top:1px dashed #0066CC;' />
+                                     	{/foreach}
+                                     
+                                     {/if}
+                                </div>
+                                 <div><a onclick="questionnaire()" href="javascript:void(0);">增加</a>
+                                 {if $form_act eq 'insert'}
+                                 <input type="hidden" name="num" class="questionnaire_num" value="1">
+                                 {else}
+                                 <input type="hidden" name="num" class="questionnaire_num" value="{$nums}">
+                                 {/if}
+                                </div>
+                            </div>
+                            
+                            <div class="hr-line-dashed"></div>
+                            
+                            <!--  时间控制 
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$lang.send_startdate}</label>
+
+                                <div class="col-sm-5">
+                                    <div class="input-daterange col-sm-9 input-group" id="datepicker">
+	                                    <input id="send_start_date" name="send_start_date" value="{$bonus_arr.send_start_date}" readonly="readonly" class="form-control" type="text">
+										
+	                                </div>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$lang.send_enddate}</label>
+
+                                <div class="col-sm-5">
+                                    <div class="input-daterange col-sm-9 input-group" id="datepicker">
+	                                    
+	                                    <input id="send_end_date" name="send_end_date" value="{$bonus_arr.send_end_date}" readonly="readonly" class="form-control" type="text">
+	                                </div>
+                                </div>
+                            </div>796.81
+                             -->
+                            <div class="hr-line-dashed"></div>
+                            	<div class="form-group">
+                                <label class="col-sm-2 control-label">回答送：</label>
+
+                                <div class="col-sm-5">
+                                    <label><input class="div_song_y" type="radio" name='song' maxlength="30" value="1" size='20' {if $bonus_arr.song!=2}checked="checked"{/if}/>青豆</label>
+                                    <label><input class="div_song_y" type="radio" name='song' maxlength="30" value="2" size='20' {if $bonus_arr.song==2}checked="checked"{/if}/>红包</label>
+                                   	<div class="div_hongbao_qingdou">
+                                   		{if $bonus_arr.song.song==1}
+                                   		 赠送：<input type="text" name='jine' maxlength="30" value="{if $form_act eq 'insert'}0{else}{$bonus_arr.jine}{/if}" size='20' />
+                                   	 	{elseif $bonus_arr.song.song==2}
+                                   	 	 赠送：<input type="text" class="div_hongbao_add"  maxlength="30" value="{$bonus_arr.type_name}" size='20' />
+                                   	 	 <input class="div_hongbao_add_jine" type="hidden" name='jine' value="{$bonus_arr.type_id}">
+                                   	 	 <br/>
+                                   	 	 <span style='font-size:10px;margin:2px;'>备注：请输入红包类型名查找，如未查到请在红包类型处添加</span>
+                                   	 	{else}
+                                   	 	 赠送：<input type="text" name='jine' maxlength="30" value="0" size='20' />
+                                   	 	{/if}
+                                   	 </div>
+                                   	 <ul class="div_ul"></ul>
+                                   	 <br/>
+                                   	 跳转页面：<textarea name="url">{$bonus_arr.text}</textarea>
+                                   	 <br/>
+                                   	 分享说明：<textarea name="intro">{$bonus_arr.intro}</textarea>
+                                </div>
+                            	</div>
+                            <div class="hr-line-dashed"></div>
+                            
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <input type="submit" class="btn btn-primary" value="{$lang.button_submit}" class="button" />
+								    <input type="reset" class="btn btn-white" value="{$lang.button_reset}" class="button" />
+								    <input type="hidden" name="act" value="{$form_act}" />
+								    <input type="hidden" name="type_id" value="{$bonus_arr.id}" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        
+       
+{literal}
+<script language="javascript">
+<!--
+document.forms['theForm'].elements['type_name'].focus();
+/**
+ * 检查表单输入的数据
+ */
+function validate()
+{
+	alert(1);
+  validator = new Validator("theForm");
+  validator.required("type_name",      type_name_empty);
+  validator.required("type_money",     type_money_empty);
+  validator.isNumber("type_money",     type_money_isnumber, true);
+  validator.islt('send_start_date', 'send_end_date', send_start_lt_end);
+  validator.islt('use_start_date', 'use_end_date', use_start_lt_end);
+  if (document.getElementById(1).style.display == "")
+  {
+    var minAmount = parseFloat(document.forms['theForm'].elements['min_amount'].value);
+    if (isNaN(minAmount) || minAmount <= 0)
+    {
+	  validator.addErrorMsg(invalid_min_amount);
+    }	
+  }
+  return validator.passed();
+}
+onload = function()
+{
+  {/literal}
+  get_value = '{$bonus_arr.send_type}';
+  {literal}
+
+  showunit(get_value)
+  // 开始检查订单
+  startCheckOrder();
+}
+/* 红包类型按订单金额发放时才填写 */
+function gObj(obj)
+{
+  var theObj;
+  if (document.getElementById)
+  {
+    if (typeof obj=="string") {
+      return document.getElementById(obj);
+    } else {
+      return obj.style;
+    }
+  }
+  return null;
+}
+
+function showunit(get_value)
+{
+  gObj("1").style.display =  (get_value == 2) ? "" : "none";
+  //document.forms['theForm'].elements['selbtn1'].disabled  = (get_value != 1 && get_value != 2);
+  //document.forms['theForm'].elements['selbtn2'].disabled  = (get_value != 1 && get_value != 2);
+
+  return;
+}
+
+
+function jsquery()
+{
+	 var sale = $("#is_on_sale").val();
+	 var name = $("#goods_name").val();
+	 $("#aquery").attr("href","bonus.php?act=get_goods&is_on_sale="+sale+"&goods_name="+name);
+	 $("#aquery").click();
+}
+
+function setTypeGoods(id,name){
+	$("#type_goods_id").val(id);
+	$("#type_goods_name").val(name);
+	$("#butClose").click();
+}
+
+function getKey(e) {
+	var e = e || window.event; 
+	alert(e.keyCode);
+	if(event.keyCode==13){
+		jsquery();
+		return false;
+	}
+	return false;
+}
+
+function questionnaire(){
+	var num=$(".questionnaire_num").val();
+	var html="<hr style='height:1px;border:none;border-top:1px dashed #0066CC;' /><div><label>问题：<input type='text' name='name_"+
+	num+"' value=''></label><br/><label>类型：<select name='type_"+
+	num+"'><option value ='0'>单选</option><option value ='1'>多选</option><option value ='2'>填写</option></select></label><br/><label>答案：<textarea name='daan_"+
+	num+"'  onfocus=\"if(value=='选择答案之间用+连接如：答案+答案+答案，填写答案为空'){value=''}\" onblur=\"if (value ==''){value='选择答案之间用+连接如：答案+答案+答案，填写答案为空'}\">选择答案之间用+连接如：答案+答案+答案，填写答案为空</textarea></label><br/><label>排序：<input type='text' name='paixu_"+
+	num+"' value=''></label><br/>是否必填：<label><input type='radio' name='is_must_"+num+"' value='0'>否</label><label><input type='radio' name='is_must_"+num+"' value='1' checked='checked'>是</label><br/></div>";
+	$('.questionnaire').append(html);
+	$(".questionnaire_num").val(parseInt(num)+1);
+}
+var div_html;
+$(function(){
+	$(".div_song_y").click(function(){
+		var value=$(this).val();
+		div_html=$(".div_hongbao_qingdou").html();
+		
+		if(value==1){
+			var html="赠送：<input type='text' name='jine' maxlength='30' value=\"{if $form_act eq 'insert'}0{else}{$bonus_arr.jine}{/if}\" size='20' />";
+			$(".div_hongbao_qingdou").html(html);
+		}else if(value==2){
+			var html=" 赠送：<input class='div_hongbao_add' type='text'  maxlength='30' value=\"{$bonus_arr.type_name}\" size='20' /><br/><span style='font-size:10px;margin:2px;'>备注：请输入红包类型名查找，如未查到请在红包类型处添加</span><input type='hidden' class='div_hongbao_add_jine' name='jine' value=\"{$bonus_arr.type_id}\">";
+			$(".div_hongbao_qingdou").html(html);
+		}
+	});
+	$(document).on('keyup','.div_hongbao_add',function(){
+		var value=$(this).val();
+		var url=window.location.href;
+		{if $form_act=='insert'}
+		url=url.replace('add','ajax');
+		{elseif $form_act=='update'}
+		url=url.replace('edit','ajax');
+		{/if}
+		$.ajax({  
+				type:'post',      
+				url:url,  
+				data:'name='+value, 
+				dataType:'json',  
+				success:function(msn){
+					if(msn.length>0){
+						var html='';
+						for(var i=0;i<msn.length;i++){
+							html+="<li name='"+msn[i].type_id+"'>"+msn[i].type_name+"</li>"
+						}
+						$(".div_ul").html(html);
+						$(".div_ul").css('display','block');
+					}
+			    }  
+			});
+			
+	});
+	$(document).on('dblclick','.div_ul li',function(){
+		var id=$(this).attr('name');
+		var name=$(this).html();
+		$(".div_hongbao_add").val(name);
+		$('.div_hongbao_add_jine').val(id);
+		$('.div_ul').css('display','none');
+	});
+});
+//-->
+</script>
+<script src="../js/plugins/validate/jquery.validate.min.js"></script>
+<script src="../js/plugins/validate/messages_zh.min.js"></script>
+<script src="../js/demo/form-validate-demo.min.js"></script>
+{/literal}
+    </body>
+</html>

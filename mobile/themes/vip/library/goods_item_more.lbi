@@ -1,0 +1,18 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      
+      <div class="product flex_in single_item">
+        <div class="pro-inner">
+          <div class="proImg-wrap"></div>
+          <div class="proInfo-wrap">
+            <div class="proTitle"></div>
+            <div class="proSubTitle"></div>
+            <div class="proSKU"></div>
+            <div class="proPrice"></div>
+            <!-- <div class="proIcons"></div> -->
+            <div class="proService"></div>
+            <div class="proSales"></div>
+          </div>
+          <div class="prompt-ico"></div>
+        </div>
+      </div>
+     

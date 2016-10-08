@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>{$page_title}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<link href="{$ectouch_themes}/images/touch-icon.png" rel="apple-touch-icon-precomposed" />
+<link href="{$ectouch_themes}/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="{$ectouch_themes}/css/public.css?v=1.2"/>
+<link href="{$ectouch_themes}/ectouch.css" rel="stylesheet" type="text/css" />
+<script src="{$ectouch_themes}/js/modernizr.js"></script>
+{$stats_code}
+<style type="text/css">
+.entry-list {
+    background: #fff none repeat scroll 0 0;
+    overflow: hidden;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    width: 100%;
+}
+.entry-list ul {
+    margin: auto;
+    overflow: hidden;
+    width: 98%;
+}
+
+.entry-list a {
+    display: block;
+    float: left;
+    margin-top: 5px;
+    overflow: hidden;
+    text-align: center;
+    width: 25%;
+}
+.entry-list li img {
+    margin-left: 1px;
+    margin-right: 1px;
+    display: block;
+    width: 100%;
+}
+</style>
+</head>
+<body>
+<div id="page" style="right: 0px; left: 0px; display: block;">
+  <div class="tab_nav">
+     <div class="header">
+       <div class="h-left"><a title="返回" href="javascript:history.back()" class="sb-back"></a></div>
+       <div class="h-mid">
+         我的店铺信息
+       </div>
+       <div class="h-right">
+         
+       </div>
+     </div>
+   </div>
+    <section class="order_box padd1 radius10" style="background-color: #f6f6f6;">
+    	<form action="user_shop.php?act=save_shop_desc" method="POST">
+    	<textarea style="height: 10rem;" class="inputBg2" name="shop_desc" placeholder="请输入店铺信息">{$user_shop.shop_desc|escape}</textarea>
+    	<input type="submit" name="submit" value="提交" class="c-btn3" style="border-radius: 3px;margin-top: 20px;"/>
+    	</form>
+    </section>
+ 
+  <div class="blank2"> </div>
+  </div>
+<footer> <!-- #BeginLibraryItem1 "/library/page_footer.lbi" --> <!-- #EndLibraryItem1 --> <!-- #BeginLibraryItem "/library/footer_nav.lbi" --> <!-- #EndLibraryItem --> </footer>
+</body>
+</html>

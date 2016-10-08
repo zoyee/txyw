@@ -1,0 +1,32 @@
+<table class="table table-hover dataTable">
+	<thead>
+	  <tr>
+	    <td scope="col"><strong>{$lang.goods_name_brand}</strong></td>
+	    <td scope="col"><strong>{$lang.goods_attr}</strong></td>
+	    <td scope="col"><strong>{$lang.goods_sn}</strong></td>
+	    <!-- <td scope="col"><div align="center"><strong>{$lang.goods_price}</strong></div></td> -->
+	    <td scope="col"><strong>{$lang.goods_number}</strong></td>
+	    <td scope="col"><strong>{$lang.storage}</strong></td>
+	    <!-- <td scope="col"><div align="center"><strong>{$lang.subtotal}</strong></div></td> -->
+	  </tr>
+	</thead>
+	<tbody>
+  {foreach from=$goods_list item=goods}
+  <tr>
+    {if $goods.goods_id gt 0 && $goods.extension_code neq 'package_buy'}
+    <td class="project-title" ><img src="{$goods.goods_thumb}" width="50px" height="50px"/><br /><a href="../goods.php?id={$goods.goods_id}" target="_blank">{$goods.goods_name} {if $goods.brand_name}[ {$goods.brand_name} ]{/if}
+    {if $goods.is_gift}{if $goods.goods_price > 0}{$lang.remark_favourable}{else}{$lang.remark_gift}{/if}{/if}
+    {if $goods.parent_id > 0}{$lang.remark_fittings}{/if}</a></td>
+    {else}
+    <td class="project-title" >{$goods.goods_name}{$lang.remark_package}</td>
+    {/if}
+    <td class="project-title" >{$goods.goods_attr|nl2br}</td>
+    <td class="project-title" >{$goods.goods_sn}</td>
+    <!-- <td class="project-title" ><div align="right">{$goods.formated_goods_price}</div></td> -->
+    <td class="project-title" >{$goods.goods_number}</td>
+    <td class="project-title" >{$goods.storage}</td>
+    <!-- <td class="project-title" ><div align="right">{$goods.formated_subtotal}</div></td> -->
+  </tr>
+  {/foreach}
+  </tbody>
+</table>

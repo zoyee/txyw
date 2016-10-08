@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html>
+
+{include file='head.htm'}
+<link rel="stylesheet" type="text/css" href="js/plugins/jcrop/jquery.Jcrop.css" />
+<link href="css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
+<link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+<link href="css/plugins/colorpicker/css/bootstrap-colorpicker.min.css"	rel="stylesheet">
+<script type="text/javascript" src="js/plugins/jcrop/jquery.Jcrop.js"></script>
+<script type="text/javascript" src="js/plugins/ajaxfileupload/ajaxfileupload.js"></script> 
+<script src="js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+<script src="js/plugins/clockpicker/clockpicker.js"></script>
+<script src="js/plugins/switchery/switchery.js"></script>
+<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<script type="text/javascript">
+	var jcrop_api;
+	var target_subject = {};
+	$(function(){
+		initHeadCrop();
+		
+		$("#tab-user-haibao #datepicker").datepicker({
+			keyboardNavigation : !1,
+			forceParse : !1,
+			autoclose : !0
+		});
+		
+		$('#tab-user-haibao #startdate').datepicker({
+			dateFormat : "yyyy-mm-dd"
+		}).datepicker("setDate", '{$data.startdate}');
+		$('#tab-user-haibao #enddate').datepicker({
+			dateFormat : "yyyy-mm-dd"
+		}).datepicker("setDate", '{$data.enddate}');
+		
+		$("#tab-product-haibao #datepicker").datepicker({
+			keyboardNavigation : !1,
+			forceParse : !1,
+			autoclose : !0
+		});
+		
+		$('#tab-product-haibao #startdate').datepicker({
+			dateFormat : "yyyy-mm-dd"
+		}).datepicker("setDate", '{$data.startdate}');
+		$('#tab-product-haibao #enddate').datepicker({
+			dateFormat : "yyyy-mm-dd"
+		}).datepicker("setDate", '{$data.enddate}');
+		
+		$(".tabs-container .nav-tabs a[data-toggle=tab]").each(function(){
+			$(this).bind('click', function(){
+				var tab_id = $(this).attr('href');
+				var bg_img = $(tab_id + " #image").attr('value');
+				jcrop_api.destroy();
+				$("#backgroud_img").attr("src", "{$_CFG.site_url}" + bg_img);
+				jcrop_api.enable();
+				initHeadCrop();
+			});
+		});
+	});
+	
+	function initHeadCrop(){
+		$("#backgroud_img").Jcrop({
+			onChange:update_cord,
+			onSelect:update_cord,
+			aspectRatio:1,
+			allowSelect:false
+		},function(){
+			// Use the API to get the real image size
+			var bounds=this.getBounds();//获取背景图片尺寸
+			boundx=bounds[0];
+			boundy=bounds[1];
+			var cropSize;
+			if(boundx > boundy){
+				cropSize = boundy/2;
+			}else{
+				cropSize = boundx/2;
+			}
+			// Store the API in the jcrop_api variable
+			jcrop_api=this;
+			jcrop_api.animateTo([(boundx-cropSize)/2,(boundy-cropSize)/2,(boundx+cropSize)/2,(boundy+cropSize)/2]);
+		});
+		
+		$("#tab-user-haibao #start_pick_head").click(function(){
+			if($("#tab-user-haibao #start_pick_qr").hasClass("disabled")){
+				swal({
+					title : "请先结束二维码图像位置采集",
+					text : "",
+					type : "warning",
+					confirmButtonColor : "#DD6B55",
+					confirmButtonText : "确定",
+					closeOnConfirm : true
+				}, function() {});
+				return;
+			}
+			$("#tab-user-haibao #end_pick_head").removeClass("disabled");
+			$(this).addClass("disabled");
+			var x = $("#tab-user-haibao #head_x").val();
+			var y = $("#tab-user-haibao #head_y").val();
+			var size = $("#tab-user-haibao #head_size").val();
+			//debug(x + " " + y + " " + size);
+			jcrop_api.animateTo([x, y, parseInt(x) + parseInt(size) - 1, parseInt(y) + parseInt(size)]);
+			target_subject['x'] = "#tab-user-haibao #head_x";
+			target_subject['y'] = "#tab-user-haibao #head_y";
+			target_subject['size'] = "#tab-user-haibao #head_size";
+		});
+		
+		$("#tab-product-haibao #start_pick_head").click(function(){
+			if($("#tab-product-haibao #start_pick_qr").hasClass("disabled")){
+				swal({
+					title : "请先结束二维码图像位置采集",
+					text : "",
+					type : "warning",
+					confirmButtonColor : "#DD6B55",
+					confirmButtonText : "确定",
+					closeOnConfirm : true
+				}, function() {});
+				return;
+			}
+			if($("#tab-product-haibao #start_pick_product").hasClass("disabled")){
+				swal({
+					title : "请先结束产品图位置采集",
+					text : "",
+					type : "warning",
+					confirmButtonColor : "#DD6B55",
+					confirmButtonText : "确定",
+					closeOnConfirm : true
+				}, function() {});
+				return;
+			}
+			$("#tab-product-haibao #end_pick_head").removeClass("disabled");
+			$(this).addClass("disabled");
+			var x = $("#tab-product-haibao #head_x").val();
+			var y = $("#tab-product-haibao #head_y").val();
+			var size = $("#tab-product-haibao #head_size").val();
+			//debug(x + " " + y + " " + size);
+			jcrop_api.animateTo([x, y, parseInt(x) + parseInt(size) - 1, parseInt(y) + parseInt(size)]);
+			target_subject['x'] = "#tab-product-haibao #head_x";
+			target_subject['y'] = "#tab-product-haibao #head_y";
+			target_subject['size'] = "#tab-product-haibao #head_size";
+		});
+		
+		$("#tab-user-haibao #end_pick_head").click(function(){
+			$("#tab-user-haibao #start_pick_head").removeClass("disabled");
+			$(this).addClass("disabled");
+			target_subject['x'] = "#none";
+			target_subject['y'] = "#none";
+			target_subject['size'] = "#none";
+		});
+
+		$("#tab-product-haibao #end_pick_head").click(function(){
+			$("#tab-product-haibao #start_pick_head").removeClass("disabled");
+			$(this).addClass("disabled");
+			target_subject['x'] = "#none";
+			target_subject['y'] = "#none";
+			target_subject['size'] = "#none";
+		});
+		
+		$("#tab-user-haibao #start_pick_qr").click(function(){
+			if($("#tab-user-haibao #start_pick_head").hasClass("disabled")){
+				swal({
+					title : "请先结束头像位置采集",
+					text : "",
+					type : "warning",
+					confirmButtonColor : "#DD6B55",
+					confirmButtonText : "确定",
+					closeOnConfirm : true
+				}, function() {});
+				return;
+			}
+			$("#tab-user-haibao #end_pick_qr").removeClass("disabled");
+			$(this).addClass("disabled");
+			var x = $("#tab-user-haibao #qr_x").val();
+			var y = $("#tab-user-haibao #qr_y").val();
+			var size = $("#tab-user-haibao #qr_size").val();
+			//debug(x + " " + y + " " + size);
+			jcrop_api.animateTo([x, y, parseInt(x) + parseInt(size) - 1, parseInt(y) + parseInt(size)]);
+			target_subject['x'] = "#tab-user-haibao #qr_x";
+			target_subject['y'] = "#tab-user-haibao #qr_y";
+			target_subject['size'] = "#tab-user-haibao #qr_size";
+		});
+
+		$("#tab-product-haibao #start_pick_qr").click(function(){
+			if($("#tab-product-haibao #start_pick_head").hasClass("disabled")){
+				swal({
+					title : "请先结束头像位置采集",
+					text : "",
+					type : "warning",
+					confirmButtonColor : "#DD6B55",
+					confirmButtonText : "确定",
+					closeOnConfirm : true
+				}, function() {});
+				return;
+			}
+			if($("#tab-product-haibao #start_pick_product").hasClass("disabled")){
+				swal({
+					title : "请先结束产品图位置采集",
+					text : "",
+					type : "warning",
+					confirmButtonColor : "#DD6B55",
+					confirmButtonText : "确定",
+					closeOnConfirm : true
+				}, function() {});
+				return;
+			}
+			$("#tab-product-haibao #end_pick_qr").removeClass("disabled");
+			$(this).addClass("disabled");
+			var x = $("#tab-product-haibao #qr_x").val();
+			var y = $("#tab-product-haibao #qr_y").val();
+			var size = $("#tab-product-haibao #qr_size").val();
+			//debug(x + " " + y + " " + size);
+			jcrop_api.animateTo([x, y, parseInt(x) + parseInt(size) - 1, parseInt(y) + parseInt(size)]);
+			target_subject['x'] = "#tab-product-haibao #qr_x";
+			target_subject['y'] = "#tab-product-haibao #qr_y";
+			target_subject['size'] = "#tab-product-haibao #qr_size";
+		});
+		
+		$("#tab-user-haibao #end_pick_qr").click(function(){
+			$("#tab-user-haibao #start_pick_qr").removeClass("disabled");
+			$(this).addClass("disabled");
+			target_subject['x'] = "#none";
+			target_subject['y'] = "#none";
+			target_subject['size'] = "#none";
+		});
+		
+		$("#tab-product-haibao #end_pick_qr").click(function(){
+			$("#tab-product-haibao #start_pick_qr").removeClass("disabled");
+			$(this).addClass("disabled");
+			target_subject['x'] = "#none";
+			target_subject['y'] = "#none";
+			target_subject['size'] = "#none";
+		});
+		
+		$("#tab-product-haibao #start_pick_product").click(function(){
+			if($("#tab-product-haibao #start_pick_head").hasClass("disabled")){
+				swal({
+					title : "请先结束头像位置采集",
+					text : "",
+					type : "warning",
+					confirmButtonColor : "#DD6B55",
+					confirmButtonText : "确定",
+					closeOnConfirm : true
+				}, function() {});
+				return;
+			}
+			if($("#tab-product-haibao #start_pick_qr").hasClass("disabled")){
+				swal({
+					title : "请先结束二维码位置采集",
+					text : "",
+					type : "warning",
+					confirmButtonColor : "#DD6B55",
+					confirmButtonText : "确定",
+					closeOnConfirm : true
+				}, function() {});
+				return;
+			}
+			$("#tab-product-haibao #end_pick_product").removeClass("disabled");
+			$(this).addClass("disabled");
+			var x = $("#tab-product-haibao #product_x").val();
+			var y = $("#tab-product-haibao #product_y").val();
+			var size = $("#tab-product-haibao #product_size").val();
+			//debug(x + " " + y + " " + size);
+			jcrop_api.animateTo([x, y, parseInt(x) + parseInt(size) - 1, parseInt(y) + parseInt(size)]);
+			target_subject['x'] = "#tab-product-haibao #product_x";
+			target_subject['y'] = "#tab-product-haibao #product_y";
+			target_subject['size'] = "#tab-product-haibao #product_size";
+		});
+		
+		$("#tab-product-haibao #end_pick_product").click(function(){
+			$("#tab-product-haibao #start_pick_product").removeClass("disabled");
+			$(this).addClass("disabled");
+			target_subject['x'] = "#none";
+			target_subject['y'] = "#none";
+			target_subject['size'] = "#none";
+		});
+	}
+	
+	function update_cord(c){
+		if(parseInt(c.w) > 0){
+			$(target_subject['x']).val(Math.round(c.x));
+			$(target_subject['y']).val(Math.round(c.y));
+			$(target_subject['size']).val(Math.round(c.w));
+		};
+	};
+	
+	function upload_user_haibao_img() {
+		$("#loading")
+		.ajaxStart(function(){
+			$(this).show();
+		})
+		.ajaxComplete(function(){
+			$(this).hide();
+		});
+
+		$.ajaxFileUpload ({
+			url:'upload_image.php?act=ajax_upload&fname=upload_image',
+			secureuri:false,
+			fileElementId:'upload_image',
+			dataType: 'json',
+			data:{},
+			success: function (json, status) {
+				if(json.error == 0) {
+					$("#tab-user-haibao #image").val(json.content);
+					//jcrop_api.setImage("{$_CFG.site_url}" + json.content);
+					jcrop_api.destroy();
+					$("#backgroud_img").attr("src", "{$_CFG.site_url}" + json.content);
+					jcrop_api.enable();
+					initHeadCrop();
+				}else{
+					swal({
+						title : "操作失败",
+						text : json.message,
+						type : "warning",
+						confirmButtonColor : "#DD6B55",
+						confirmButtonText : "确定",
+						closeOnConfirm : true
+					}, function() {});
+				}
+			},
+			error: function (data, status, e) {
+				//alert(e);
+				swal({
+					title : "异常",
+					text : e,
+					type : "warning",
+					confirmButtonColor : "#DD6B55",
+					confirmButtonText : "确定",
+					closeOnConfirm : true
+				}, function() {});
+			}
+		});
+		return false;
+	};
+	
+	function upload_product_haibao_img() {
+		$("#loading")
+		.ajaxStart(function(){
+			$(this).show();
+		})
+		.ajaxComplete(function(){
+			$(this).hide();
+		});
+
+		$.ajaxFileUpload ({
+			url:'upload_image.php?act=ajax_upload&fname=upload_p_image',
+			secureuri:false,
+			fileElementId:'upload_p_image',
+			dataType: 'json',
+			data:{},
+			success: function (json, status) {
+				if(json.error == 0) {
+					$("#tab-product-haibao #image").val(json.content);
+					//jcrop_api.setImage("{$_CFG.site_url}" + json.content);
+					jcrop_api.destroy();
+					$("#backgroud_img").attr("src", "{$_CFG.site_url}" + json.content);
+					jcrop_api.enable();
+					initHeadCrop();
+				}else{
+					swal({
+						title : "操作失败",
+						text : json.message,
+						type : "warning",
+						confirmButtonColor : "#DD6B55",
+						confirmButtonText : "确定",
+						closeOnConfirm : true
+					}, function() {});
+				}
+			},
+			error: function (data, status, e) {
+				//alert(e);
+				swal({
+					title : "异常",
+					text : e,
+					type : "warning",
+					confirmButtonColor : "#DD6B55",
+					confirmButtonText : "确定",
+					closeOnConfirm : true
+				}, function() {});
+			}
+		});
+		return false;
+	};
+</script>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title  back-change">
+                        <h5>{if $action eq "add"}添加{else}编辑{/if}海报模板</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <p>模板底图</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="image-crop">
+                                	{if $data.image}
+                                    <img id="backgroud_img" src="{$_CFG.site_url}{$data.image}" class="bg-img">
+                                    {else}
+                                    <img id="backgroud_img" src="{$_CFG.site_url}images/haibao.jpg" class="bg-img">
+                                    {/if}
+                                </div>
+                            </div>
+                            <div class="tabs-container col-md-6">
+	                            <ul class="nav nav-tabs">
+			                        <li {if $data.keyword != 'product_haibao'}class="active"{/if}><a data-toggle="tab" href="#tab-user-haibao" aria-expanded="true"> 个人专属海报</a>
+			                        </li>
+			                        <li {if $data.keyword == 'product_haibao'}class="active"{/if}><a data-toggle="tab" href="#tab-product-haibao" aria-expanded="false"> 产品海报</a>
+			                        </li>
+			                    </ul>
+			                    <div class="tab-content">
+                        			<div id="tab-user-haibao" class="tab-pane {if $data.keyword != 'product_haibao'}active{/if}">
+			                            <div class="col-md-12">
+			                                <h4>说明：</h4>
+			                                <p>
+			                                    1、个人专属海报由底图、用户头像和二维码三部分组成，先上传底图图片文件<br/>
+			                                    2、图像位置和尺寸的单位为像素px，不支持手动输入坐标定位图像<br/>
+			                                    3、支持键盘上下左右按键微调
+			                                </p>
+			                                <div class="btn-group">
+			                                    <label title="上传图片" for="upload_image" class="btn btn-primary">
+			                                        <input type="file" name="upload_image" id="upload_image" class="hide" value="" onchange="upload_user_haibao_img()"><i class="fa fa-upload"></i> 上传模板底图
+			                                    </label>
+			                                </div>
+			                                <div class="form-group">
+			                                	<hr/>
+			                                </div>
+			                                <form class="form-horizontal m-t" action="haibao.php?act=do_save" method="post">
+			                                <h4>头像位置采集：</h4>
+			                                <p>
+			                                    点击开始采集按钮，拖动图片裁剪框到合适位置，点击完成按钮结束采集
+			                                </p>
+			                                <div class="form-group">
+			                                	<label class="col-sm-2 control-label">尺寸：</label>
+				                                <div class="col-sm-2 input-group">
+				                                    <input id="head_size" name="head_size" value="{$data.head_size}" class="form-control" type="text" readonly>
+													<span class="input-group-addon">px</span>
+				                                </div>
+			                                </div>
+			                                <div class="form-group">
+			                                	<label class="col-sm-2 control-label">X坐标：</label>
+				                                <div class="col-sm-2 input-group">
+				                                    <input id="head_x" name="head_x" value="{$data.head_x}" class="form-control" type="text" readonly>
+													<span class="input-group-addon">px</span>
+				                                </div>
+			                                </div>
+			                                <div class="form-group">
+			                                	<label class="col-sm-2 control-label">Y坐标：</label>
+				                                <div class="col-sm-2 input-group">
+				                                    <input id="head_y" name="head_y" value="{$data.head_y}" class="form-control" type="text" readonly>
+													<span class="input-group-addon">px</span>
+				                                </div>
+			                                </div>
+			                                <div class="btn-group">
+			                                    <button id="start_pick_head" class="btn btn-primary" type="button">开始采集</button>
+			                                    <button id="end_pick_head" class="btn btn-primary disabled" type="button">完成</button>
+			                                </div>
+			                                <div class="form-group">
+			                                	<hr/>
+			                                </div>
+			                                <h4>二维码位置采集：</h4>
+			                                <p>
+			                                   点击开始采集按钮，拖动图片裁剪框到合适位置，点击完成按钮结束采集
+			                                </p>
+			                                <div class="form-group">
+			                                	<label class="col-sm-2 control-label">尺寸：</label>
+				                                <div class="col-sm-2 input-group">
+				                                    <input id="qr_size" name="qr_size" value="{$data.qr_size}" class="form-control" type="text" readonly>
+													<span class="input-group-addon">px</span>
+				                                </div>
+			                                </div>
+			                                <div class="form-group">
+			                                	<label class="col-sm-2 control-label">X坐标：</label>
+				                                <div class="col-sm-2 input-group">
+				                                    <input id="qr_x" name="qr_x" value="{$data.qr_x}" class="form-control" type="text" readonly>
+													<span class="input-group-addon">px</span>
+				                                </div>
+			                                </div>
+			                                <div class="form-group">
+			                                	<label class="col-sm-2 control-label">Y坐标：</label>
+				                                <div class="col-sm-2 input-group">
+				                                    <input id="qr_y" name="qr_y" value="{$data.qr_y}" class="form-control" type="text" readonly>
+													<span class="input-group-addon">px</span>
+				                                </div>
+			                                </div>
+			                                <div class="btn-group">
+			                                    <button id="start_pick_qr" class="btn btn-primary" type="button">开始采集</button>
+			                                    <button id="end_pick_qr" class="btn btn-primary disabled" type="button">完成</button>
+			                                </div>
+			                                <div class="form-group">
+			                                	<hr/>
+			                                </div>
+			                                <div class="form-group">
+			                                	<label class="col-sm-2 control-label">海报主题：</label>
+				                                <div class="col-sm-5 input-group">
+				                                    <input id="subject" name="subject" value="{$data.subject}" class="form-control" type="text">
+				                                </div>
+			                                </div>
+			                                <div class="form-group">
+			                                	<label class="col-sm-2 control-label">有效时间：</label>
+				                                <div class="input-daterange col-sm-5 input-group" id="datepicker">
+				                                    <input id="startdate" name="startdate" value="{$data.startdate}" class="form-control" type="text">
+													<span class="input-group-addon">至</span>
+				                                    <input id="enddate" name="enddate" value="{$data.enddate}" class="form-control" type="text">
+				                                </div>
+			                                </div>
+			                                <div class="form-group">
+			                                	<hr/>
+			                                </div>
+			                                <div class="form-group col-sm-offset-5">
+			                                	<input type="hidden" id="id" name="id" value="{$data.id}" />
+			                                	<input type="hidden" id="keyword" name="keyword" value="user_haibao" />
+			                                	<input type="hidden" id="image" name="image" value="{if $data.image}{$data.image}{else}images/haibao.jpg{/if}" />
+			                                    <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i> 提交</button>
+			                                    <button class="btn btn-warning" type="reset"><i class="fa fa-repeat"></i> 重置</button>
+			                                </div>
+			                                </form>
+			                            </div>
+			                        </div>
+			                        <div id="tab-product-haibao" class="tab-pane {if $data.keyword == 'product_haibao'}active{/if}">
+			                            <div class="col-md-12">
+			                                <h4>说明：</h4>
+			                                <p>
+			                                    1、产品海报由底图、产品图、用户头像和二维码四部分组成，先上传底图图片文件<br/>
+			                                    2、图像位置和尺寸的单位为像素px，不支持手动输入坐标定位图像<br/>
+			                                    3、支持键盘上下左右按键微调
+			                                </p>
+			                                <div class="btn-group">
+			                                    <label title="上传图片" for="upload_p_image" class="btn btn-primary">
+			                                        <input type="file" name="upload_p_image" id="upload_p_image" class="hide" value="" onchange="upload_product_haibao_img()"><i class="fa fa-upload"></i> 上传模板底图
+			                                    </label>
+			                                </div>
+			                                <div class="form-group">
+			                                	<hr/>
+			                                </div>
+			                                <form class="form-horizontal m-t" action="haibao.php?act=do_save" method="post">
+			                                <h4>产品图位置采集：</h4>
+			                                <p>
+			                                    点击开始采集按钮，拖动图片裁剪框到合适位置，点击完成按钮结束采集
+			                                </p>
+			                                <div class="form-group">
+			                                	<label class="col-sm-2 control-label">尺寸：</label>
+				                                <div class="col-sm-2 input-group">
+				                                    <input id="product_size" name="product_size" value="{$data.product_size}" class="form-control" type="text" readonly>
+													<span class="input-group-addon">px</span>
+				                                </div>
+			                                </div>
+			                                <div class="form-group">
+			                                	<label class="col-sm-2 control-label">X坐标：</label>
+				                                <div class="col-sm-2 input-group">
+				                                    <input id="product_x" name="product_x" value="{$data.product_x}" class="form-control" type="text" readonly>
+													<span class="input-group-addon">px</span>
+				                                </div>
+			                                </div>
+			                                <div class="form-group">
+			                                	<label class="col-sm-2 control-label">Y坐标：</label>
+				                                <div class="col-sm-2 input-group">
+				                                    <input id="product_y" name="product_y" value="{$data.product_y}" class="form-control" type="text" readonly>
+													<span class="input-group-addon">px</span>
+				                                </div>
+			                                </div>
+			                                <div class="btn-group">
+			                                    <button id="start_pick_product" class="btn btn-primary" type="button">开始采集</button>
+			                                    <button id="end_pick_product" class="btn btn-primary disabled" type="button">完成</button>
+			                                </div>
+			                                <div class="form-group">
+			                                	<hr/>
+			                                </div>
+			                                <h4>头像位置采集：</h4>
+			                                <p>
+			                                    点击开始采集按钮，拖动图片裁剪框到合适位置，点击完成按钮结束采集
+			                                </p>
+			                                <div class="form-group">
+			                                	<label class="col-sm-2 control-label">尺寸：</label>
+				                                <div class="col-sm-2 input-group">
+				                                    <input id="head_size" name="head_size" value="{$data.head_size}" class="form-control" type="text" readonly>
+													<span class="input-group-addon">px</span>
+				                                </div>
+			                                </div>
+			                                <div class="form-group">
+			                                	<label class="col-sm-2 control-label">X坐标：</label>
+				                                <div class="col-sm-2 input-group">
+				                                    <input id="head_x" name="head_x" value="{$data.head_x}" class="form-control" type="text" readonly>
+													<span class="input-group-addon">px</span>
+				                                </div>
+			                                </div>
+			                                <div class="form-group">
+			                                	<label class="col-sm-2 control-label">Y坐标：</label>
+				                                <div class="col-sm-2 input-group">
+				                                    <input id="head_y" name="head_y" value="{$data.head_y}" class="form-control" type="text" readonly>
+													<span class="input-group-addon">px</span>
+				                                </div>
+			                                </div>
+			                                <div class="btn-group">
+			                                    <button id="start_pick_head" class="btn btn-primary" type="button">开始采集</button>
+			                                    <button id="end_pick_head" class="btn btn-primary disabled" type="button">完成</button>
+			                                </div>
+			                                <div class="form-group">
+			                                	<hr/>
+			                                </div>
+			                                <h4>二维码位置采集：</h4>
+			                                <p>
+			                                   点击开始采集按钮，拖动图片裁剪框到合适位置，点击完成按钮结束采集
+			                                </p>
+			                                <div class="form-group">
+			                                	<label class="col-sm-2 control-label">尺寸：</label>
+				                                <div class="col-sm-2 input-group">
+				                                    <input id="qr_size" name="qr_size" value="{$data.qr_size}" class="form-control" type="text" readonly>
+													<span class="input-group-addon">px</span>
+				                                </div>
+			                                </div>
+			                                <div class="form-group">
+			                                	<label class="col-sm-2 control-label">X坐标：</label>
+				                                <div class="col-sm-2 input-group">
+				                                    <input id="qr_x" name="qr_x" value="{$data.qr_x}" class="form-control" type="text" readonly>
+													<span class="input-group-addon">px</span>
+				                                </div>
+			                                </div>
+			                                <div class="form-group">
+			                                	<label class="col-sm-2 control-label">Y坐标：</label>
+				                                <div class="col-sm-2 input-group">
+				                                    <input id="qr_y" name="qr_y" value="{$data.qr_y}" class="form-control" type="text" readonly>
+													<span class="input-group-addon">px</span>
+				                                </div>
+			                                </div>
+			                                <div class="btn-group">
+			                                    <button id="start_pick_qr" class="btn btn-primary" type="button">开始采集</button>
+			                                    <button id="end_pick_qr" class="btn btn-primary disabled" type="button">完成</button>
+			                                </div>
+			                                <div class="form-group">
+			                                	<hr/>
+			                                </div>
+			                                <div class="form-group">
+			                                	<label class="col-sm-2 control-label">海报主题：</label>
+				                                <div class="col-sm-5 input-group">
+				                                    <input id="subject" name="subject" value="{$data.subject}" class="form-control" type="text">
+				                                </div>
+			                                </div>
+			                                <div class="form-group">
+			                                	<label class="col-sm-2 control-label">有效时间：</label>
+				                                <div class="input-daterange col-sm-5 input-group" id="datepicker">
+				                                    <input id="startdate" name="startdate" value="{$data.startdate}" class="form-control" type="text">
+													<span class="input-group-addon">至</span>
+				                                    <input id="enddate" name="enddate" value="{$data.enddate}" class="form-control" type="text">
+				                                </div>
+			                                </div>
+			                                <div class="form-group">
+			                                	<hr/>
+			                                </div>
+			                                <div class="form-group col-sm-offset-5">
+			                                	<input type="hidden" id="id" name="id" value="{$data.id}" />
+			                                	<input type="hidden" id="keyword" name="keyword" value="product_haibao" />
+			                                	<input type="hidden" id="image" name="image" value="{if $data.image}{$data.image}{else}images/haibao_template.jpg{/if}" />
+			                                    <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i> 提交</button>
+			                                    <button class="btn btn-warning" type="reset"><i class="fa fa-repeat"></i> 重置</button>
+			                                </div>
+			                                </form>
+			                            </div>
+			                        </div>
+			                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

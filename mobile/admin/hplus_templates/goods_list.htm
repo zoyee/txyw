@@ -1,0 +1,407 @@
+{if $full_page}
+<!DOCTYPE html>
+<html>
+<!-- zmh 修改 -->
+<script src="js/jquery.min.js?v=2.1.4"></script>
+<script type="text/javascript">
+	$(function(){
+		//初始化分类选择联动下拉框
+		var str = getChilds("0", "move_to");
+		$("#move_to_el").append(str);
+		str = getChilds("0", "add_to");
+		$("#add_to_el").append(str);
+		
+		$("ul.dropdown-menu li").each(function(){
+			$(this).hover(function(){
+				var top = $(this).find("ul.dropdown-menu").height();
+				top = 0 - (parseInt(top))/2 + 20;
+				$(this).find("ul.dropdown-menu").css({"top": top});
+			}, function(){
+				
+			});
+			
+		});
+		
+		$("#keyword").keypress(function(event){
+			if(event.keyCode == 13){
+				$("#query_form button[type=submit]").trigger('click');
+			}
+		});
+		
+		$("#query_form select").each(function(){
+			$(this).change(function(){
+				$("#query_form button[type=submit]").trigger('click');
+			});
+		});
+	});
+</script>
+{include file='head.htm'}
+<!-- {insert_scripts files="../data/static/js/utils.js,./js/listtableNew.js"} -->
+<script type="text/javascript">
+	var category_list = eval('({$cat_array})');
+	function getChilds(parentCatId, act){
+		var s = '<ul class="dropdown-menu">';
+		for(var categoryId in category_list){
+			if(category_list[categoryId]['parent_id'] == parentCatId){
+				if(parseInt(category_list[categoryId]['has_children']) > 0){
+					s += '<li class="dropdown-submenu"><a href="##" value="type=' + act + '&target_cat=' + category_list[categoryId]['cat_id'] + '" checkbox_name="order_id">' + category_list[categoryId]['cat_name'] + '</a>';
+					s += getChilds(category_list[categoryId]['cat_id'], act);
+					s += '</li>';
+				}else{
+					s += '<li><a href="##" value="type=' + act + '&target_cat=' + category_list[categoryId]['cat_id'] + '" checkbox_name="order_id">' + category_list[categoryId]['cat_name'] + '</a></li>';
+				}
+			}
+		}
+		s += '</ul>';
+		return s;
+	}
+	
+	
+	$(function(){
+		//初始化页面分页
+		initPagination({
+			record_count : {$record_count},
+			page : 1,
+			page_count : {$page_count}
+		});
+		
+		//搜索框输入查询条件事件
+		$("#keyword").change(function(){
+			var keyword = $.trim($(this).val());
+			if(keyword.match(/^1\d{10}$/) != null){
+				$("#mobile").val(keyword);
+				$("#consignee").val('');
+				$("#order_sn").val('');
+			}else if(keyword.match(/^\d{13}$/) != null){
+				$("#mobile").val('');
+				$("#consignee").val('');
+				$("#order_sn").val(keyword);
+			}else{
+				$("#mobile").val('');
+				$("#consignee").val(keyword);
+				$("#order_sn").val('');
+			}
+		});
+		
+		//搜索框回车提交表单
+		$("#keyword").keypress(function(){
+			if(event.keyCode == 13){
+				$("#query_form button[type=submit]").trigger('click');
+			}
+		});
+		
+	});
+	
+	
+	function show_qrcode(href, pname){
+		$.get(href, function(data){
+			if(data.errcode == 0){
+				$('#qr_code_img').attr('src', '/mobile/' + data.qrcode);
+				$('#qrModal div.modal-body').html(pname);
+				$('#qrModal').modal('show');
+			}else{
+				swal({
+					title : "二维码生成失败",
+					text : data.errmsg,
+					type : "warning",
+					confirmButtonColor : "#DD6B55",
+					confirmButtonText : "确定",
+					closeOnConfirm : true
+				});
+			}
+		}, 'json')
+		return false;
+	}
+	
+	function toggle(obj, act, id)
+	{
+		var val = (obj.src.match(/yes.gif/i)) ? 0 : 1;
+		//alert(val);
+		//var res = Ajax.call(this.url, "act="+act+"&val=" + val + "&id=" +id, null, "POST", "JSON", false);
+ 		/*  var res=$.ajax({url:this.$parentNode.URL+"goods.php?act="+act+"&val=" + val + "&id=" +id,type:'post',  
+				cache:false,
+				data:{
+					'act':act,
+					'val':val,
+					'id':id
+				}, 
+				dataType:'json'}); */
+ 		/*$("#myDiv").html(htmlobj.responseText); */
+		/* var res = $.ajax({  
+			url:this.$parentNode.URL+"goods.php",// 跳转到 action  
+			data:{
+				'act':act,
+				'val':val,
+				'id':id
+			}, 
+			type:'post',  
+			cache:false,  
+			dataType:'json',  
+			success:function(res) {  
+				//res= res.responseJSON;
+				if (res.message)
+				{
+					alert(res.message);
+				}
+
+				if (res.error == 0)
+				{
+					obj.src = (res.content > 0) ? 'images/yes.gif' : 'images/no.gif';
+				} 
+		 	},  
+			error : function() {  
+						// view("异常！");  
+						//alert("异常！");  
+		 	}  
+		}); */
+  		
+ 	  /* if (res.message)
+	  {
+	    alert(res.message);
+	  }
+
+	  if (res.error == 0)
+	  {
+	    obj.src = (res.content > 0) ? 'images/yes.gif' : 'images/no.gif';
+	  }  */
+	}
+</script>
+<style type="text/css">
+    .dropdown-submenu {
+        position: relative;
+    }
+    .dropdown-submenu > .dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-top: -6px;
+        margin-left: -1px;
+        -webkit-border-radius: 0 6px 6px 6px;
+        -moz-border-radius: 0 6px 6px;
+        border-radius: 0 6px 6px 6px;
+    }
+    .dropdown-submenu:hover > .dropdown-menu {
+        display: block;
+    }
+    .dropdown-submenu > a:after {
+        display: block;
+        content: " ";
+        float: right;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        border-style: solid;
+        border-width: 5px 0 5px 5px;
+        border-left-color: #ccc;
+        margin-top: 5px;
+        margin-right: -10px;
+    }
+    .dropdown-submenu:hover > a:after {
+        border-left-color: #fff;
+    }
+    .dropdown-submenu.pull-left {
+        float: none;
+    }
+    .dropdown-submenu.pull-left > .dropdown-menu {
+        left: -100%;
+        margin-left: 10px;
+        -webkit-border-radius: 6px 0 6px 6px;
+        -moz-border-radius: 6px 0 6px 6px;
+        border-radius: 6px 0 6px 6px;
+    }
+</style>
+
+<body class="gray-bg">
+
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="ibox">
+                    <div class="ibox-title">
+                    	<!-- 数据记录总条数，添加属性id="total_count" -->
+                        <h5>所有商品 (共<span id="total_count"></span>条记录)</h5>
+                        <div class="ibox-tools">
+                        	<!-- 分页大小设置 -->
+                            {include file='page_setting.htm'}
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+						<div class="row m-b-sm m-t-sm">
+                        <!-- <div class="input-group">
+                            <div class="col-md-1">
+                                <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> 刷新</button>
+                            </div>
+                       	</div> -->
+						<!-- 查询表单，ajax查询通常都为act=query，添加属性id="query_form"，submit按钮不可缺少 -->
+						<form action="goods.php?act=query" method="post" class="bs-example bs-example-form" id="query_form">
+						<div class="col-md-12">
+						    <div class="form-group">
+						    	<!-- 刷新 -->
+							    <div class="col-md-1">
+	                                <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> 刷新</button>
+	                            </div>
+						    	<!-- 分类 -->						        
+						        <div class="col-sm-2">
+						            <select class="form-control" name="cat_id"><option value="0">{$lang.goods_cat}</option>{$cat_list}</select>
+						        </div>
+						        <!-- 推荐 -->
+						        <div class="col-sm-2">
+						            <select class="form-control" name="intro_type"><option value="0">{$lang.intro_type}</option>{html_options options=$intro_list selected=$smarty.get.intro_type}</select>
+						        </div>
+						         <!-- 上架 -->
+						        <div class="col-sm-2">
+						            <select class="form-control" name="is_on_sale"><option value=''>{$lang.intro_type}</option><option value="1" selected="selected">{$lang.on_sale}</option><option value="0">{$lang.not_on_sale}</option></select>
+						        </div>
+						        <!-- 关键字-->
+						        <div class="col-sm-2">
+						            <input type="text" id="keyword" name="keyword" size="15" class="form-control" placeholder="关键字" data-form-un="1454381208301.4795">
+						        </div>
+						        <div class="col-sm-2">
+						           <button type="submit" id="search" class="btn btn-sm btn-primary">
+									<i class="fa fa-refresh"></i>&nbsp查询
+								</button>
+						        </div>
+						    </div>
+						</div>
+						<div>
+							<input type="hidden" id="extension_code" name="extension_code" value="{$code}"/>
+                           	<input type="hidden" id="consignee" name="consignee" value=""/>
+                           	<input type="hidden" id="mobile" name="mobile" value=""/>
+                           	<input type="hidden" id="page_size" name="page_size" value=""/>
+                           	<input type="hidden" id="page" name="page" value=""/>
+                           	<input type="hidden" id="sort_by" name="sort_by" value=""/> 
+                           	<input type="hidden" id="sort_order" name="sort_order" value=""/> 
+                        </div>
+                   		</form>
+                        </div>
+
+                        <div class="project-list">
+                        	<form action="goods.php?act=batch" method="post" class="bs-example bs-example-form" id="batch_form">
+                            <table class="table table-hover dataTable">
+                            	<thead>
+                            		<tr>
+                            			<th><input type="checkbox" id="check_all"/>编号</th>
+                            			<!-- <th class="visible-lg">购买用户</th>
+                            			<th class="visible-lg">寄送地址</th>
+                            			<th>金额</th>
+                            			<th></th>
+                            			<th></th> -->
+                            			
+                            			<th sort-by="goods_name">{$lang.goods_name}</th>
+									    <th sort-by="goods_sn">{$lang.goods_sn}</th>
+									    <th sort-by="shop_price">{$lang.shop_price}</th>
+									    <th sort-by="is_on_sale">{$lang.is_on_sale}</th>
+									    <th sort-by="is_best">{$lang.is_best}</th>
+									    <th sort-by="is_new">{$lang.is_new}</th>
+									    <th sort-by="is_hot">{$lang.is_hot}</th>
+									    <th sort-by="sort_order">{$lang.sort_order}</th>
+									    {if $use_storage}
+									    <th sort-by="goods_number">{$lang.goods_number}</th>
+									    {/if}
+										<th sort-by="sales_volume_base">销量基数</th>
+									    <th>{$lang.handler}</th>
+                            		</tr>
+                            	</thead>
+                            	<!-- 查询表单查询结果填充的位置，添加属性id="form_table" -->
+                                <tbody id="form_table">
+{/if}
+                                	{foreach from=$goods_list item=goods key=okey}
+                                    <tr>
+                                         <td><input type="checkbox" name="checkboxes[]" value="{$goods.goods_id}" />{$goods.goods_id}</td>
+    									<td class="first-cell" style="{if $goods.is_promote}color:red;{/if}"><a href="##" title="二维码" onclick="show_qrcode('/mobile/qrcode.php?act=goods&id={$goods.goods_id}','{$goods.goods_name|escape:html}')"><i class="glyphicon glyphicon-qrcode"></i> </a><span class="editable" url="goods.php?act=edit_goods_name&id={$goods.goods_id}&val=">{$goods.goods_name|escape:html}</span></td>
+    									<td><span class="editable" url="goods.php?act=edit_goods_sn&id={$goods.goods_id}&val=">{$goods.goods_sn}</span></td>
+    									<td align="right"><span class="editable" url="goods.php?act=edit_goods_price&id={$goods.goods_id}&val=">{$goods.shop_price}
+
+									    </span></td>
+									    <td align="center"><a href="goods.php?act=toggle_on_sale&id={$goods.goods_id}&val={if $goods.is_on_sale}0{else}1{/if}" target="ajax"><img src="images/{if $goods.is_on_sale}yes{else}no{/if}.gif" /></a></td>
+									    <td align="center"><a href="goods.php?act=toggle_best&id={$goods.goods_id}&val={if $goods.is_best}0{else}1{/if}" target="ajax"><img src="images/{if $goods.is_best}yes{else}no{/if}.gif" /></a></td>
+									    <td align="center"><a href="goods.php?act=toggle_new&id={$goods.goods_id}&val={if $goods.is_new}0{else}1{/if}" target="ajax"><img src="images/{if $goods.is_new}yes{else}no{/if}.gif" /></a></td>
+									    <td align="center"><a href="goods.php?act=toggle_hot&id={$goods.goods_id}&val={if $goods.is_hot}0{else}1{/if}" target="ajax"><img src="images/{if $goods.is_hot}yes{else}no{/if}.gif" /></a></td>
+									    <td align="center"><span class="editable" url="goods.php?act=edit_sort_order&id={$goods.goods_id}&val=">{$goods.sort_order}</span></td>
+									    {if $use_storage}
+									    <td align="right"><span class="editable" url="goods.php?act=edit_goods_number&id={$goods.goods_id}&val=">{$goods.goods_number}</span></td>
+									    {/if}
+										<td align="center"><span class="editable" url="goods.php?act=edit_sales_volume_base&id={$goods.goods_id}&val=">{$goods.sales_volume_base}</span></td>
+									    <td align="center">
+									      
+									      <a href="../goods.php?id={$goods.goods_id}" target="_blank" title="{$lang.view}"><img src="images/icon_view.gif" width="16" height="16" border="0" /></a>
+									      <a href="goods.php?act=edit&goods_id={$goods.goods_id}{if $code neq 'real_goods'}&extension_code={$code}{/if}" title="{$lang.edit}" target="tab"><img src="images/icon_edit.gif" width="16" height="16" border="0" /></a>
+									      <a href="goods.php?act=copy&goods_id={$goods.goods_id}{if $code neq 'real_goods'}&extension_code={$code}{/if}" title="{$lang.copy}" target="tab"><img src="images/icon_copy.gif" width="16" height="16" border="0" /></a>
+									      <a href="goods.php?act=remove&id={$goods.goods_id}" title="{$lang.trash}" class="btn-del"><img src="images/icon_trash.gif" width="16" height="16" border="0" /></a>
+									      {if $specifications[$goods.goods_type] neq ''}<a href="goods.php?act=product_list&goods_id={$goods.goods_id}" title="{$lang.item_list}"><img src="images/icon_docs.gif" width="16" height="16" border="0" /></a>{else}<img src="images/empty.gif" width="16" height="16" border="0" />{/if}
+									      {if $add_handler}
+									        |
+									        {foreach from=$add_handler item=handler}
+									        <a href="{$handler.url}&goods_id={$goods.goods_id}" title="{$handler.title}" target="tab"><img src="images/{$handler.img}" width="16" height="16" border="0" /></a>
+									        {/foreach}
+									      {/if}
+									    </td>
+                                    </tr>
+                                    {/foreach}
+{if $full_page}                                                                 
+                                    </tbody>
+                                    <tfoot>
+                                    	<tr>
+                                    		<td colspan="12">
+                                    			<div class="btn-group">
+                                    				<button type="button" class="btn btn-sm btn-primary dropdown-toggle" 
+												      data-toggle="dropdown">
+												      	批量操作
+												      <span class="caret"></span>
+												    </button>
+												    <ul class="dropdown-menu" id="batch_btns">
+												      <li><a href="##" value="type=trash" checkbox_name="order_id"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;&nbsp;回收站</a></li>
+												      <li><a href="##" value="type=on_sale" checkbox_name="order_id"><i class="fa fa-arrow-circle-up"></i>&nbsp;&nbsp;上架</a></li>
+												      <li><a href="##" value="type=not_on_sale" checkbox_name="order_id"><i class="fa fa-arrow-circle-down"></i>&nbsp;&nbsp;下架</a></li>
+												      <li><a href="##" value="type=best" checkbox_name="order_id"><i class="fa fa-calendar-check-o"></i>&nbsp;&nbsp;精品</a></li>
+												      <li><a href="##" value="type=not_best" checkbox_name="order_id"><i class="fa fa-calendar-times-o"></i>&nbsp;&nbsp;取消精品</a></li>
+												      <li><a href="##" value="type=new" checkbox_name="order_id"><i class="fa fa-star"></i>&nbsp;&nbsp;新品</a></li>
+												      <li><a href="##" value="type=not_new" checkbox_name="order_id"><i class="fa fa-star-o"></i>&nbsp;&nbsp;取消新品</a></li>
+												      <li class="dropdown-submenu" id="move_to_el">
+												      	<a href="##"><i class="fa fa-exchange"></i>&nbsp;&nbsp;转移到分类</a>
+												      </li>
+												      <li class="dropdown-submenu" id="add_to_el">
+												      	<a href="##"><i class="fa fa-sign-in"></i>&nbsp;&nbsp;添加到分类</a>
+												      </li>
+												      
+												    </ul>
+												    <input name="batch" type="hidden" value="1" />
+   													<input id="order_id" name="order_id" type="hidden" value="" />
+                                    			</div>
+                                    			<div class="ibox-tools">
+                                    				<!-- 分页标签 -->
+	                                    			<ul class="pagination"></ul>
+												</div>
+                                    		</td>
+                                    	</tr>
+                                    </tfoot>
+                                </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal inmodal" id="qrModal" tabindex="-1" role="dialog" aria-hidden="true">
+           <div class="modal-dialog">
+               <div class="modal-content animated bounceInRight">
+                   <div class="modal-header">
+                       <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+                       </button>
+                       <img id="qr_code_img" src=""/>
+                       </div>
+                       <div class="modal-body">
+                           <p>右键点击图片另存为本地图片。</p>
+                       </div>
+                       <div class="modal-footer">
+                           <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                       </div>
+                   </div>
+               </div>
+           </div>
+    </body>
+    
+</html>
+{/if}

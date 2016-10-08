@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>{$page_title}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<link href="{$ectouch_themes}/images/touch-icon.png" rel="apple-touch-icon-precomposed" />
+<link href="{$ectouch_themes}/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link href="{$ectouch_themes}/ectouch.css" rel="stylesheet" type="text/css" />
+{* 包含脚本文件 *}
+{insert_scripts files='transport.js,common.js,user.js'}
+<script type="text/javascript" src="{$ectouch_themes}/js/jquery-1.4.4.min.js"></script>
+<style type="text/css">
+<!--
+body,table{
+    font-size:12px;
+}
+table{
+    table-layout:fixed;
+    empty-cells:show; 
+    border-collapse: collapse;
+    margin:0 auto;
+}
+td{
+    height:20px;
+}
+h1,h2,h3{
+    font-size:12px;
+    margin:0;
+    padding:0;
+}
+
+.title { background: #FFF; border: 1px solid #9DB3C5; padding: 1px; width:90%;margin:20px auto; }
+    .title h1 { line-height: 31px; text-align:center;  background: #2F589C url(th_bg2.gif); background-repeat: repeat-x; background-position: 0 0; color: #FFF; }
+        .title th, .title td { border: 1px solid #CAD9EA; padding: 5px; }
+
+
+/*这个是借鉴一个论坛的样式*/
+table.t1{
+    border:1px solid #cad9ea;
+    color:#666;
+}
+table.t1 th {
+    background-image: url(th_bg1.gif);
+    background-repeat::repeat-x;
+    height:30px;
+}
+table.t1 td,table.t1 th{
+    border:1px solid #cad9ea;
+    padding:0 1em 0;
+}
+table.t1 tr.a1{
+    background-color:#f5fafe;
+}
+
+
+
+table.t2{
+    border:1px solid #9db3c5;
+    color:#666;
+}
+table.t2 th {
+    background-image: url(th_bg2.gif);
+    background-repeat::repeat-x;
+    height:30px;
+    color:#fff;
+}
+table.t2 td{
+    border:1px dotted #cad9ea;
+    padding:0 2px 0;
+}
+table.t2 th{
+    border:1px solid #a7d1fd;
+    padding:0 2px 0;
+}
+table.t2 tr.a1{
+    background-color:#e8f3fd;
+}
+
+
+
+table.t3{
+    border:1px solid #fc58a6;
+    color:#720337;
+}
+table.t3 th {
+    background-image: url(th_bg3.gif);
+    background-repeat::repeat-x;
+    height:30px;
+    color:#35031b;
+}
+table.t3 td{
+    border:1px dashed #feb8d9;
+    padding:0 1.5em 0;
+}
+table.t3 th{
+    border:1px solid #b9f9dc;
+    padding:0 2px 0;
+}
+table.t3 tr.a1{
+    background-color:#fbd8e8;
+}
+
+
+#vertical-timeline::before {
+    content: "";
+    height: 100%;
+    left: 18px;
+    position: absolute;
+    top: 0;
+    width: 4px;
+    
+}
+
+.vertical-timeline-block::after {
+    clear: both;
+    content: "";
+    display: table;
+    margin-top: 12px;
+}
+
+.vertical-timeline-block:first-child {
+    margin-top: 0;
+}
+
+body {
+    color: #676a6c;
+    font-family: "open sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    
+}
+
+.dark-timeline .vertical-timeline-content, .dark-timeline.center-orientation .vertical-timeline-content {
+    background: #f5f5f5 none repeat scroll 0 0;top: 12px;
+}
+
+.dark-timeline .vertical-timeline-content::before {
+    border-color: transparent #f5f5f5 transparent transparent;
+}
+.vertical-timeline-content::before {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: transparent #fff transparent transparent;
+    border-image: none;
+    border-style: solid;
+    border-width: 7px;
+    content: "";
+    height: 0;
+    position: absolute;
+    right: 100%;
+    top: 16px;
+    width: 0;
+}
+
+.vertical-timeline-content::after {
+    clear: both;
+    content: "";
+    display: table;
+}
+
+.dark-timeline .vertical-timeline-content, .dark-timeline.center-orientation .vertical-timeline-content {
+    background: #f5f5f5 none repeat scroll 0 0;
+}
+.vertical-timeline-content {
+    background: #fff none repeat scroll 0 0;
+    border-radius: 0.25em;
+    margin-left: 8px;
+    padding: 1em;
+    position: relative;
+}
+
+.ibox-content h1, .ibox-content h2, .ibox-content h3, .ibox-content h4, .ibox-content h5, .ibox-title h1, .ibox-title h2, .ibox-title h3, .ibox-title h4, .ibox-title h5 {
+    margin-top: 5px;
+}
+h3, h4, h5 {
+    font-weight: 600;
+    margin-top: 5px;
+}
+h4 {
+    font-size: 14px;
+}
+
+.h4, .h5, .h6, h4, h5, h6 {
+    margin-bottom: 10px;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    color: inherit;
+    font-family: inherit;
+    line-height: 1.1;
+}
+
+.vertical-date small {
+    color: #1ab394;
+    font-weight: 400;
+}
+.small, small {
+    font-size: 85%;
+}
+-->
+</style>
+{$stats_code}
+</head>
+<body>
+<div id="tbh5v0">
+  <div class="login"> 
+ 
+    <section class="order_box padd1 radius10">
+        <table width="100%" border="0" cellpadding="5" cellspacing="0" class="ectouch_table">
+      	  <!-- {foreach from=$goods_list item=goods} -->
+          <tr>
+            <td rowspan="2" width="60" align="center" valign="middle" style="border-bottom:1px #CCCCCC dashed">
+            <a href="goods.php?id={$goods.goods_id}" target="_blank"><img src="{$site_url}{$goods.goods_thumb}" width="60" height="60" /></a></td>
+            <td>{$goods.goods_name}</td>
+          </tr>
+          <tr>
+            <div class="commentsList radius5">
+      <form action="javascript:;" onsubmit="submitComment(this)" method="post" name="commentForm" id="commentForm">
+   
+ <table width="100%" align="center" border="0" cellpadding="5" cellspacing="1" bgcolor="" >
+           
+     <tr>
+         
+          <td>
+          <!-- <input name="comment_rank" type="radio" value="5" checked="checked" id="comment_rank5" /> 非常好
+          <input name="comment_rank" type="radio" value="4" id="comment_rank4" /> 很好
+          <input name="comment_rank" type="radio" value="3" id="comment_rank3" /> 一般
+          <input name="comment_rank" type="radio" value="2" id="comment_rank2" /> 不行
+          <input name="comment_rank" type="radio" value="1" id="comment_rank1" /> 很差 -->
+          <img id="img{$goods.goods_id}_1" src="themes/qsln/images/stars7.png" style="width:40px" onclick="fun_comment({$goods.goods_id},1)">
+          <img id="img{$goods.goods_id}_2" src="themes/qsln/images/stars6.png" style="width:40px" onclick="fun_comment({$goods.goods_id},2)">
+          <img id="img{$goods.goods_id}_3" src="themes/qsln/images/stars6.png" style="width:40px" onclick="fun_comment({$goods.goods_id},3)">
+          <img id="img{$goods.goods_id}_4" src="themes/qsln/images/stars6.png" style="width:40px" onclick="fun_comment({$goods.goods_id},4)">
+          <img id="img{$goods.goods_id}_5" src="themes/qsln/images/stars6.png" style="width:40px" onclick="fun_comment({$goods.goods_id},5)">
+          <input type="hidden" name="comment_rank" id="hid_{$goods.goods_id}" value="1" />
+          
+          </td>
+        </tr>
+        <tr style="display: none;">
+          <td>
+          <input placeholder="E-mail"  type="text" name="email" id="email"  maxlength="100" value="{if $smarty.session.email}{$smarty.session.email|escape}{/if}" class="inputBg"/>
+          </td>
+        </tr>
+        <tr>
+          <td>
+          <textarea placeholder="{$lang.comment_content}" name="content" class="inputBg2" style="height:4rem"  ></textarea>
+          <input type="hidden" name="cmt_type" value="0" />
+          <input type="hidden" name="id" value="{$goods.goods_id}" />
+          </td>
+        </tr>
+
+        <tr>
+          <td><input type="submit" name="submit" value="提交评论" class="c-btn3" /></td>
+        </tr>
+      </table>
+      </form>
+      </div>
+          </tr>
+          <!-- {/foreach} -->
+      </table>
+    
+    
+
+	
+	
+    
+
+
+
+        
+        
+
+	
+	
+	
+	
+	
+	
+    <!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem --> </div>
+</div>
+<div style="width:1px; height:1px; overflow:hidden">{foreach from=$lang.p_y item=pv}{$pv}{/foreach}</div>
+</body>
+<script type="text/javascript">
+{foreach from=$lang.clips_js item=item key=key}
+var {$key} = "{$item}";
+{/foreach}
+
+
+	/**
+	 * 提交评论信息
+	*/
+	function submitComment(frm)
+	{
+
+	  var cmt = new Object;
+
+	  //cmt.username        = frm.elements['username'].value;
+	  //cmt.email           = frm.elements['email'].value;
+	  cmt.content         = frm.elements['content'].value;
+	  cmt.type            = frm.elements['cmt_type'].value;
+	  cmt.id              = frm.elements['id'].value;
+	  cmt.enabled_captcha = frm.elements['enabled_captcha'] ? frm.elements['enabled_captcha'].value : '0';
+	  cmt.captcha         = frm.elements['captcha'] ? frm.elements['captcha'].value : '';
+	  //cmt.rank            = 0;
+	  cmt.rank = frm.elements['comment_rank'].value;
+	  //alert(cmt.rank);
+	  /* for (i = 0; i < frm.elements['comment_rank'].length; i++)
+	  {
+	  
+	    if (frm.elements['comment_rank'][i].checked)
+	    {
+	       cmt.rank = frm.elements['comment_rank'][i].value;
+	     }
+	  } */
+
+	//  if (cmt.username.length == 0)
+	//  {
+//	     alert(cmt_empty_username);
+//	     return false;
+	//  }
+
+	  //if (cmt.email.length > 0)
+	  //{
+	     //if (!(Utils.isEmail(cmt.email)))
+	     //{
+	        //alert(cmt_error_email);
+	        //return false;
+	      //}
+	   //}
+	   //else
+	   //{
+	        //alert(cmt_empty_email);
+	        //return false;
+	   //}
+
+	   if (cmt.content.length == 0)
+	   {
+	      alert(cmt_empty_content);
+	      return false;
+	   }
+
+	   if (cmt.enabled_captcha > 0 && cmt.captcha.length == 0 )
+	   {
+	      alert(captcha_not_null);
+	      return false;
+	   }
+	   //alert('年后');
+	   //Ajax.call('comment.php', 'cmt=' + cmt.toJSONString(), commentResponse, 'POST', 'JSON');
+	   $.ajax({  
+				url:'comment.php',// 跳转到 action  //cmt.toJSONString()
+				data:{
+					'cmt': JSON.stringify(cmt) 
+				}, 
+				type:'post',  
+				cache:false,  
+				dataType:'json',  
+				success:function(res) {
+					commentResponse(res);
+			 	},  
+				error : function() {  
+							// view("异常！");  
+							alert("异常！");  
+			 	}  
+			});
+	   return false;
+	}
+
+	/**
+	 * 处理提交评论的反馈信息
+	*/
+	  function commentResponse(result)
+	  {
+	    if (result.message)
+	    {
+	      alert(result.message);
+	    }
+
+	    if (result.error == 0)
+	    {
+	      var layer = document.getElementById('ECS_COMMENT');
+
+	      if (layer)
+	      {
+	        layer.innerHTML = result.content;
+	      }
+	    }
+	  }
+	
+	
+	function fun_comment(goodid,num){
+		$("#hid_"+goodid).val(num);
+		for(var i = 1;i < 6;i++){
+			if(i <= num){
+				$("#img"+goodid+"_"+i).attr("src","themes/qsln/images/stars7.png"); 
+			}else{
+				$("#img"+goodid+"_"+i).attr("src","themes/qsln/images/stars6.png"); 
+			}
+		}
+	}
+</script>
+</html>

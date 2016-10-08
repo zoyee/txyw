@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta property="qc:admins" content="11513552070745662101446375" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="{$keywords}" />
+<meta name="description" content="{$description}" />
+<meta itemprop="name" content="{$page_title}"/> 
+<meta itemprop="description" content="这是要分享的内容植物素生活" />
+
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$page_title}</title>
+<!-- TemplateEndEditable -->
+<!-- TemplateBeginEditable name="head" -->
+<!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="RSS|{$page_title}" href="{$feed_url}" />
+{* 包含脚本文件 *}
+{insert_scripts files='common.js,index.js'}
+
+</head>
+<body>
+<!-- #BeginLibraryItem "/library/page_header_index.lbi" --><!-- #EndLibraryItem -->
+<div class="block">
+  <div class="content">
+    <div class="contentBody">
+      <div class="mainBody"> <!-- #BeginLibraryItem "/library/category_tree_index.lbi" --> <!-- #EndLibraryItem -->
+        <div class="right_banner"> <!-- #BeginLibraryItem "/library/index_ad.lbi" --><!-- #EndLibraryItem -->
+         <!-- #BeginLibraryItem "/library/index_ad_r.lbi" --><!-- #EndLibraryItem --> </div>
+        <div class="right_banner"> <!-- #BeginLibraryItem "/library/index_ad_b.lbi" --><!-- #EndLibraryItem --> </div>
+      </div>
+     
+      <div class="mainBody"> <!-- #BeginLibraryItem "/library/group_buy.lbi" --><!-- #EndLibraryItem -->
+        <div class="title_list">
+          <div class="title_txt"> <img src="../images/title_txt02.jpg" border="0"> </div>
+        </div>
+        <!-- #BeginLibraryItem "/library/recommend_hot.lbi" --> <!-- #EndLibraryItem -->
+        <div class="title_body ">
+          <dl class="hot_list02">
+            <!-- #BeginLibraryItem "/library/recommend_promotion.lbi" --> <!-- #EndLibraryItem -->
+             <!-- #BeginLibraryItem "/library/recommend_new.lbi" --> <!-- #EndLibraryItem -->
+              <!-- #BeginLibraryItem "/library/recommend_best.lbi" --> <!-- #EndLibraryItem -->
+          </dl>
+        </div>
+      </div>
+      <div class="blank"></div>
+      <!-- TemplateBeginEditable name="商品区域一" -->
+<!-- TemplateEndEditable -->
+      <div class="blank" style="height:0"></div>
+      <!-- TemplateBeginEditable name="商品区域二" -->
+<!-- TemplateEndEditable -->
+      <div class="blank" style="height:0"></div>
+      <!-- TemplateBeginEditable name="商品区域三" -->
+<!-- TemplateEndEditable -->
+      <div class="blank" style="height:0"></div>
+      <Div class="title_more03"> <!-- TemplateBeginEditable name="商品区域四" -->
+<!-- TemplateEndEditable --> </Div>
+      <div class="blank" style="height:0"></div>
+      <!-- TemplateBeginEditable name="商品区域五" -->
+<!-- TemplateEndEditable -->
+      <div class="blank" style="height:0"></div>
+      <!-- TemplateBeginEditable name="热销排行榜" -->
+<!-- #BeginLibraryItem "/library/top10.lbi" -->
+
+<div class="slideTxtBox1">
+  <div class="hd">
+    <div class="title_txt"> <img src="../images/title_txt08.jpg" border="0"> </div>
+    
+  </div>
+  <div class="title_body">
+    <div class="bd">
+      <ul>
+        <!-- {foreach name=top_goods from=$top_goods item=goods}-->
+        <li>
+        
+      
+          <div class="topimg"> <a href="{$goods.url}"><img src="{$goods.thumb}" alt="{$goods.name|escape:html}" style="width:220px; height:220px;" /></a>
+          
+          <div class="top_num01"> <img src="../images/top_{$smarty.foreach.top_goods.iteration}.gif" class="iteration"  /> </div>
+          
+          
+           </div>
+         
+          <div class="top_txt"> <b><a href="{$goods.url}" title="{$goods.name|escape:html}">{$goods.short_name}</a></b>
+            <p>{$lang.shop_price}<font class="f1">{$goods.price}</font></p>
+            <p>{$goods.goods_number}人已购买</p>
+          </div>
+        </li>
+        <!-- {/foreach} -->
+      </ul>
+      
+      
+       
+      
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+		jQuery(".slideTxtBox1").slide({trigger:"click"});
+		</script>
+<div class="blank5"></div>
+
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+
+      
+    </div>
+  </div>
+</div>
+<div class="blank5"></div>
+<div class="footer">
+<div class="footerBody">
+<Div class="block">
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem --> 
+</Div>
+</div>
+</div>
+<script type="text/javascript">
+
+{foreach from=$lang.compare_js item=item key=key}
+{if $key neq 'button_compare'}
+var {$key} = "{$item}";
+{else}
+var button_compare = '';
+{/if}
+{/foreach}
+var compare_no_goods = "{$lang.compare_no_goods}";
+var btn_buy = "{$lang.btn_buy}";
+var is_cancel = "{$lang.is_cancel}";
+var select_spe = "{$lang.select_spe}";
+var url = "{$url}";
+</script>
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript" >
+var jiathis_config={
+	siteNum:5,
+	sm:"cqq,qzone,weixin,tqq,tsina",
+	url:window.document.location.href+"?u={$user_id}",
+	pic:window.location.origin+"/themes/miqinew/images/logo.gif",
+	showClose:false,
+	shortUrl:false,
+	hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code_mini/jiathis_r.js?btn=r.gif&move=1" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+</body>
+</html>

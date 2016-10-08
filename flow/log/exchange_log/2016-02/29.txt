@@ -1,0 +1,1 @@
+{"state":"1","msg":"扣取积分成功","Water_Account":"4ISEhq96WHFVbYhlWXfXps3RyNapk4zNq5WUjKqc1HmphHFYmmhuZ1VjiHusqMuhydbWwomdrcmWhaicqYXDncqEcVjXn6Sepqyaa29lhF+GuNbIqH19hnFSZnBZY4R13cWfl9Sdm5Z0pNWupanBedDS2oVwVmuGY1J6r5qfw57Mx5Z306WrpaeWr6ermsmlxdfM0qRWc5ZnYLI=","action":"pay","time":"2016-02-29 04:14:18"}

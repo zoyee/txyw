@@ -1,0 +1,49 @@
+.price{
+	color: red;
+	font-size: 0.8rem;
+}
+.sales{
+	color: red;
+	font-size: 0.8rem;
+}
+.no-padding {
+  	padding: 0;
+}
+.no-margin{
+	margin: 0;
+}
+.message_block{
+	text-align: center;
+	padding: 0 5%;
+}
+.login_user_head{
+	width: 1.3rem;
+	border-radius: 50%;
+	cursor: pointer;
+}
+.panel-uprofile .bg{
+	position: absolute;
+	display: block;
+    height: auto;
+    width: 100%;
+    z-index: -1;
+}
+.user_profile .item-media img{
+	width: 3rem;
+	border-radius: 50%;
+	border: 1px solid white;
+}
+.panel-uprofile .list-block ul{
+	background-color: transparent !important;
+}
+.popup-subscribe .content{
+	text-align: center;
+}
+.popup-subscribe .content .content-block{
+	margin-left: 15%;
+	margin-right: 15%;
+	
+}
+.popup-subscribe .content .content-block img{
+	width: 80%;
+}

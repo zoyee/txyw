@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- #BeginLibraryItem "/library/include_head.lbi" -->
+<!-- #EndLibraryItem -->
+<link rel="stylesheet" href="{$ectouch_themes}/css/goods.css">
+
+</head>
+
+<body>
+	<div class="page-group">
+		<div id="page-index" class="page">
+			<header class="bar bar-nav">
+				{if $login_user}
+				<a class="icon pull-left open-panel" data-panel=".panel-uprofile">
+					<img class="login_user_head" src="{$login_user.headimgurl}" />
+				</a>
+				{else}
+				<a class="icon icon-me pull-left open-popup" data-panel=".popup-subscribe"></a>
+				{/if}
+				<a class="button button-link button-nav pull-right open-popup"
+					data-popup=".popup-search"> <span class="icon icon-search"></span>
+				</a>
+				<h1 class="title">{$goods.goods_name}</h1>
+			</header>
+			<div class="content">
+				<!-- #BeginLibraryItem "/library/goods_gallery.lbi" -->
+				<!-- #EndLibraryItem -->
+				
+				<div class="goods_info">
+					<div class="goods_name">
+						{$goods.goods_name}
+					</div>
+					<div class="goods_price">
+						<span>{$goods.shop_price_formated}</span>
+					</div>
+					<div class="content-block goods_guide">
+						<span class="mark">“</span><br/>{$goods.goods_brief}
+					</div>
+				</div>
+				
+				  <div class="buttons-tab">
+				    <a href="#tab1" class="tab-link active button">细节描述</a>
+				    <a href="#tab2" class="tab-link button">规格参数</a>
+				    <a href="#tab3" class="tab-link button">最新评价</a>
+				  </div>
+				  
+				  <div class="content-block no-padding no-margin">
+				    <div class="tabs">
+				      <div id="tab1" class="tab active">
+				        <div class="goods_desc">
+				          {$goods.goods_desc}
+				        </div>
+				      </div>
+				      <div id="tab2" class="tab">
+				        <div class="list-block">
+						    <ul>
+						    	{foreach from=$properties item=property key=prop_key name=specification}
+						    	{if $prop_key eq '商品属性'}
+						    	{foreach from=$property item=property_entity}
+						      <li class="item-content">
+						        <div class="item-inner">
+						          <div class="item-title label">{$property_entity.name}</div>
+						          {$property_entity.value}
+						        </div>
+						      </li>
+						      {/foreach}
+						      {/if}
+						      {/foreach}
+						    </ul>
+						  </div>
+				      </div>
+				      <div id="tab3" class="tab">
+				        <div class="list-block media-list">
+					      <ul>
+					        <li>
+					          <div class="item-content">
+					            <div class="item-media"><img width="80" src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg"></div>
+					            <div class="item-inner">
+					              <div class="item-title-row">
+					                <div class="item-title">猫小贱</div>
+					                <div class="item-after">2016-09-12</div>
+					              </div>
+					              <div class="item-text">好吃，包装也漂亮好吃，包装也漂亮好吃，包装也漂亮好吃，包装也漂亮好吃，包装也漂亮好吃，包装也漂亮好吃，包装也漂亮</div>
+					            </div>
+					          </div>
+					        </li>
+					
+					        <li>
+					          <div class="item-content">
+					            <div class="item-media"><img width="80" src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg"></div>
+					            <div class="item-inner">
+					              <div class="item-title-row">
+					                <div class="item-title">猫小贱</div>
+					                <div class="item-after">2016-09-12</div>
+					              </div>
+					              <div class="item-text">好吃，包装也漂亮</div>
+					            </div>
+					          </div>
+					        </li>
+					        <li>
+					          <div class="item-content">
+					            <div class="item-media"><img width="80" src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg"></div>
+					            <div class="item-inner">
+					              <div class="item-title-row">
+					                <div class="item-title">猫小贱</div>
+					                <div class="item-after">2016-09-12</div>
+					              </div>
+					              <div class="item-text">好吃，包装也漂亮</div>
+					            </div>
+					          </div>
+					        </li>
+					      </ul>
+					    </div>
+				      </div>
+				    </div>
+				  </div>
+			</div>
+		</div>
+
+		<div class="panel-overlay"></div>
+		<!-- #BeginLibraryItem "/library/user_profile.lbi" -->
+		<!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/search_panel.lbi" -->
+		<!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/supplier_info.lbi" -->
+		<!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/subscribe.lbi" -->
+		<!-- #EndLibraryItem -->
+		
+		
+		<a class="supplier_head open-popup" href="#" data-popup=".popup-supplier">
+			<img src="{$site_url}{$supplier.head_img}"/>
+		</a>
+	</div>
+	<!-- #BeginLibraryItem "/library/include_footer.lbi" -->
+	<!-- #EndLibraryItem -->
+	<script src="{$ectouch_themes}/js/goods.js"></script>
+</body>
+</html>

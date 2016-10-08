@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- #BeginLibraryItem "/library/include_head.lbi" -->
+<!-- #EndLibraryItem -->
+
+</head>
+
+<body>
+	<div class="page-group">
+		<div id="page-index" class="page">
+			<header class="bar bar-nav">
+				{if $login_user}
+				<a class="icon pull-left open-panel" data-panel=".panel-uprofile">
+					<img class="login_user_head" src="{$login_user.headimgurl}" />
+				</a>
+				{else}
+				<a class="icon icon-me pull-left open-panel" data-panel=".panel-subscribe"></a>
+				{/if}
+				<a class="button button-link button-nav pull-right open-popup"
+					data-popup=".popup-search"> <span class="icon icon-search"></span>
+				</a>
+				<h1 class="title">系统提示</h1>
+			</header>
+			<div class="content">
+				<div class="list-block message_block">
+				{$message.content}
+				</div>
+			</div>
+		</div>
+
+		<div class="panel-overlay"></div>
+		<!-- #BeginLibraryItem "/library/user_profile.lbi" -->
+		<!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/search_panel.lbi" -->
+		<!-- #EndLibraryItem -->
+		<!-- #BeginLibraryItem "/library/subscribe.lbi" -->
+		<!-- #EndLibraryItem -->
+		
+	</div>
+	<!-- #BeginLibraryItem "/library/include_footer.lbi" -->
+	<!-- #EndLibraryItem -->
+</body>
+</html>

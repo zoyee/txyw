@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+{include file='head.htm'}
+
+
+<link href="css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
+
+<link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+<link href="css/plugins/colorpicker/css/bootstrap-colorpicker.min.css"
+	rel="stylesheet">
+
+
+
+<script src="js/echarts.min.js"></script>
+<script src="js/china.js"></script>
+
+<!--   <script src="js/plugins/echarts/echarts-all.js"></script>-->
+
+<script src="js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+<script src="js/plugins/clockpicker/clockpicker.js"></script>
+<script src="js/plugins/switchery/switchery.js"></script>
+
+
+
+<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content">
+        <div class="row">
+        	<div class="col-sm-12">
+        		<div class="ibox float-e-margins">
+               		<div class="alert alert-info">
+                        <h5>会员购买率 （会员购买率 = 有订单会员数 ÷ 会员总数）</h5>
+                	</div>
+           	 	</div>      
+            </div>
+            <div class="col-sm-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-success pull-right">月</span>
+                        <h5>{$lang.member_count}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{$user_num}</h1>
+                        <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i>
+                        </div>
+                        <small>{$lang.member_count}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-info pull-right">全年</span>
+                        <h5>{$lang.order_member_count}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{$have_order_usernum}</h1>
+                        <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i>
+                        </div>
+                        <small>{$lang.order_member_count}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-primary pull-right">今天</span>
+                        <h5>{$lang.member_order_count}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{$user_order_turnover}</h1>
+                        <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i>
+                        </div>
+                        <small>{$lang.member_order_count}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-danger pull-right">最近一个月</span>
+                        <h5>{$lang.percent_buy_member}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{$user_ratio}%</h1>
+                        <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i>
+                        </div>
+                        <small>{$lang.percent_buy_member}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+         <div class="row">
+         <div class="col-sm-12">
+        		<div class="ibox float-e-margins">
+               		<div class="alert alert-info">
+                        <h5>每会员平均订单数及购物额（每会员订单数 = 会员订单总数 ÷ 会员总数） （每会员购物额 = 会员购物总额 ÷ 会员总数）</h5>
+                	</div>
+           	 	</div>      
+            </div>
+        	<div class="col-sm-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-danger pull-right">最近一个月</span>
+                        <h5>{$lang.member_sum}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{$user_all_turnover}</h1>
+                        <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i>
+                        </div>
+                        <small>{$lang.member_sum}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-danger pull-right">最近一个月</span>
+                        <h5>{$lang.average_member_order}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{$ave_user_ordernum}</h1>
+                        <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i>
+                        </div>
+                        <small>{$lang.average_member_order}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-danger pull-right">最近一个月</span>
+                        <h5>{$lang.member_order_sum}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{$ave_user_turnover}</h1>
+                        <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i>
+                        </div>
+                        <small>{$lang.member_order_sum}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<div class="row">
+<div class="col-sm-12">
+        		<div class="ibox float-e-margins">
+               		<div class="alert alert-info">
+                        <h5>匿名会员平均订单额及购物总额（匿名会员平均订单额 = 匿名会员购物总额 ÷ 匿名会员订单总数）</h5>
+                	</div>
+           	 	</div>      
+            </div>
+        	<div class="col-sm-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-danger pull-right">最近一个月</span>
+                        <h5>{$lang.guest_member_orderamount}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{$guest_all_turnover}</h1>
+                        <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i>
+                        </div>
+                        <small>{$lang.guest_member_orderamount}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-danger pull-right">最近一个月</span>
+                        <h5>{$lang.guest_member_ordercount}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{$guest_order_num}</h1>
+                        <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i>
+                        </div>
+                        <small>{$lang.guest_member_ordercount}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <span class="label label-danger pull-right">最近一个月</span>
+                        <h5>{$lang.guest_order_sum}</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <h1 class="no-margins">{$guest_all_turnover}</h1>
+                        <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i>
+                        </div>
+                        <small>{$lang.guest_order_sum}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</html>
+
+
+
+
+
+
+
+

@@ -1,0 +1,485 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>{if $name}{$name}的{/if}{$shop_name}</title>
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<link rel="stylesheet" type="text/css" href="themes/tianxin100/css/public.css?v=1.2"/>
+<link rel="stylesheet" type="text/css" href="themes/tianxin100/css/index.css?v=1.2"/>
+<link href="{$ectouch_themes}/ectouch.css?v=4" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="js/mtoch/css/swiper-3.3.1.min.css"/>
+<script type="text/javascript" src="themes/tianxin100/js/jquery.js"></script>
+<script type="text/javascript" src="themes/tianxin100/js/TouchSlide.1.1.js"></script>
+{insert_scripts files='jquery.json.js,transport_index.js'}
+<script type="text/javascript" src="themes/tianxin100/js/touchslider.dev.js"></script>
+<script type="text/javascript" src="themes/tianxin100/js/jquery.more.js"></script>
+<script type="text/javascript" src="themes/tianxin100/js/ectouch.js"></script>
+{insert_scripts files='common.js'}
+<script type="text/javascript" src="js/mtoch/js/swiper-3.3.1.jquery.min.js"></script>
+<style type="text/css">
+body{
+	font-size: 13px !important;
+	line-height: 1.5em !important;
+}
+.scrollimg .hd li{
+	background-color: #f6f7f9 !important;
+}
+.scrollimg .hd li.on{
+	background-color: #f6f7f9 !important;
+}
+.index_floor{
+	padding-bottom: 0 !important;
+	margin-bottom:20px;
+}
+.floor_images{
+	margin-top: 0 !important;
+}
+.floor_body1 h2{
+	margin-bottom: 0 !important;
+}
+
+body{
+	text-align: left;
+}
+.swiper-container{
+	width: 100%;
+	padding:0 5px;
+}
+.swiper-container .swiper-slide{
+	padding:0 5px;
+}
+.swiper-container .swiper-slide .proImg-wrap img{
+	width: 100%;
+	border: 1px solid #e3e3e3
+}
+.swiper-container .swiper-slide .proTitle{
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	overflow:hidden;
+	font-size:12px;
+	line-height:30px;
+	color:#575757;
+}
+.swiper-container .swiper-slide .proPrice{
+	font-size:13px;
+	width:100%; 
+	margin:auto;
+	color: red;
+	position: relative;
+}
+.swiper-container .swiper-slide .delService{
+	/* float:right;
+	position:absolute; */
+	right:1px;
+	margin:0;
+	font-size:10px;
+	color:#575757;
+}
+.swiper-container .swiper-slide .proSales{
+	float:right;
+	position:relative;
+	margin:0;
+	color: #fff;
+	font-size: 10px;
+	line-height: 18px;
+	background-color: #c60a1e;
+	opacity: 0.7;
+	padding: 1px 4px;
+	bottom: 69px;
+	right: 0;
+}
+.floor_images {
+	position:relative;
+}
+.floor_images .triangle{
+	position:absolute;
+	bottom: 0;
+	width: 100%;
+	text-align:center;
+}
+.floor_images .triangle img{
+	width:5%;
+	margin-bottom:-8px;
+}
+</style>
+</head>
+
+<body>
+<div id="page" class="showpage">
+<div>
+<!--网站头部-->
+<header id="header"> <!-- #BeginLibraryItem "/library/page_header.lbi" --> <!-- #EndLibraryItem --> </header>
+<!--banner--> 
+<!-- #BeginLibraryItem "/library/index_ad.lbi" --> <!-- #EndLibraryItem --> 
+<!--banner end-->
+<!---搜索--->
+<div id="fake-search" class="index_search">
+  <div class="index_search_mid">
+  <span><img src="themes/tianxin100/images/xin/icosousuo.png"></span>
+    <input  type="text" id="search_text" class="search_text" value="请输入您所搜索的商品"/>
+  </div>
+</div>
+<!-- #BeginLibraryItem "/library/index_icon.lbi" --><!-- #EndLibraryItem --> 
+	{if $userid eq 0}
+	<!-- #BeginLibraryItem "/library/top_tianxin100_guanzhu.lbi" --><!-- #EndLibraryItem -->
+	
+	{/if}
+<!-- <div class="floor_images">
+	<strong>
+		<img src="/mobile/images/约会春天绽放花颜.jpg"/>
+	</strong>
+</div> -->
+<!--广告位1-->
+<!-- <div class="floor_images">
+  <dl>
+    <dt> TemplateBeginEditable name="手机端首页广告1-1"
+#BeginLibraryItem "/library/ad_position.lbi"
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ #EndLibraryItem
+TemplateEndEditable </dt>
+    <dd> 
+    <span class="Edge"> TemplateBeginEditable name="手机端首页广告1-2"
+#BeginLibraryItem "/library/ad_position.lbi"
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ #EndLibraryItem
+TemplateEndEditable </span> 
+<span> 
+TemplateBeginEditable name="手机端首页广告1-3"
+#BeginLibraryItem "/library/ad_position.lbi"
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ #EndLibraryItem
+TemplateEndEditable </span> </dd>
+  </dl>
+  <ul>
+  <li class="brom">
+  TemplateBeginEditable name="手机端首页广告2-1"
+#BeginLibraryItem "/library/ad_position.lbi"
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ #EndLibraryItem
+TemplateEndEditable
+  </li>
+    <li>
+  TemplateBeginEditable name="手机端首页广告2-2"
+#BeginLibraryItem "/library/ad_position.lbi"
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ #EndLibraryItem
+TemplateEndEditable
+  </li>
+  </ul>
+  <strong>TemplateBeginEditable name="手机端首页广告4"
+#BeginLibraryItem "/library/ad_position.lbi"
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ #EndLibraryItem
+TemplateEndEditable </strong>
+</div> -->
+
+<!--促销商品-->
+
+<div class="floor_images">
+	<strong>
+		<!-- TemplateBeginEditable name="手机端首页广告1" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+	</strong>
+	<div class="triangle"><img src="themes/tianxin100/images/三角.png"/></div>
+</div>
+<!-- #BeginLibraryItem "/library/recommend_promotion.lbi" -->
+ <!-- #EndLibraryItem -->
+
+<div class="floor_images">
+	<strong>
+		<!-- TemplateBeginEditable name="手机端首页广告2" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+	</strong>
+	<div class="triangle"><img src="themes/tianxin100/images/三角.png"/></div>
+</div>
+<!-- #BeginLibraryItem "/library/recommend_new.lbi" -->
+ <!-- #EndLibraryItem -->
+
+<div class="floor_images">
+	<strong>
+		<!-- TemplateBeginEditable name="手机端首页广告3" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+	</strong>
+	<div class="triangle"><img src="themes/tianxin100/images/三角.png"/></div>
+</div>
+<!-- #BeginLibraryItem "/library/recommend_best.lbi" -->
+ <!-- #EndLibraryItem -->
+
+
+<!--广告位2-->
+<!-- <div class="floor_images">
+  <dl>
+    <dt> TemplateBeginEditable name="手机端首页广告3-1"
+#BeginLibraryItem "/library/ad_position.lbi"
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ #EndLibraryItem
+TemplateEndEditable </dt>
+    <dd> 
+    <span class="Edge"> TemplateBeginEditable name="手机端首页广告3-2"
+#BeginLibraryItem "/library/ad_position.lbi"
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ #EndLibraryItem
+TemplateEndEditable </span> 
+<span> 
+TemplateBeginEditable name="手机端首页广告3-3"
+#BeginLibraryItem "/library/ad_position.lbi"
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ #EndLibraryItem
+TemplateEndEditable </span> </dd>
+  </dl>
+
+</div> -->
+<!---------------end------------->  
+
+<div class="floor_images">
+	<strong>
+		<!-- TemplateBeginEditable name="手机端首页广告4" -->
+<!-- #BeginLibraryItem "/library/ad_position.lbi" -->
+
+{insert name='ads' id=$ads_id num=$ads_num}
+ <!-- #EndLibraryItem -->
+<!-- TemplateEndEditable -->
+	</strong>
+	<div class="triangle"><img src="themes/tianxin100/images/三角.png"/></div>
+</div>
+<!-- #BeginLibraryItem "/library/recommend_hot.lbi" -->
+ <!-- #EndLibraryItem -->
+
+<!-- <div class="floor_images">
+	<strong>
+		<a href="http://shop.byhill.com/mobile/category.php?id=195"><img src="/mobile/images/春天邂逅茶香.jpg"/></a>
+	</strong>
+</div> -->
+
+<!--商品楼层调用 start--> 
+<!-- TemplateBeginEditable name="商品分类" -->
+<!-- TemplateEndEditable --> 
+
+<!--精品推荐轮播广告位--> 
+<div id="index_banner" class="index_banner">
+
+				<div class="bd">
+					<ul>
+			{foreach from=$wap_index_img item=ad name=wap_index_img}
+          <li><a href="{$ad.url}"><img src="{$ad.image}" width="100%" /></a></li>
+          {/foreach}
+					</ul>
+				</div>
+
+				<div class="hd">
+					<ul></ul>
+				</div>
+			</div>
+			
+<!-- #BeginLibraryItem "/library/recommend_more.lbi" -->
+ <!-- #EndLibraryItem -->
+ 
+ <script type="text/javascript">
+	jQuery(function($){
+   		$('.more').more({'address': "category.php?id=191&ajax_more=1", amount: 4, 'spinner_code':'<div style="text-align:center; margin:10px;"><img src="{$ectouch_themes}/images/loader.gif" /></div>'});
+		$(window).scroll(function () {
+			if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+				$('.get_more').click();
+			}
+		}); 
+	});
+</script>
+ 
+			<script type="text/javascript">
+				TouchSlide({ 
+					slideCell:"#index_banner",
+					titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+					mainCell:".bd ul", 
+					effect:"leftLoop", 
+					autoPage:true,//自动分页
+					autoPlay:true //自动播放
+				}); 
+			</script>
+ <!--精品推荐轮播广告位end page_footer_tianxin.lbi-->  
+
+
+<footer> <!-- #BeginLibraryItem1 "/library/page_footer.lbi" --> <!-- #EndLibraryItem1 --> <!-- #BeginLibraryItem "/library/footer_nav.lbi" --> <!-- #EndLibraryItem --> </footer>
+
+<!---返回顶部-->
+<script>
+function goTop(){
+	$('html,body').animate({'scrollTop':0},600);
+}
+</script>
+<a href="javascript:goTop();" class="gotop"><img src="themes/tianxin100/images/topup.png"></a> 
+
+                    </div>
+ <!---搜索弹出层--->
+ <!-- #BeginLibraryItem "/library/search_section.lbi" -->
+ <!-- #EndLibraryItem -->
+                                           
+</div>
+
+<script type="Text/Javascript" language="JavaScript">
+
+{literal}
+function selectPage(sel)
+{
+   sel.form.submit();
+}
+{/literal}
+
+</script>
+	<script type="text/javascript">
+{foreach from=$lang.compare_js item=item key=key}
+{if $key neq 'button_compare'}
+var {$key} = "{$item}";
+{else}
+var button_compare = "";
+{/if}
+{/foreach}
+var compare_no_goods = "{$lang.compare_no_goods}";
+var btn_buy = "{$lang.btn_buy}";
+var is_cancel = "{$lang.is_cancel}";
+var select_spe = "{$lang.select_spe}";
+</script>
+
+<!--搜索弹出层js---> 
+<script type="text/javascript">
+
+$(function() {
+    $('.swiper-free').each(function(){
+    	new Swiper(this, {
+    		freeMode : true,
+    		freeModeFluid: true,
+    		slidesPerView : 4
+    	});
+    	/* $(this).swiper({
+    		freeMode : true,
+    		freeModeFluid: true,
+    		slidesPerSlide : 4,
+    		updateOmImagesReady: true,
+    		onImageReady: function(){
+    			alert(123);
+    		}
+    	}) */;
+    });
+
+    $('#search_text').click(function(){
+        $(".showpage").children('div').hide();
+        $("#search_hide").css('position','fixed').css('top','0px').css('width','100%').css('z-index','999').show();
+        $("#keyword").focus();
+    })
+    $('#get_search_box').click(function(){
+        $(".showpage").children('div').hide();
+        $("#search_hide").css('position','fixed').css('top','0px').css('width','100%').css('z-index','999').show();
+    })
+    $("#search_hide .close").click(function(){
+        $(".showpage").children('div').show();
+        $("#search_hide").hide();
+    })
+});
+</script>
+
+<script>
+$('.search-type li').click(function() {
+    $(this).addClass('cur').siblings().removeClass('cur');
+    $('#searchtype').val($(this).attr('num'));
+});
+$('#searchtype').val($(this).attr('0'));
+</script>
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+<!-- {/literal} -->
+  wx.config({
+    debug: false,
+    appId: '{$signPackage.appId}',
+    timestamp: {$signPackage.timestamp},
+    nonceStr: '{$signPackage.nonceStr}',
+    signature: '{$signPackage.signature}',
+    jsApiList: [
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage' 
+    ]
+  });
+ wx.ready(function () {
+	//青山老农监听“分享给朋友”
+    wx.onMenuShareAppMessage({
+      title: '{$page_title}',
+      desc: '{$page_title}',
+      link: '{$url}',
+      imgUrl: '{$w_picurl}',
+      trigger: function (res) {
+		
+		{if $url}
+        alert('恭喜！分享可以获取提成哦！');
+		{else}
+		alert('糟糕，需要分销商登录才能获得提成哦！');
+		{/if}
+		
+      },
+      success: function (res) {
+		{if $dourl }
+        window.location.href="{$dourl}&type=1"; 
+		{/if}
+      },
+      cancel: function (res) {
+        alert('很遗憾，您已取消分享');
+      },
+      fail: function (res) {
+        alert(JSON.stringify(res));
+      }
+    });
+
+	//分享到朋友圈青山老农
+    wx.onMenuShareTimeline({
+      title: '{$page_title}',
+      link: '{$url}',
+      imgUrl: '{$w_picurl}',
+      trigger: function (res) {
+			
+        {if $url}
+			alert('恭喜！分享可以获取提成哦！');
+		{else}
+			alert('糟糕，需要分销商登录才能获得提成哦！');
+		{/if}
+      },
+      success: function (res) {
+       	{if $dourl }
+        window.location.href="{$dourl}&type=2"; 
+		{/if}
+      },
+      cancel: function (res) {
+         alert('很遗憾，您已取消分享');
+      },
+      fail: function (res) {
+        alert(JSON.stringify(res));
+      }
+    });
+
+
+});
+<!-- {literal} -->
+</script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<aside class="col-md-4 col-lg-3 col-lg-offset-1">
+	<div class="sidebar">
+		<div class="block clearfix">
+			<h3 class="title">Related Products</h3>
+			<div class="separator-2"></div>
+			<div class="media margin-clear">
+				<div class="media-left">
+					<div class="overlay-container">
+						<img class="media-object" src="images/product-5.jpg" alt="blog-thumb">
+						<a href="shop-product.html" class="overlay-link small"><i class="fa fa-link"></i></a>
+					</div>
+				</div>
+				<div class="media-body">
+					<h6 class="media-heading"><a href="shop-product.html">Lorem ipsum dolor sit amet</a></h6>
+					<p class="margin-clear">
+						<i class="fa fa-star text-default"></i>
+						<i class="fa fa-star text-default"></i>
+						<i class="fa fa-star text-default"></i>
+						<i class="fa fa-star text-default"></i>
+						<i class="fa fa-star text-default"></i>
+					</p>
+					<p class="price">$99.00</p>
+				</div>
+				<hr>
+			</div>
+			<div class="media margin-clear">
+				<div class="media-left">
+					<div class="overlay-container">
+						<img class="media-object" src="images/product-6.jpg" alt="blog-thumb">
+						<a href="shop-product.html" class="overlay-link small"><i class="fa fa-link"></i></a>
+					</div>
+				</div>
+				<div class="media-body">
+					<h6 class="media-heading"><a href="shop-product.html">Eum repudiandae ipsam</a></h6>
+					<p class="margin-clear">
+						<i class="fa fa-star text-default"></i>
+						<i class="fa fa-star text-default"></i>
+						<i class="fa fa-star text-default"></i>
+						<i class="fa fa-star text-default"></i>
+						<i class="fa fa-star"></i>
+					</p>
+					<p class="price">$299.00</p>
+				</div>
+				<hr>
+			</div>
+			<div class="media margin-clear">
+				<div class="media-left">
+					<div class="overlay-container">
+						<img class="media-object" src="images/product-7.jpg" alt="blog-thumb">
+						<a href="shop-product.html" class="overlay-link small"><i class="fa fa-link"></i></a>
+					</div>
+				</div>
+				<div class="media-body">
+					<h6 class="media-heading"><a href="shop-product.html">Quia aperiam velit fuga</a></h6>
+					<p class="margin-clear">
+						<i class="fa fa-star text-default"></i>
+						<i class="fa fa-star text-default"></i>
+						<i class="fa fa-star text-default"></i>
+						<i class="fa fa-star text-default"></i>
+						<i class="fa fa-star"></i>
+					</p>
+					<p class="price">$9.99</p>
+				</div>
+				<hr>
+			</div>
+			<div class="media margin-clear">
+				<div class="media-left">
+					<div class="overlay-container">
+						<img class="media-object" src="images/product-8.jpg" alt="blog-thumb">
+						<a href="shop-product.html" class="overlay-link small"><i class="fa fa-link"></i></a>
+					</div>
+				</div>
+				<div class="media-body">
+					<h6 class="media-heading"><a href="shop-product.html">Fugit non natus officiis</a></h6>
+					<p class="margin-clear">
+						<i class="fa fa-star text-default"></i>
+						<i class="fa fa-star text-default"></i>
+						<i class="fa fa-star text-default"></i>
+						<i class="fa fa-star"></i>
+						<i class="fa fa-star"></i>
+					</p>
+					<p class="price">$399.00</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</aside>

@@ -1,0 +1,22 @@
+<table class="table table-hover dataTable">
+	<thead>
+	  <tr>
+	  	<td scope="col"><div align="center"><strong>商品ID</strong></div></td>
+	  	<td scope="col"><div align="center"><strong>商品编码</strong></div></td>
+	    <td scope="col"><div align="center"><strong>商品名称 [ 品牌 ]</strong></div></td>
+	    <td scope="col"><div align="center"><strong>上架</strong></div></td>
+	    <td scope="col"><div align="center"><strong>操作</strong></div></td>
+	  </tr>
+	</thead>
+	<tbody>
+  {foreach from=$goods_list item=goods}
+  <tr>
+  	<td class="project-title" ><div align="center">{$goods.goods_id}</div></td>
+  	<td class="project-title" ><div align="center">{$goods.goods_sn}</div></td>
+    <td class="project-title" ><div align="center">{$goods.goods_name}</div></td>
+    <td class="project-title" ><div align="center"><img src="images/{if $goods.is_on_sale}yes{else}no{/if}.gif" /></div></td>
+    <td class="project-title" ><div align="center"><a href="javascript:void(0)" onclick="setTypeGoods({$goods.goods_id},'{$goods.goods_name}')" >选择</a></div></td>
+  </tr>
+  {/foreach}
+  </tbody>
+</table>

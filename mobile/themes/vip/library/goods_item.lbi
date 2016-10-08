@@ -1,0 +1,41 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      
+      <div id="more_element_1" class="product flex_in single_item">
+        <div class="pro-inner">
+          <div class="proImg-wrap"> <a href="{$goods.url}" > <img src="{$site_url}{if $goods.goods_thumb}{$goods.goods_thumb}{elseif $goods.thumb}{$goods.thumb}{/if}" alt="{if $goods.goods_name}{$goods.goods_name}{elseif $goods.name}{$goods.name}{/if}"> </a> 
+          </div>  
+          <div class="proInfo-wrap">
+            <div class="proTitle"> <a href="{$goods.url}" >{if $goods.goods_name}{$goods.goods_name}{elseif $goods.name}{$goods.name}{/if}</a> </div>
+            <div class="proSubTitle"><a href="{$goods.url}" >{$goods.goods_guide}</a></div>
+            <div class="proSKU"></div>
+            <div class="proPrice"> 
+              <!--{if $goods.promote_price neq "" } --> 
+              <em>{$goods.promote_price}</em> 
+              <!--{else}--> 
+              <em>{$goods.shop_price}</em> 
+              <!--{/if}--> 
+              <del>{$goods.market_price}</del>
+            </div>
+            <!-- <div class="proIcons"> 
+            			 {if $goods.watermark_img} 
+            			<img width="55" height="16" src="{$ectouch_themes}/images/{$goods.watermark_img}.png" alt="{if $goods.goods_name}{$goods.goods_name}{elseif $goods.name}{$goods.name}{/if}" />
+            			{/if} 
+            			 </div> -->
+            <div class="proService"> </div>
+            <div class="proSales">销量:<em>{$goods.sales_count}</em></div>
+          </div>
+          
+          {if $goods.prompt_ico}
+          	<div class="prompt-ico">
+          		<a href="{$goods.url}">
+          		<div style="position:absolute;width:100%;padding-top:{$_CFG.special_cat_conf.top};left:{$_CFG.special_cat_conf.left}">
+          		{foreach from=$goods.prompt_ico item=icon name=promotion_icon}
+          		<img src="{$site_url}mobile/{$icon}" style="width:{$_CFG.special_cat_conf.width};"/>
+          		{/foreach}
+          		</div>
+          		</a>
+          	</div>
+          {/if}
+        </div>
+      </div>
+     

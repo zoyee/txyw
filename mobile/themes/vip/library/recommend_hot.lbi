@@ -1,0 +1,134 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+{if $recommond_array[3]}
+<section class="index_floor">
+  <div class="floor_body1" >
+  	<div class="swiper-container swiper-free">
+	    <div class="pagination-free"></div>
+	    <div class="swiper-wrapper">
+	    	{foreach from=$recommond_array[3] item=goods name=hot_goods}
+	      	<div class="swiper-slide">
+		    	<a href="{$goods.url}" >
+		        	<div class="proImg-wrap"> 
+	        			<img src="{$site_url}{if $goods.goods_thumb}{$goods.goods_thumb}{elseif $goods.thumb}{$goods.thumb}{/if}" alt="{if $goods.goods_name}{$goods.goods_name}{elseif $goods.name}{$goods.name}{/if}"> 
+	        		</div>
+	            	<div class="proInfo-wrap">
+	            		<div class="proTitle"> 
+	            			{if $goods.goods_guide}{$goods.goods_guide}{elseif $goods.goods_name}{$goods.goods_name}{elseif $goods.name}{$goods.name}{/if}
+	            		</div>
+	            		<div class="proPrice"> 
+			            	{if $goods.promote_price neq "" } 
+				              <em>{$goods.promote_price}</em> 
+				            {else} 
+				              <em>{$goods.shop_price}</em> 
+				            {/if}
+				             
+				             <span class="delService">
+				             	{if $goods.promote_price neq "" && $goods.promote_price neq $goods.market_price} 
+				            	<del>{$goods.market_price}</del>
+				            	{elseif $goods.shop_price neq $goods.market_price}
+				            	<del>{$goods.market_price}</del>
+				            	{/if}
+				             </span>
+			            </div>
+			            <!-- <div class="proSales">销量:<em>{$goods.sales_count}</em></div> -->
+	            	</div>
+		      	</a>
+	      	</div>
+	      	{/foreach}
+	      	<div class="swiper-slide">
+		      	<a href="../search.php?intro=hot" >
+		        	<div class="proImg-wrap"> 
+	        			<img src="{$ectouch_themes}/images/查看全部.jpg" alt="查看全部"> 
+	        		</div>
+		      	</a>
+	      	</div>
+	      	<div class="swiper-slide"></div>
+	    </div>
+	  </div>
+  	
+    <!-- <h2><em></em>{$recommond_title[3]}
+    <div class="geng"><a href="../search.php?intro=hot" >更多</a> <span></span></div>
+    <div class="geng" style="color:red;font-weight:bold;"><a href="../search.php?intro=hot" >更多》</a></div>
+    </h2> -->
+    
+    <!-- <div id="J_ItemList" class="srp j_autoResponsive_container m-ks-autoResponsive-container m-animation album" style="opacity:1;">
+    {foreach from=$recommond_array[3] item=goods name=hot_goods}
+    <div id="more_element_1" class="product flex_in single_item">
+        <div class="pro-inner">
+          <div class="proImg-wrap"> <a href="{$goods.url}" > <img src="{$site_url}{if $goods.goods_thumb}{$goods.goods_thumb}{elseif $goods.thumb}{$goods.thumb}{/if}" alt="{if $goods.goods_name}{$goods.goods_name}{elseif $goods.name}{$goods.name}{/if}"> </a> 
+            </div>
+          <div class="proInfo-wrap">
+            <div class="proTitle"> <a href="{$goods.url}" >{if $goods.goods_name}{$goods.goods_name}{elseif $goods.name}{$goods.name}{/if}</a> </div>
+            <div class="proSKU"></div>
+            <div class="proPrice"> 
+              {if $goods.promote_price neq "" } 
+              <em>{$goods.promote_price}</em> 
+              {else} 
+              <em>{$goods.shop_price}</em> 
+              {/if} 
+            </div>
+            <div class="proIcons"> 
+			 {if $goods.watermark_img} 
+			<img width="55" height="16" src="{$ectouch_themes}/images/{$goods.watermark_img}.png" alt="{if $goods.goods_name}{$goods.goods_name}{elseif $goods.name}{$goods.name}{/if}" />
+			{/if} 
+			 </div>
+            <div class="proService"> <del>{$goods.market_price}</del></div>
+            <div class="proSales">销量:<em>{$goods.sales_count}</em></div>
+          </div>
+          
+          {if $goods.prompt_ico}
+          	<div class="prompt-ico">
+          		<a href="{$goods.url}">
+          		<div style="position:absolute;width:100%;padding-top:{$_CFG.special_cat_conf.top};left:{$_CFG.special_cat_conf.left}">
+          		{foreach from=$goods.prompt_ico item=icon name=promotion_icon}
+          		<img src="{$site_url}mobile/{$icon}" style="width:{$_CFG.special_cat_conf.width};"/>
+          		{/foreach}
+          		</div>
+          		</a>
+          	</div>
+          {/if}
+        </div>
+      </div>
+    {/foreach}
+    </div> -->
+    
+    <!-- <div id="scroll_hot" class="scroll_hot">
+      <div class="bd">
+        <ul>
+          {foreach from=$hot_goods item=goods name=hot_goods}
+          <li>
+            <a href="{$goods.url}" title="{$goods.name|escape:html}">
+             <div class="index_pro"> 
+              <div class="products_kuang">
+                <img src="{$site_url}{$goods.thumb}"></div>
+              <div class="goods_name">{$goods.name}</div>
+              <div class="price">
+                   <a href="javascript:addToCart({$goods.id})" class="btns">
+                    <img src="themes/tianxin100/images/index_flow.png">
+                </a>
+              <span href="{$goods.url}" class="price_pro">{if $goods.promote_price}{$goods.promote_price}{else}{$goods.shop_price}{/if}</span>
+              </div>
+              </div>
+            </a>
+          </li>
+    
+          {if $smarty.foreach.hot_goods.iteration%2 eq 0 && $smarty.foreach.hot_goods.iteration neq $smarty.foreach.hot_goods.total} </ul>
+        <ul>
+          {/if}{/foreach}</div>
+        <div class="hd">
+          <ul></ul>
+        </div>
+      </div> -->
+    </div>
+  </section>
+
+  <script type="text/javascript">
+    /*TouchSlide({ 
+      slideCell:"#scroll_hot",
+      titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+      effect:"leftLoop", 
+      autoPage:true, //自动分页
+      //switchLoad:"_src" //切换加载，真实图片路径为"_src" 
+    });*/
+  </script>
+{/if}

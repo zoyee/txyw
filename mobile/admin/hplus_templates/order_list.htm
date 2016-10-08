@@ -1,0 +1,241 @@
+{if $full_page}
+<!DOCTYPE html>
+<html>
+
+{include file='head.htm'}
+<script type="text/javascript">
+	$(function(){
+		//初始化页面分页
+		initPagination({
+			record_count : {$record_count},
+			page : 1,
+			page_count : {$page_count}
+		});
+		
+		//搜索框输入查询条件事件
+		$("#keyword").change(function(){
+			var keyword = $.trim($(this).val());
+			if(keyword.match(/^1\d{10}$/) != null){
+				$("#mobile").val(keyword);
+				$("#consignee").val('');
+				$("#order_sn").val('');
+			}else if(keyword.match(/^\d{13}$/) != null){
+				$("#mobile").val('');
+				$("#consignee").val('');
+				$("#order_sn").val(keyword);
+			}else{
+				$("#mobile").val('');
+				$("#consignee").val(keyword);
+				$("#order_sn").val('');
+			}
+		});
+		
+		//搜索框回车提交表单
+		/* $("#keyword").keypress(function(event){
+			if(event.keyCode == 13){
+				$("#query_form button[type=submit]").trigger('click');
+			}
+		}); */
+		
+		$("#composite_status").change(function(){
+			$("#query_form button[type=submit]").trigger('click');
+		});
+	});
+</script>
+
+<body class="gray-bg">
+
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="ibox">
+                    <div class="ibox-title">
+                    	<!-- 数据记录总条数，添加属性id="total_count" -->
+                        <h5>所有订单 (共<span id="total_count"></span>条记录)</h5>
+                        <div class="ibox-tools">
+                        	<!-- 分页大小设置 -->
+                            {include file='page_setting.htm'}
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row m-b-sm m-t-sm">
+                            <div class="col-md-1">
+                                <button type="button" id="loading-example-btn" class="btn btn-primary btn-sm"><i class="fa fa-refresh"></i> 刷新</button>
+                            </div>
+                            <!-- 查询表单，ajax查询通常都为act=query，添加属性id="query_form"，submit按钮不可缺少 -->
+                    		<form action="order.php?act=query" method="post" class="bs-example bs-example-form" id="query_form">
+                    			<div class="col-md-2 form-group">
+                    				<div class="input-group">
+                                	<select name="composite_status" id="composite_status" class="form-control m-b">
+                                		<option value="-1">--请选择--</option>
+                                        <option value="101">待发货</option>
+                                        <option value="0">待确认</option>
+                                        <option value="100">待付款</option>
+                                        <option value="102">已完成</option>
+                                        <option value="1">付款中</option>
+                                        <option value="2">取消</option>
+                                        <option value="3">无效</option>
+                                        <option value="4">退货</option>
+                                        <option value="7">申请退货</option>
+                                        <option value="6">部分发货</option>
+                                    </select>
+                                    </div>
+                                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 请选择订单状态</span>
+                      			</div>
+                      			<div class="col-md-2">
+	                                <div class="input-group">
+	                                    <input name="to_buyer" id="to_buyer" type="text"  class="input-sm form-control"> 
+	                                </div>
+	                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 商家备注</span>
+	                            </div>
+	                            <div class="col-md-7">
+	                                <div class="input-group">
+	                                    <input name="keyword" id="keyword" type="text" placeholder="回车提交" class="input-sm form-control"> 
+	                                    <span class="input-group-btn">
+	                                    <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-search-plus"></i> 搜索</button> 
+	                                    <!-- <button type="button" class="btn btn-sm btn-primary"> 高级</button> -->
+	                                    </span>
+	                                </div>
+	                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 请输入订单号或手机号或收货人名称</span>
+	                            </div>
+                            
+                                <div>
+                                	<input type="hidden" id="order_sn" name="order_sn" value=""/>
+                                	<input type="hidden" id="consignee" name="consignee" value=""/>
+                                	<input type="hidden" id="mobile" name="mobile" value=""/>
+                                	<input type="hidden" id="page_size" name="page_size" value=""/>
+                                	<input type="hidden" id="page" name="page" value=""/>
+                                	<input type="hidden" id="sort_by" name="sort_by" value=""/> 
+                                	<input type="hidden" id="sort_order" name="sort_order" value=""/>
+                                </div>
+                        	</form>
+                        </div>
+						<hr/>
+                        <div class="project-list">
+                        	<form action="order.php?act=operate" method="post" class="bs-example bs-example-form" id="batch_form">
+                        	<!-- 表头排序请添加dataTable样式 -->
+                            <table class="table table-hover dataTable">
+                            	<thead>
+                            		<tr>
+                            			<!-- 需要排序的字段表头添加sort-by属性 -->
+                            			<th><input type="checkbox" id="check_all"/></th>
+                            			<th sort-by="order_id">订单号</th>
+                            			<th class="visible-lg" sort-by="buyer">购买用户</th>
+                            			<th class="visible-lg" sort-by="add_time">时间</th>
+                            			<th sort-by="total_fee">金额</th>
+                            			<th></th>
+                            		</tr>
+                            	</thead>
+                            	<!-- 查询表单查询结果填充的位置，添加属性id="form_table" -->
+                                <tbody id="form_table">
+{/if}
+                                	{foreach from=$order_list item=order key=okey}
+                                    <tr>
+                                    	<td class="project-title">
+                                    		<input type="checkbox" name="checkboxes" value="{$order.order_id}" />
+                                    	</td>
+                                        <td class="project-status">
+                                        	<a href="order.php?act=get_goods_info&order_id={$order.order_id}" target='modal' title="{$order.order_sn}">{$order.order_sn} <i class="fa fa-list-ol"></i></a>
+                                        	<br/>
+                                            <span class="label {if $order.order_status > 0}label-primary{else}label-default{/if}">{$lang.os[$order.order_status]}</span>
+                                            <span class="label {if $order.pay_status > 0}label-primary{else}label-default{/if}">{$lang.ps[$order.pay_status]}</span>
+                                            <span class="label {if $order.shipping_status > 0}label-primary{else}label-default{/if}">{$lang.ss[$order.shipping_status]}</span>
+                                        </td>
+                                        <td class="project-title visible-lg">
+                                            <strong>买</strong>：{$order.buyer|escape}{if $order.buyer_mobile} 【{$order.buyer_mobile|escape}】{/if}
+                                            	{if $order.user_id}
+                                            	<a href="users.php?act=edit&id={$order.user_id}" title="编辑用户" target="tab"><img src="images/icon_edit.gif" border="0" height="16" width="16" /></a>
+                                            	<a href="account_log.php?act=list&user_id={$order.user_id}" title="查看会员" target="tab"><img src="images/icon_account.gif" border="0" height="16" width="16" /></a>
+                                            	{/if}
+                                            <br/>
+                                            <strong>寄</strong>：{$order.consignee|escape}{if $order.mobile} 【{$order.mobile|escape}】{/if}
+                                           	<br/>
+                                           	<small>{$order.region_name|escape}</small>
+                                            <div><small>{$order.address|escape}</small></div>
+                                            
+                                        </td>
+                                        <td class="project-title visible-lg">
+                                           	 下单： {$order.short_order_time}
+                                           	 {if $order.short_pay_time}
+                                            <br/>
+                                            	付款： {$order.short_pay_time}
+                                            {/if}
+                                            {if $order.short_shipping_time}
+                                            <br/>
+                                            	发货： {$order.short_shipping_time}
+                                            {/if}
+                                            {if $order.shouhuo_time}
+                                            <br/>
+                                            	收货：{$order.shouhuo_time}
+                                            {/if}
+                                        </td>                                        
+                                        <td class="project-title">
+                                                {$lang.total_fee}:{$order.formated_total_fee}<br/>
+                                               	 实付金额:{$order.formated_money_paid}<br/>
+                                               	 使用红包:{$order.formated_bonus}<br/>
+                                               	{$lang.order_amount}:{$order.formated_order_amount}
+                                        </td>
+                                        <td class="project-actions">
+                                            <a href="order.php?act=info&order_id={$order.order_id}&order_status={$order.order_status}" class="btn btn-info btn-sm" target="tab"><i class="fa fa-paste"></i> 查看 </a>
+                                           
+                                        </td>
+                                    </tr>
+                                    {/foreach}
+{if $full_page}                                                                 
+                                    </tbody>
+                                    <tfoot>
+                                    	<tr>
+                                    		<td colspan="6">
+                                    			<div class="btn-group">
+                                    				<button type="button" class="btn btn-sm btn-primary dropdown-toggle" 
+												      data-toggle="dropdown">
+												      	批量操作
+												      <span class="caret"></span>
+												    </button>
+												    <ul class="dropdown-menu" id="batch_btns">
+												      <li><a href="##" value="confirm=1" checkbox_name="order_id"><i class="glyphicon glyphicon-usd"></i>&nbsp;&nbsp;订单确认</a></li>
+												      <li><a href="##" value="invalid=1" checkbox_name="order_id"><i class="glyphicon glyphicon-minus-sign"></i>&nbsp;&nbsp;订单无效</a></li>
+												      <li><a href="##" value="cancel=1" checkbox_name="order_id"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;&nbsp;订单取消</a></li>
+												      <li><a href="##" value="remove=1" checkbox_name="order_id"><i class="glyphicon glyphicon-remove"></i>&nbsp;&nbsp;订单移除</a></li>
+												      <li><a href="##" value="print=1" checkbox_name="order_id" target="_blank"><i class="glyphicon glyphicon-print"></i>&nbsp;&nbsp;订单打印</a></li>
+												      <li><a href="##" value="export=1" checkbox_name="order_id" ><i class="glyphicon glyphicon-export"></i>&nbsp;&nbsp;订单下载</a></li>
+												    </ul>
+												    <input name="batch" type="hidden" value="1" />
+   													<input id="order_id" name="order_id" type="hidden" value="" />
+                                    			</div>
+                                    			<div class="ibox-tools">
+                                    				<!-- 分页标签 -->
+	                                    			<ul class="pagination"></ul>
+												</div>
+                                    		</td>
+                                    	</tr>
+                                    </tfoot>
+                                </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal inmodal" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+           <div class="modal-dialog modal-lg">
+               <div class="modal-content animated bounceInRight">
+                   <div class="modal-header">
+                       <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+                       </button>
+                       <div class="modal-title"></div>
+                   </div>
+                   <div class="modal-body">
+                   </div>
+                   <div class="modal-footer">
+                       <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                   </div>
+               </div>
+           </div>
+       </div>
+    </body>
+</html>
+{/if}

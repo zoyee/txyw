@@ -1,0 +1,15 @@
+<div class="card no-padding single_item">
+	<div class="card-header no-border no-padding proImg-wrap">
+	</div>
+	<div class="card-content">
+		<div class="card-content-inner">
+			<p class="proTitle">芦荟胶</p>
+			<p class="color-gray proSubTitle">修复各种创伤</p>
+		</div>
+	</div>
+	<div class="card-footer no-border">
+		<span class="proPrice">￥100</span> 
+		<span class="proSales">销量：45</span> 
+		<a href="#" class="link">评价：40</a>
+	</div>
+</div>

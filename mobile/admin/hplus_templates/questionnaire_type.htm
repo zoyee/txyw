@@ -1,0 +1,143 @@
+{if $full_page}
+<!DOCTYPE html>
+<html>
+<!-- zmh 修改 -->
+
+{include file='head.htm'}
+<script type="text/javascript">
+	$(function(){
+		//初始化页面分页
+		initPagination({
+			record_count : {$record_count},
+			page : 1,
+			page_count : {$page_count}
+		});
+		
+		//搜索框输入查询条件事件
+		$("#keyword").change(function(){
+			var keyword = $.trim($(this).val());
+			if(keyword.match(/^1\d{10}$/) != null){
+				$("#mobile").val(keyword);
+				$("#consignee").val('');
+				$("#order_sn").val('');
+			}else if(keyword.match(/^\d{13}$/) != null){
+				$("#mobile").val('');
+				$("#consignee").val('');
+				$("#order_sn").val(keyword);
+			}else{
+				$("#mobile").val('');
+				$("#consignee").val(keyword);
+				$("#order_sn").val('');
+			}
+		});
+		
+		//搜索框回车提交表单
+		$("#keyword").keypress(function(){
+			if(event.keyCode == 13){
+				$("#query_form button[type=submit]").trigger('click');
+			}
+		});
+		
+		
+	});
+</script>
+<link href="styles/general.css" rel="stylesheet" type="text/css" />
+<link href="styles/main.css" rel="stylesheet" type="text/css" />
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="ibox">
+                    <div class="ibox-title">
+                    <a href="questionnaire.php?act=add">
+<input type="button" value="添加问卷" style="float:right" class="button">
+</a>
+                    	<!-- 数据记录总条数，添加属性id="total_count" -->
+                        <h5>所有商品 (共<span id="total_count"></span>条记录)</h5>
+                        <div class="ibox-tools">
+                        	<!-- 分页大小设置 -->
+                            {include file='page_setting.htm'}
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+						<div class="row m-b-sm m-t-sm">
+                        <!-- <div class="input-group">
+                            <div class="col-md-1">
+                                <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> 刷新</button>
+                            </div>
+                       	</div> -->
+						<!-- 查询表单，ajax查询通常都为act=query，添加属性id="query_form"，submit按钮不可缺少 -->
+						<form action="questionnaire.php?act=query" method="post" class="bs-example bs-example-form" id="query_form">
+						<div>
+                       		<input type="hidden" id="page_size" name="page_size" value=""/>
+                          	<input type="hidden" id="page" name="page" value=""/>
+                        </div>
+                   		</form>
+                        </div>
+
+                        <div class="project-list">
+                        	<form action="bonus.php?act=operate" method="post" class="bs-example bs-example-form" id="batch_form">
+                            <table class="table table-hover">
+                            	<thead>
+                            		<tr>
+                            			<!-- <th><input type="checkbox" id="check_all"/>编号</th> -->
+                            			<!-- <th class="visible-lg">购买用户</th>
+                            			<th class="visible-lg">寄送地址</th>
+                            			<th>金额</th>
+                            			<th></th>
+                            			<th></th> -->
+                            			
+                            			<th>{$lang.type_name}</th>
+									    <th>{$lang.update_ime}</th>
+									    <!-- 
+									    <th>{$lang.send_startdate}</th>
+									    <th>{$lang.send_enddate}</th> -->
+									    <th>赠品类型</th>
+									    <th>赠品数量</th>
+									    <th>{$lang.handler}</th>
+									    <th>跳转页面</th>
+                            		</tr>
+                            	</thead>
+                            	<!-- 查询表单查询结果填充的位置，添加属性id="form_table" -->
+                                <tbody id="form_table">
+{/if}
+                                	{foreach from=$type_list item=type key=okey}
+									<tr>
+								      <td >{$type.title|escape:html}</td>
+								      <td>{$type.mTime}</td>
+								      <td>{$type.song}</td>
+								      <td>{$type.jine}</td>
+								      <td>{$type.text}</td>
+								      <td>
+								        <a href="questionnaire.php?act=q_list&amp;id={$type.id}">{$lang.view}</a> |
+								        <a href="questionnaire.php?act=edit&amp;type_id={$type.id}">{$lang.edit}</a> |
+								        <a href="questionnaire.php?act=remove&id={$type.id}" onClick="if(confirm('当前操作不可恢复，请确定是否删除？'))return true;return false;">{$lang.remove}</a></span></td>
+								    </tr>
+								      {foreachelse}
+								    <tr><td class="no-records" colspan="10">{$lang.no_records}</td></tr>
+                                    {/foreach}
+{if $full_page}                                                                 
+                                    </tbody>
+                                    <tfoot>
+                                    	<tr>
+                                    		<td colspan="12">
+                                    			<div class="ibox-tools">
+                                    				<!-- 分页标签 -->
+	                                    			<ul class="pagination"></ul>
+												</div>
+                                    		</td>
+                                    	</tr>
+                                    </tfoot>
+                                </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    
+</html>
+{/if}

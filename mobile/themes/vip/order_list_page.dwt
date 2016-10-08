@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>{$page_title}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<link href="{$ectouch_themes}/images/touch-icon.png" rel="apple-touch-icon-precomposed" />
+<link href="{$ectouch_themes}/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="{$ectouch_themes}/css/public.css?v=1.2"/>
+<link href="{$ectouch_themes}/ectouch.css?v=1.1" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="js/mtoch/css/swiper-3.3.1.min.css"/>
+<link rel="stylesheet" type="text/css" href="{$ectouch_themes}/css/zlb.css?v=1"/>
+<script type="text/javascript" src="{$ectouch_themes}/js/jquery.min.js"></script>
+<script type="text/javascript" src="js/mtoch/js/swiper-3.3.1.min.js"></script>
+{insert_scripts files='common.js'}
+{$stats_code}
+</head>
+<body>
+<div id="page">
+<div id="tbh5v0">
+<div class="swiper-container swiper-container-horizontal">
+  <!-- 分类 -->
+  <div class="swiper-wrapper">
+  	 <div class="swiper-slide {if $order_type eq ''}active-nav{/if}" {if $order_type neq ''}onclick="location.href='suppliers.php?act=order_list_page'"{/if}>全部</div>
+  	 <div class="swiper-slide {if $order_type eq 'unConfirm'}active-nav{/if}" {if $order_type neq 'unConfirm'}onclick="location.href='suppliers.php?act=order_list_page&order_type=unConfirm'"{/if}>待付款</div>
+  	 <div class="swiper-slide {if $order_type eq 'unShipping'}active-nav{/if}" {if $order_type neq 'unShipping'}onclick="location.href='suppliers.php?act=order_list_page&order_type=unShipping'"{/if}>待发货</div>
+  	 <div class="swiper-slide {if $order_type eq 'unReceive'}active-nav{/if}" {if $order_type neq 'unReceive'}onclick="location.href='suppliers.php?act=order_list_page&order_type=unReceive'"{/if}>待收货</div>
+  </div>
+</div>
+
+  <div class="content"> 
+    <section class="order_list">
+    	<section class="content order_box padd1 radius10 single_item" style="border: 1px solid #cccccc;">
+       	<div class="item"><dl style="position:relative;">
+        	<dt class="goods_image"></dt>
+            <div>
+              <p style="font-weight: bold;">订单：<span class="order_sn"></span></p>
+              <p style="color: #858585;">下单：<span class="order_time"></span></p>
+              <p>共<span class="goodsNum"></span>件商品 应付<span class="total_fee"></span></p>
+              <div class="order_status"></div>
+              <div class="order-list-button"></div>
+         	</div></dl>
+        </div>
+    	</section>
+    
+      <!-- <section class="order_box padd1 radius10 single_item" style="border: 1px solid #cccccc;">
+      <table width="100%" border="0" cellpadding="5" cellspacing="0" class="ectouch_table">
+      	<tr style="border-bottom: 1px solid #cccccc;">
+        	<td class="order_status" style="color:#000"></td>
+        </tr>
+        <tr>
+        	<td class="order_content"></td>
+        </tr>
+        <tr style="border-top: 1px solid #cccccc;">
+          <td class="goodsNum" style="text-align: right;font-size: 14px;color: #000;"></td>
+        </tr>        
+      </table>
+    </section> -->
+    <a href="javascript:;" style="text-align:center" class="get_more"></a>
+    </section>
+    
+	<script type="text/javascript" src="{$ectouch_themes}/js/jquery.more.js"></script>
+    <script type="text/javascript">
+    var more_status = 0;
+    jQuery(function($){
+    	$('.order_list').more({'address': 'suppliers.php?act=query_orders&order_type={$order_type}', amount: 6, 'spinner_code':'<div style="text-align:center; margin:10px;"><img src="{$ectouch_themes}/images/loader.gif" /></div>'})
+		$(window).scroll(function () {
+			if (more_status == 0 && $(window).scrollTop() == $(document).height() - $(window).height()) {
+				$('.get_more').click();
+				more_status = 1;
+				setTimeout(function(){
+					more_status = 0;
+				}, '1000');
+			}
+		}); 
+    	
+    	var mySwiper = new Swiper('.swiper-container',{
+	   		 direction : "horizontal",
+	   		 watchSlidesProgress : true,
+	   		 watchSlidesVisibility : true,
+	   		 slidesPerView : 4,
+	   		 onInit: function(swiper){
+	   		 },
+	   		 onTap: function(){
+	   		 }
+	   	 });
+    	
+    	$(window).scroll(function(){
+    	    var mytop = $(window).scrollTop();
+    	    if( mytop > $(".swiper-container").offset().top){
+    	    	if(!$(".swiper-container").hasClass("float-top")){
+    	        	$(".swiper-container").addClass("float-top")
+    	    	}
+    	    }else if(mytop == 0){
+    	    	$(".swiper-container").removeClass("float-top")
+    	    }
+
+    	});
+    });
+    </script>
+    <!--#订单列表界面 end--> 
+
+
+</div>
+</div>
+ </div>
+  <!-- #BeginLibraryItem "/library/footer_nav_suppliers.lbi" --><!-- #EndLibraryItem -->
+</body>
+<script type="text/javascript">
+function cancel_order(order_id){
+	openConfirmDiv('您确定要取消该订单吗？',"cancel_div();do_cancel_order('" + order_id + "')");
+}
+function do_cancel_order(order_id){
+	$.get('suppliers.php?act=cancel_order&order_id=' + order_id, function(result){
+		openAlertDiv(result.message, 'location.reload()');
+	}, 'json');
+}
+jQuery(function(){
+	
+});
+</script>
+</html>

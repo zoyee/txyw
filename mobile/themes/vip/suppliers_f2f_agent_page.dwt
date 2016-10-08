@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>{$page_title}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<link href="{$ectouch_themes}/images/touch-icon.png" rel="apple-touch-icon-precomposed" />
+<link href="{$ectouch_themes}/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="{$ectouch_themes}/css/public.css?v=1.2"/>
+<link href="{$ectouch_themes}/ectouch.css?v=1.1" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="js/mtoch/css/swiper-3.3.1.min.css"/>
+<link rel="stylesheet" type="text/css" href="{$ectouch_themes}/css/zlb.css?v=1"/>
+<script type="text/javascript" src="{$ectouch_themes}/js/jquery.min.js"></script>
+<script type="text/javascript" src="js/mtoch/js/swiper-3.3.1.min.js"></script>
+{$stats_code}
+</head>
+<body>
+<div id="page">
+<div id="tbh5v0">
+<div class="swiper-container swiper-container-horizontal">
+  <!-- 分类 -->
+  <div class="swiper-wrapper">
+  	 <div class="swiper-slide" onclick="location.href='suppliers.php?act=agent_page'">我的代理</div>
+  	 <div class="swiper-slide" onclick="location.href='suppliers.php?act=not_agent_page'">邀请代理</div>
+  	 <div class="swiper-slide active-nav" onclick="location.href='suppliers.php?act=f2f_agent_page'">面对面邀请</div>
+  </div>
+</div>
+
+  <div class="content"> 
+  	{if user_qr}
+    <div style="margin-top: 100px; text-align:center; font-size: 14px;">用户扫一扫下面的二维码，即可成为您的认证代理商</div> 
+    <div style="margin-top: 20px; text-align:center;"><img style="width: 50%;" src="{$user_qr}"/></div>
+    {else}
+    <div style="margin-top: 100px; text-align:center; font-size: 14px;">网络不给力，请刷新试试！</div>
+    {/if}
+	<script type="text/javascript" src="{$ectouch_themes}/js/jquery.more.js"></script>
+    <script type="text/javascript">
+    jQuery(function($){
+    	var mySwiper = new Swiper('.swiper-container',{
+   		 direction : "horizontal",
+   		 watchSlidesProgress : true,
+   		 watchSlidesVisibility : true,
+   		 slidesPerView : 3,
+   		 onInit: function(swiper){
+   		 },
+   		 onTap: function(){
+   		 }
+   	 });
+    	
+    	$(window).scroll(function(){
+    	    var mytop = $(window).scrollTop();
+    	    if( mytop > $(".swiper-container").offset().top){
+    	    	if(!$(".swiper-container").hasClass("float-top")){
+    	        	$(".swiper-container").addClass("float-top")
+    	    	}
+    	    }else if(mytop == 0){
+    	    	$(".swiper-container").removeClass("float-top")
+    	    }
+
+    	});
+    });
+    </script>
+    <!--#订单列表界面 end--> 
+
+
+</div>
+</div>
+ </div>
+  <!-- #BeginLibraryItem "/library/footer_nav_suppliers.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>

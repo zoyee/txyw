@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>{$page_title}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<meta itemprop="name" content="{$article.title}"/> 
+<meta name="description" itemprop="description" content="{$article.description}" />
+<link href="{$ectouch_themes}/images/touch-icon.png" rel="apple-touch-icon-precomposed" />
+<link href="{$ectouch_themes}/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="{$ectouch_themes}/css/public.css?v=1.2"/>
+<link href="{$ectouch_themes}/ectouch.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="{$ectouch_themes}/js/jquery.js"></script>
+{$stats_code}
+
+<style type="text/css">
+body{
+	margin: 0 auto;
+	max-width: 650px;
+	background-color: white;
+}
+.article-body{
+	padding-left:10px;
+	padding-right:10px;
+}
+.article{
+	margin-top: 20px;
+	color: black;
+}
+.rich_media_title{
+	border-bottom: 1px solid #e7e7eb;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.4;
+}
+.rich_media_meta_list{
+	font-size: 16px;
+    line-height: 20px;
+    margin-bottom: 10px;
+    color: #8c8c8c;
+    vertical-align: middle;
+}
+.art-content{
+	margin-top: 5px;
+	color: #3e3e3e;
+    overflow: hidden;
+    font-size: 16px;
+}
+.art-content img{
+	/* width: 100%; */
+}
+.v_nav{
+	max-width: 650px;
+}
+.h-mid{
+	font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+<div id="page">
+<div class="tab_nav">
+  <div class="header">
+    <div class="h-left"><a title="返回" href="javascript:history.back()" class="sb-back"></a></div>
+    <div class="h-mid">
+      {$suppliers.suppliers_name}
+    </div>
+    <div class="h-right">
+      
+    </div>
+  </div>
+</div>
+
+<div class="article-body">
+<section class="wrap">
+  <div class="article">
+    <div class="art-content">
+      {$suppliers.suppliers_desc}
+    </div>
+  </div>
+</section>
+
+</div>
+
+</div>
+<!-- #BeginLibraryItem "/library/footer_nav.lbi" --><!-- #EndLibraryItem -->
+
+<script>
+
+</script>
+</body>
+</html>

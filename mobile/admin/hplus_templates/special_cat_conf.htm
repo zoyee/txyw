@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+
+{include file='head.htm'}
+<link rel="stylesheet" type="text/css" href="js/plugins/jcrop/jquery.Jcrop.css" />
+<link href="css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
+<link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+<link href="css/plugins/colorpicker/css/bootstrap-colorpicker.min.css"	rel="stylesheet">
+<script type="text/javascript" src="js/plugins/jcrop/jquery.Jcrop.js"></script>
+<script type="text/javascript" src="js/plugins/ajaxfileupload/ajaxfileupload.js"></script> 
+<script src="js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+<script src="js/plugins/clockpicker/clockpicker.js"></script>
+<script src="js/plugins/switchery/switchery.js"></script>
+<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<script type="text/javascript">
+	var jcrop_api;
+	var target_subject = {};
+	$(function(){
+		initHeadCrop();
+	});
+	
+	function initHeadCrop(){
+		$("#backgroud_img").Jcrop({
+			onChange:update_cord,
+			onSelect:update_cord,
+			aspectRatio:1,
+			allowSelect:false
+		},function(){
+			// Use the API to get the real image size
+			var bounds=this.getBounds();//获取背景图片尺寸
+			boundx=bounds[0];
+			boundy=bounds[1];
+			var cropSize;
+			if(boundx > boundy){
+				cropSize = boundy/2;
+			}else{
+				cropSize = boundx/2;
+			}
+			// Store the API in the jcrop_api variable
+			jcrop_api=this;
+			jcrop_api.animateTo([(boundx-cropSize)/2,(boundy-cropSize)/2,(boundx+cropSize)/2,(boundy+cropSize)/2]);
+		});
+		
+		$("#start_pick_head").click(function(){
+			$("#end_pick_head").removeClass("disabled");
+			$(this).addClass("disabled");
+			var x = $("#x").val();
+			var y = $("#y").val();
+			var size = $("#size").val();
+			//debug(x + " " + y + " " + size);
+			jcrop_api.animateTo([x, y, parseInt(x) + parseInt(size) - 1, parseInt(y) + parseInt(size)]);
+			target_subject['x'] = "#x";
+			target_subject['y'] = "#y";
+			target_subject['size'] = "#size";
+		});
+				
+		$("#end_pick_head").click(function(){
+			$("#start_pick_head").removeClass("disabled");
+			$(this).addClass("disabled");
+			target_subject['x'] = "#none";
+			target_subject['y'] = "#none";
+			target_subject['size'] = "#none";
+		});
+
+	}
+	
+	function update_cord(c){
+		if(parseInt(c.w) > 0){
+			$(target_subject['x']).val(Math.round(c.x));
+			$(target_subject['y']).val(Math.round(c.y));
+			$(target_subject['size']).val(Math.round(c.w));
+		};
+	};
+	
+	function upload_img(keyword) {
+		$("#loading")
+		.ajaxStart(function(){
+			$(this).show();
+		})
+		.ajaxComplete(function(){
+			$(this).hide();
+		});
+
+		$.ajaxFileUpload ({
+			url:'upload_image.php?act=ajax_upload&fname=upload_image_' + keyword,
+			secureuri:false,
+			fileElementId:'upload_image_' + keyword,
+			dataType: 'json',
+			data:{},
+			success: function (json, status) {
+				if(json.error == 0) {
+					$("#del_btn_" + keyword).removeClass('disabled');
+					$("#" + keyword + "_ico").val(json.content);
+					if($("#img_" + keyword).length >0){
+						$("#img_" + keyword).attr("src", "{$_CFG.site_url}" + json.content);
+					}else{
+						$("#" + keyword + "_ico").after('<img id="img_' + keyword + '" src="{$_CFG.site_url}' + json.content + '"/>');
+					}
+					
+					
+					
+					//$("#tab-user-haibao #image").val(json.content);
+					//$("#backgroud_img").attr("src", "{$_CFG.site_url}" + json.content);
+				}else{
+					swal({
+						title : "操作失败",
+						text : json.message,
+						type : "warning",
+						confirmButtonColor : "#DD6B55",
+						confirmButtonText : "确定",
+						closeOnConfirm : true
+					}, function() {});
+				}
+			},
+			error: function (data, status, e) {
+				//alert(e);
+				swal({
+					title : "异常",
+					text : e,
+					type : "warning",
+					confirmButtonColor : "#DD6B55",
+					confirmButtonText : "确定",
+					closeOnConfirm : true
+				}, function() {});
+			}
+		});
+		return false;
+	};
+	
+	function remove_ico(keyword){
+		$("#" + keyword + "_ico").val('');
+		$("#del_btn_" + keyword).addClass('disabled');
+		$("#img_" + keyword).remove();
+		//debug(keyword);
+		if (parent.gritter){
+			parent.gritter({
+				title : '操作提示',
+				text : '需要提交保存才能更改设置',
+				time : 10000
+			});
+		}
+		return false;
+	}
+</script>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title  back-change">
+                        <h5>特殊分类标签配置</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <p>产品样图</p>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="image-crop">
+                                	<img id="backgroud_img" src="{$_CFG.site_url}images/goods_example.jpg" class="bg-img">
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+	                            <div class="col-md-12">
+	                                <form class="form-horizontal m-t" action="special_cat.php?act=save" method="post">
+	                                <div class="form-group">
+	                                	<h4>说明：</h4>
+		                                <p>
+		                                    1、特殊分类标签只展现于商城首页，商品列表页，轮播图，商品详情图不出现。<label><input type="checkbox" name="mult_switch" id="mult_switch" value="1" {if $data.mult_switch}checked="checked"{/if}/>开启多图标</label>，图标将按排序从左到右呈现<br/>
+		                                    2、多个特殊标签的优先顺序：产品特殊标签 > 特殊分类标签 > 分类特殊标签，单图标模式只显示最高优先级的标签<br/>
+		                                    3、标准底图350*350像素，为产品压缩缩略图配置大小，修改商城基本设置中的缩略图宽高后，需要对特殊分类标签进行重新配置<br/>
+		                                    4、支持键盘上下左右按键微调
+		                                </p>
+	                                </div>
+	                                <div class="form-group col-sm-12">
+	                                	<hr/>
+		                                <h4>标签位置采集：</h4>
+		                                <p>
+		                                    点击开始采集按钮，拖动图片裁剪框到合适位置，点击完成按钮结束采集
+		                                </p>
+	                                </div>
+	                                <div class="form-group col-sm-12">
+	                                	<label class="col-sm-2 control-label">尺寸：</label>
+		                                <div class="col-sm-2 input-group">
+		                                    <input id="size" name="size" value="{$data.size}" class="form-control" type="text" readonly>
+											<span class="input-group-addon">px</span>
+		                                </div>
+	                                </div>
+	                                <div class="form-group col-sm-12">
+	                                	<label class="col-sm-2 control-label">X坐标：</label>
+		                                <div class="col-sm-2 input-group">
+		                                    <input id="x" name="x" value="{$data.x}" class="form-control" type="text" readonly>
+											<span class="input-group-addon">px</span>
+		                                </div>
+	                                </div>
+	                                <div class="form-group col-sm-12">
+	                                	<label class="col-sm-2 control-label">Y坐标：</label>
+		                                <div class="col-sm-2 input-group">
+		                                    <input id="y" name="y" value="{$data.y}" class="form-control" type="text" readonly>
+											<span class="input-group-addon">px</span>
+		                                </div>
+	                                </div>
+	                                <div class="btn-group col-sm-12">
+	                                    <button id="start_pick_head" class="btn btn-primary" type="button">开始采集</button>
+	                                    <button id="end_pick_head" class="btn btn-primary disabled" type="button">完成</button>
+	                                </div>
+	                                <div class="form-group col-sm-12">
+	                                	<hr/>
+		                                <h4>图标设置：</h4>
+	                                </div>
+	                                <div class="form-group col-sm-3" style="text-align:center">
+                                		<label class="col-sm-12 ">精品</label>
+                                		<input type="hidden" name="best_ico" id="best_ico" value="{$data.best.ico}"/>
+                                		{if $data.best.ico}
+                                		<img id="img_best" alt="精品标签" src="{$_CFG.site_url}{$data.best.ico}"/>
+                                		{/if}
+                                		<div class="col-sm-12 btn-group">
+	                                		<label for="upload_image_best" class="btn btn-primary" id="upload_btn_best">
+		                                        <input type="file" name="upload_image_best" id="upload_image_best" class="hide" value="" onchange="upload_img('best')"><i class="fa fa-upload"></i> 上传
+		                                    </label>
+		                                    <button class="btn btn-warning {if $data.best.ico == ''}disabled{/if}" id="del_btn_best" onclick="return remove_ico('best')"><i class="fa fa-remove"></i> 删除</button>
+	                                    </div>
+	                                    <div class="col-sm-12">
+	                                    	<label class="col-sm-6 control-label">显示：</label>
+			                                <div class="col-sm-6">
+			                                    <input type="checkbox" name="show_best" id="show_best" value="1" class="form-control" {if $data.best.show}checked="checked"{/if}/>
+			                                </div>
+	                                    </div>
+	                                    <div class="col-sm-12">
+	                                    	<label class="col-sm-6 control-label">排序：</label>
+			                                <div class="col-sm-6">
+			                                    <input type="text" name="order_best" id="order_best" value="{$data.best.order}" class="form-control"/>
+			                                </div>
+	                                    </div>
+                                	</div>
+                                	<div class="form-group col-sm-3" style="text-align:center">
+                                		<label class="col-sm-12 ">热销</label>
+                                		<input type="hidden" name="hot_ico" id="hot_ico" value="{$data.hot.ico}"/>
+                                		{if $data.hot.ico}
+                                		<img id="img_hot" alt="精品标签" src="{$_CFG.site_url}{$data.hot.ico}"/>
+                                		{/if}
+                                		<div class="col-sm-12 btn-group">
+	                                		<label for="upload_image_hot" class="btn btn-primary" id="upload_btn_hot">
+		                                        <input type="file" name="upload_image_hot" id="upload_image_hot" class="hide" value="" onchange="upload_img('hot')"><i class="fa fa-upload"></i> 上传
+		                                    </label>
+		                                    <button class="btn btn-warning {if $data.hot.ico == ''}disabled{/if}" id="del_btn_hot" onclick="return remove_ico('hot')"><i class="fa fa-remove"></i> 删除</button>
+	                                    </div>
+	                                    <div class="col-sm-12">
+	                                    	<label class="col-sm-6 control-label">显示：</label>
+			                                <div class="col-sm-6">
+			                                    <input type="checkbox" name="show_hot" id="show_hot" value="1" class="form-control" {if $data.hot.show}checked="checked"{/if}/>
+			                                </div>
+	                                    </div>
+	                                    <div class="col-sm-12">
+	                                    	<label class="col-sm-6 control-label">排序：</label>
+			                                <div class="col-sm-6">
+			                                    <input type="text" name="order_hot" id="order_hot" value="{$data.hot.order}" class="form-control"/>
+			                                </div>
+	                                    </div>
+                                	</div>
+                                	<div class="form-group col-sm-3" style="text-align:center">
+                                		<label class="col-sm-12 ">新品</label>
+                                		<input type="hidden" name="new_ico" id="new_ico" value="{$data.new.ico}"/>
+                                		{if $data.new.ico}
+                                		<img id="img_new" alt="精品标签" src="{$_CFG.site_url}{$data.new.ico}"/>
+                                		{/if}
+                                		<div class="col-sm-12 btn-group">
+	                                		<label for="upload_image_new" class="btn btn-primary" id="upload_btn_new">
+		                                        <input type="file" name="upload_image_new" id="upload_image_new" class="hide" value="" onchange="upload_img('new')"><i class="fa fa-upload"></i> 上传
+		                                    </label>
+		                                    <button class="btn btn-warning {if $data.new.ico == ''}disabled{/if}" id="del_btn_new" onclick="return remove_ico('new')"><i class="fa fa-remove"></i> 删除</button>
+	                                    </div>
+	                                    <div class="col-sm-12">
+	                                    	<label class="col-sm-6 control-label">显示：</label>
+			                                <div class="col-sm-6">
+			                                    <input type="checkbox" name="show_new" id="show_new" value="1" class="form-control" {if $data.new.show}checked="checked"{/if}/>
+			                                </div>
+	                                    </div>
+	                                    <div class="col-sm-12">
+	                                    	<label class="col-sm-6 control-label">排序：</label>
+			                                <div class="col-sm-6">
+			                                    <input type="text" name="order_new" id="order_new" value="{$data.new.order}" class="form-control"/>
+			                                </div>
+	                                    </div>
+                                	</div>
+                                	<div class="form-group col-sm-3" style="text-align:center">
+                                		<label class="col-sm-12 ">促销</label>
+                                		<input type="hidden" name="promote_ico" id="promote_ico" value="{$data.promote.ico}"/>
+                                		{if $data.promote.ico}
+                                		<img id="img_promote" alt="精品标签" src="{$_CFG.site_url}{$data.promote.ico}"/>
+                                		{/if}
+                                		<div class="col-sm-12 btn-group">
+	                                		<label for="upload_image_promote" class="btn btn-primary" id="upload_btn_promote">
+		                                        <input type="file" name="upload_image_promote" id="upload_image_promote" class="hide" value="" onchange="upload_img('promote')"><i class="fa fa-upload"></i> 上传
+		                                    </label>
+		                                    <button class="btn btn-warning {if $data.promote.ico == ''}disabled{/if}" id="del_btn_promote" onclick="return remove_ico('promote')"><i class="fa fa-remove"></i> 删除</button>
+	                                    </div>
+	                                    <div class="col-sm-12">
+	                                    	<label class="col-sm-6 control-label">显示：</label>
+			                                <div class="col-sm-6">
+			                                    <input type="checkbox" name="show_promote" id="show_promote" value="1" class="form-control" {if $data.promote.show}checked="checked"{/if}/>
+			                                </div>
+	                                    </div>
+	                                    <div class="col-sm-12">
+	                                    	<label class="col-sm-6 control-label">排序：</label>
+			                                <div class="col-sm-6">
+			                                    <input type="text" name="order_promote" id="order_promote" value="{$data.promote.order}" class="form-control"/>
+			                                </div>
+	                                    </div>
+                                	</div>
+	                                <div class="form-group col-sm-12">
+	                                	<hr/>
+	                                </div>
+	                                <div class="form-group col-sm-offset-5 col-sm-12">
+	                                	<input type="hidden" id="id" name="id" value="{$data.id}" />
+	                                	<input type="hidden" id="keyword" name="keyword" value="user_haibao" />
+	                                	<input type="hidden" id="image" name="image" value="{if $data.image}{$data.image}{else}images/haibao.jpg{/if}" />
+	                                    <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i> 提交</button>
+	                                    <button class="btn btn-warning" type="reset"><i class="fa fa-repeat"></i> 重置</button>
+	                                </div>
+	                                </form>
+	                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+<div class="single-item">
+	<dl style="position:relative;">
+		<dt class="cover-img">{$cover_img}</dt>
+       	<div>
+			{if $item_url}<a href="{$item_url}">{/if}
+            <p class="item-name {if $item_desc}ellipsis-nowrap{else}row-2{/if} {if $right_top_widget}padding-right-20{/if}">{$item_name}</p>
+            {if $item_desc}
+            <p class="item-desc ellipsis-nowrap">{$item_desc}</p>
+            {/if}
+            <p class="item-extra ellipsis-nowrap {if $right_bottom_widget}padding-right-20{/if}">{$item_extra}</p>
+            <div class="right-top-widget">{$right_top_widget}</div>
+            <div class="right-bottom-widget">{$right_bottom_widget}</div>
+            
+      		{if $item_url}</a>{/if}
+      	</div>
+	</dl>
+	
+</div>

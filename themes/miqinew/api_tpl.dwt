@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$page_title}</title>
+<!-- TemplateEndEditable --><!-- TemplateBeginEditable name="head" --><!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
+{* 包含脚本文件 *}
+{insert_scripts files='common.js,user.js,transport.js'}
+<body>
+<div class="body_user ">
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
+</div>
+<div class="content">
+<div class="contentLogin">
+<div class="content_login">
+
+<div class="coLoginBody">
+<div class="coLogin_title">
+    <p><span>扫码绑定微信，享受更多优惠政策</span></p>
+</div>
+<div class="qr_event">
+	<div class="title">&nbsp;</div>
+	<img src="{$user_qr}" alt="二维码" />
+	<div class="tips">打开<span style="color:#f40;">微信</span>，扫一扫</div>
+</div>
+<div class="user-right">
+	<div class="title">植物素生活社群邀您加入</div>
+	<div class="description">
+		在这里，已有百万都市知识女性汇聚<br/>
+		扫描上方二维码，尽享多重福利：<br/>
+		1、每天质优价廉好物狂拍，低至1元<br/>
+		2、轻松生成专属海报，分享即可获长期收益，金牌订单的10%，银牌订单的5%<br/>
+		3、购物即有青豆返还，可抵扣现金，相当于9折<br/>
+		4、零距离与众多时尚美肤、营养健康达人互动交流
+	</div>
+</div>
+<div class="coLogin_title" style="display: none;">
+                        <p><span>欢迎回来，请使用微信扫码登录</span></p>
+                    </div>
+</div>
+ 
+
+
+</div>
+</div>
+</div>
+<div class="blank5"></div>
+<div class="flow">
+<div class="footer">
+  <div class="footerBody">
+<Div class="block_s">
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+</Div>
+</div>
+</div>
+</div>
+</body>
+<script type="text/javascript">
+var process_request = "{$lang.process_request}";
+{foreach from=$lang.passport_js item=item key=key}
+var {$key} = "{$item}";
+{/foreach}
+var username_exist = "{$lang.username_exist}";
+</script>
+</html>
+<script type="text/javascript">
+function qr_login(){
+	jQuery.ajax({  
+        type:"POST",  
+        url:"qr_event.php?act=bind_oath_user",  
+        dataType:"json",  
+        timeout:10000,  
+        data:{time:"10000", uuid: "{$uuid}"},  
+        success:function(data,textStatus){  
+                location.href='{$back_act}';
+        },  
+        complete:function(XMLHttpRequest,textStatus){  
+                if(XMLHttpRequest.readyState=="4"){  
+                    //alert(XMLHttpRequest.responseText);  
+                }  
+        },  
+        error: function(XMLHttpRequest,textStatus,errorThrown){  
+                if(textStatus=="timeout") {
+                	qr_login();  
+                }
+        }  
+    });
+}
+jQuery(function(){
+	qr_login();
+});
+
+</script>

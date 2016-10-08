@@ -1,0 +1,10 @@
+<div class="swiper-container" data-space-between='10' data-autoplay="3000">
+	<div class="swiper-wrapper">
+		<!-- {foreach from=$pictures item=picture name=name}-->
+		<div class="swiper-slide">
+			<img src="{if $picture.img_url}{$site_url}{$picture.img_url}{else}{$site_url}{$picture.thumb_url}{/if}" alt="" style='width: 100%'>
+		</div>
+		<!--{/foreach}-->
+	</div>
+	<!-- <div class="swiper-pagination"></div> -->
+</div>

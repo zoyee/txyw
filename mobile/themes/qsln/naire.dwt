@@ -1,0 +1,152 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<title>{if $name}{$name}{/if}{$shop_name}</title>
+<meta name="Keywords" content="{$keywords}" /> 
+<meta name="Description" content="{$description}" />
+<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+<script type="text/javascript" src="{$ectouch_themes}/js/jquery.js"></script>
+<style type="text/css">
+  .div_show {width:100%;margin:auto;background: #FFFFFF;}
+  .div_show .div_title {height:30px;margin:2px;font-size:20px;line-height: 30px;text-align: center;color: #2C4A93;}
+  .div_body .div_z {margin: 5px 5px 0;border:1px solid #EEEEEE;padding:5px 2px 5px 10px;}
+  .div_body .div_z  div {margin:3px 10;}
+  .div_name {font-size:18px;color:#000;}
+  .div_daan {margin-top:5px;margin-left: 16px;font-size: 16px;color:#686262;}
+  .div_daan input {margin-top:5px;}
+  .div_daan .div_text {width:80%;height:26px;border:1px solid #EEEEEE;}
+  .div_submit {width:30%;height:30px;margin:10px 35%;}
+  .div_tishi {margin-top:10px;}
+  .div_huida_too {width:40%;height:30px;margin:15px 30%;}
+</style>
+</head>
+<body>
+  <!-- 前端显示页面 -->
+  <form action="naire.php" method="post">
+  <div class="div_show">
+    <div class="div_title">
+      <b>{$bonus_arr.title}</b>
+    </div>
+    <div class="div_body">
+      {foreach from=$text key=k item=foo}
+        <div class="div_z">
+          <div class="div_name">{$foo.xuhao}{if $foo.is_must==1}<span style="color:red;">*</span>{/if}. {$foo.intro}{if $foo.type==1} <span style="font-size:12px;rgb(84, 82, 82);">（可多选）</span>{/if}</div>
+          <div class="div_daan {if $foo.is_must==1}bitian{/if}">
+            {if $foo.type!=2}
+            {foreach from=$foo.extra key=k1 item=v1}
+            <label><input class="" type="{if $foo.type==0}radio{elseif $foo.type==1}checkbox{elseif $foo.type==2}text{/if}" name="{$foo.id}{if $foo.type==1}[]{/if}" value="{if $foo.type!=2}{$k1}{/if}">{if $foo.type!=2}{$v1}{/if}</label><br/>
+            {/foreach}
+            {else}
+            <label><input type="text" class="div_text" name="{$foo.id}" value=""/></label>
+            {/if}
+          </div>
+        </div>
+      {/foreach}
+    </div>
+    <input type="hidden" name="num" value="{$num}">
+    <input type="hidden" name='act' value='add'>
+    <input type="hidden" name="id" value="{$bonus_arr.id}">
+    <input type="hidden" name="url" value="{$bonus_arr.text}">
+    <div>
+    	{if $id_act>0}
+    	<input type="button" class="div_huida_too" value="您已经回答过问卷">
+    	{else}
+      <input type="submit" class="div_submit" value="提交">
+      	{/if}
+    </div>
+    <div class="div_tishi">
+    	参与调查送{if $bonus_arr.song==1}青豆{elseif $bonus_arr.song==2}红包{/if} 
+    	 		{ $bonus_arr.jine}
+    	 {if $bonus_arr.song==1}个{elseif $bonus_arr.song==2}元{/if}
+    </div>
+  </div>
+  </form>
+  <!-- 前端显示  end -->
+
+<script>
+	$(function(){
+		$(".div_submit").click(function(){
+			var n=true;
+			$(".bitian").each(function(){
+				var i=false;
+				var type=$(this).find("input").attr('type');
+			    $(this).find("input").each(function(){
+			    	if(type=='checkbox'||type=="radio"){
+			    		if($(this).is(':checked')){
+				    		i=true;
+				    	}
+			    	}else if(type=='text'){
+			    		var value=$(this).val();
+			    		if(value!=''){
+			    			i=true;
+			    		}
+			    	}
+			    });
+			    if(!i){
+			    	n=false;
+			    }
+			});
+			if(!n){
+				alert('请填写全部必填选项后提交');
+			}
+			return n;
+		});
+		
+	});
+</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+wx.config({
+    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+    appId: '{$signPackage.appId}', // 必填，公众号的唯一标识
+    timestamp:{$signPackage.timestamp} , // 必填，生成签名的时间戳
+    nonceStr: '{$signPackage.nonceStr}', // 必填，生成签名的随机串
+    signature: '{$signPackage.signature}',// 必填，签名，见附录1
+    jsApiList: [
+		'onMenuShareTimeline',
+		'onMenuShareAppMessage' 
+                ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+});
+  
+wx.ready(function () {
+	//青山老农监听“分享给朋友”'{$info.nickname}约您逛逛国内首个“植物素生活”社群商城',
+	wx.onMenuShareAppMessage({
+	    title: '{$title}', // 分享标题
+	    desc: '{$centen}', // 分享描述
+	    link: '{$url}', // 分享链接
+	    imgUrl: '{$imgUrl}', // 分享图标
+	    type: '', // 分享类型,music、video或link，不填默认为link
+	    dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+	    success: function () { 
+	        // 用户确认分享后执行的回调函数
+	        alert('分享成功');
+	    },
+	    cancel: function () { 
+	        // 用户取消分享后执行的回调函数
+	        alert('已取消');
+	    }
+	});
+	
+	//分享朋友圈
+	wx.onMenuShareTimeline({
+	    title: '{$title}', // 分享标题
+	    link: '{$url}', // 分享链接
+	    imgUrl: '{$imgUrl}', // 分享图标
+	    success: function () { 
+	        // 用户确认分享后执行的回调函数
+	        alert($url);
+	    	alert('分享成功');
+	    },
+	    cancel: function () { 
+	        // 用户取消分享后执行的回调函数
+	    	alert('已取消');
+	    }
+	});
+
+});
+</script>
+
+</body>
+</html>

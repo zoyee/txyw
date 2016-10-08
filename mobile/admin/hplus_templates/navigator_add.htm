@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+{include file='head.htm'}
+<script type="text/javascript" src="js/plugins/ajaxfileupload/ajaxfileupload.js"></script> 
+<script type="text/javascript">
+	$(function(){
+	});
+	function upload_img() {
+		$("#loading")
+		.ajaxStart(function(){
+			$(this).show();
+		})
+		.ajaxComplete(function(){
+			$(this).hide();
+		});
+	
+		$.ajaxFileUpload ({
+			url:'upload_image.php?act=ajax_upload&fname=upload_image',
+			secureuri:false,
+			fileElementId:'upload_image',
+			dataType: 'json',
+			data:{},
+			success: function (json, status) {
+				if(json.error == 0) {
+					$("#img_show").html('<img src="/mobile/' + json.content + '" width="48" height="48" />');
+					$("#item_pic").val(json.content);
+				}else{
+					swal({
+						title : "操作失败",
+						text : json.message,
+						type : "warning",
+						confirmButtonColor : "#DD6B55",
+						confirmButtonText : "确定",
+						closeOnConfirm : true
+					}, function() {});
+				}
+			},
+			error: function (data, status, e) {
+				//alert(e);
+				swal({
+					title : "异常",
+					text : e,
+					type : "warning",
+					confirmButtonColor : "#DD6B55",
+					confirmButtonText : "确定",
+					closeOnConfirm : true
+				}, function() {});
+			}
+		});
+		return false;
+	};
+</script>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        
+        <div class="row">
+            <div class="col-sm-7">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>{if $rt.act eq "add"}添加{else}编辑{/if}导航菜单</h5>
+                        <!-- <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                                <i class="fa fa-wrench"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a href="form_basic.html#">选项1</a>
+                                </li>
+                                <li><a href="form_basic.html#">选项2</a>
+                                </li>
+                            </ul>
+                            <a class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div> -->
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal m-t" id="signupForm" action="navigator.php" method="post">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">{$lang.item_name}：</label>
+                                <div class="col-sm-3">
+                                    <input id="item_name" name="item_name" value="{$rt.item_name|escape}" class="form-control required" type="text" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">{$lang.item_url}：</label>
+                                <div class="col-sm-8">
+                                    <input id="item_url" name="item_url" value="{$rt.item_url|escape}" class="form-control required" type="text">
+                                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> {$lang.notice_url}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">{$lang.item_vieworder}：</label>
+                                <div class="col-sm-2">
+                                    <input id="item_vieworder" name="item_vieworder" value="{$rt.item_vieworder|escape}" class="form-control" type="number">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">图标：</label>
+                                <div class="col-sm-5">
+                                    <input id="item_pic" name="item_pic" value="{$rt.item_pic}" class="form-control" type="text" readOnly="readonly">
+                                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 请上传ico图标到模板images目录下</span>
+                                </div>
+                                <label title="上传图片" for="upload_image" class="col-sm-2 btn btn-primary">
+                                    <input type="file" name="upload_image" id="upload_image" class="hide" value="" onchange="upload_img()"><i class="fa fa-upload"></i> 上传图标
+                                </label>
+                                <div class="col-sm-1" id="img_show">
+                                	{if $rt.item_pic}<img src="/mobile/{$rt.item_pic}" width="48" height="48" />{/if}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">{$lang.item_ifshow}：</label>
+                                <div class="col-sm-2">
+                                    <select name="item_ifshow" class="form-control">
+									  	<option value='1' {$rt.item_ifshow_1}>{$lang.yes}</option>
+									  	<option value='0' {$rt.item_ifshow_0}>{$lang.no}</option>
+									</select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">{$lang.item_opennew}：</label>
+                                <div class="col-sm-2">
+                                    <select name="item_opennew" class="form-control">
+									  	<option value='0' {$rt.item_opennew_0}>{$lang.no}</option>
+									  	<option value='1' {$rt.item_opennew_1}>{$lang.yes}</option>
+									</select>
+                                </div>
+                            </div>
+                            <div class="form-group" style="display:none">
+                                <label class="col-sm-3 control-label">{$lang.item_type}：</label>
+                                <div class="col-sm-8">
+                                    <select name="item_type">
+								  		<option value='top' {$rt.item_type_top}>{$lang.top}</option>
+								  		<option value='middle' {$rt.item_type_middle} selected="selected">{$lang.middle}</option>
+								  		<option value='bottom' {$rt.item_type_bottom}>{$lang.bottom}</option>
+								  	</select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-8 col-sm-offset-5">
+								    <input type="hidden"  name="id"       value="{$rt.id}" />
+								    <input type="hidden"  name="step"       value="2" />
+								    <input type="hidden"  name="act"       value="{$rt.act}" />
+                                    <button class="btn btn-primary" type="submit"><i class="fa fa-check"></i> {$lang.button_submit}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

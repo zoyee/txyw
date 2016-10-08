@@ -1,0 +1,241 @@
+﻿{if $full_page}
+<!DOCTYPE html>
+<html>
+
+{include file="head.htm"}
+<link href="css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+<script src="js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+<script type="text/javascript">
+	$(function(){
+		//初始化页面分页
+		initPagination({
+			record_count : {$record_count},
+			page : 1,
+			page_count : {$page_count}
+		});
+		
+		//搜索框输入查询条件事件
+		/* $("#keyword").change(function(){
+			var keyword = $.trim($(this).val());
+			if(keyword.match(/^1\d{10}$/) != null){
+				$("#mobile").val(keyword);
+				$("#consignee").val('');
+				$("#order_sn").val('');
+			}else if(keyword.match(/^\d{13}$/) != null){
+				$("#mobile").val('');
+				$("#consignee").val('');
+				$("#order_sn").val(keyword);
+			}else{
+				$("#mobile").val('');
+				$("#consignee").val(keyword);
+				$("#order_sn").val('');
+			}
+		}); */
+		
+		//搜索框回车提交表单
+		/* $("#keyword").keypress(function(event){
+			if(event.keyCode == 13){
+				$("#query_form button[type=submit]").trigger('click');
+			}
+		}); */
+		
+		$("#composite_status").change(function(){
+			$("#query_form button[type=submit]").trigger('click');
+		});
+	});
+</script>
+
+<body class="gray-bg">
+
+</h1>
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="ibox">
+                    <div class="ibox-title">
+                    	<!-- 数据记录总条数，添加属性id="total_count" -->
+                        <h5>所有订单 (共<span id="total_count"></span>条记录)</h5>
+
+                        <div class="ibox-tools">
+                        	<!-- 分页大小设置 -->
+                            {include file='page_setting.htm'}
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row m-b-sm m-t-sm">
+                            <div class="col-md-1">
+                                <button type="button" id="loading-example-btn" class="btn btn-primary btn-sm"><i class="fa fa-refresh"></i> 刷新</button>
+                            </div>
+                            <!-- 查询表单，ajax查询通常都为act=query，添加属性id="query_form"，submit按钮不可缺少 -->
+                    		<form action="sale_statis.php?act=query" method="post" class="bs-example bs-example-form" id="query_form">
+                    			
+	                            <div class="col-md-6">
+	                       
+	                               <div class="form-group" id="data_5"
+										style="float: left; text-align: center; vertical-align: middle">
+										<div class="input-daterange input-group" id="datepicker"
+											style="float: left">
+											<input type="text" class="input-sm form-control"
+												name="start_date" id="start_date" value='{$start_date}'/> <span
+												class="input-group-addon">到</span> <input type="text"
+												class="input-sm form-control" name="end_date" id="end_date" value='{$end_date}'
+												 />
+										</div>
+
+									</div>
+    
+	                            </div>
+                            <div class="col-md-4">
+                            	<button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-search-plus"></i> 搜索</button>
+     							<button type="button" onclick="download(1);" class="btn btn-sm btn-primary"><i class="fa fa-file-excel-o"></i> office下载</button>
+     							<button type="button" onclick="download(2);" class="btn btn-sm btn-primary"><i class="fa fa-file-excel-o"></i> wps下载</button>
+                            </div>
+                                <div>
+                                	<input type="hidden" id="page_size" name="page_size" value=""/>
+                                	<input type="hidden" id="page" name="page" value=""/>
+                                	<input type="hidden" id="sort_by" name="sort_by" value=""/> 
+                                	<input type="hidden" id="sort_order" name="sort_order" value=""/> 
+                                </div>
+                        	</form>
+                        </div>
+						<hr/>
+                        <div class="project-list">
+                        	<form action="order.php?act=operate" method="post" class="bs-example bs-example-form" id="batch_form">
+                        	<!-- 表头排序请添加dataTable样式 -->
+                            <table class="table table-hover dataTable">
+                            	<thead>
+                            		<tr>
+                            			<!-- 需要排序的字段表头添加sort-by属性 -->
+                            			<th>{$lang.order_sn}</th>
+									      <th>销售价</th>
+									      <!-- <th>折扣</th> -->
+										<th>余额支付</th><th>青豆支付</th>
+									      <th>配送费</th>
+									      <th>实付价</th>
+									      <th>收货人</th>
+									      <th>状态</th>
+									      <th>下单时间</th>
+									      <th>付款时间</th>
+                            		</tr>
+                            	</thead>
+                            	<!-- 查询表单查询结果填充的位置，添加属性id="form_table" -->
+                                <tbody id="form_table">
+{/if}
+                                	{foreach from=$goods_sales_list item=list}
+                                    <tr>
+                                    	<td class="project-title">
+                                    		<a href="order.php?act=info&order_id={$list.order_id}">{$list.tid}</a>
+                                    	</td>
+                                        <td class="project-status">
+                                        	{$list.total_fee}
+                                        </td>
+
+
+						<td class="project-status">
+                                        	{$list.surplus}
+                                        </td><td class="project-status">
+                                        	{$list.integral_money}
+                                        </td>
+
+
+
+                                        <td class="project-title visible-lg">
+                                            {$list.post_fee}
+                                            
+                                        </td>
+                                        <td class="project-title visible-lg">
+                                           	{$list.payment}
+                                        </td>                                        
+                                        <td class="project-title">
+                                               {$list.buyer_nick}
+                                        </td>
+                                        <td class="project-title">
+                                            {$list.order_status}
+                                        </td>
+                                        <td class="project-title">
+                                            {$list.add_time}
+                                        </td>
+                                        <td class="project-title">
+                                            {$list.pay_time}
+                                        </td>
+                                    </tr>
+                                    {/foreach}
+{if $full_page}                                                                 
+                                    </tbody>
+                                    <tfoot>
+                                    	<tr>
+                                    		<td colspan="8">
+                                    			<div class="btn-group">
+                                    				
+												    <input name="batch" type="hidden" value="1" />
+   													<input id="order_id" name="order_id" type="hidden" value="" />
+                                    			</div>
+                                    			<div class="ibox-tools">
+                                    				<!-- 分页标签 -->
+	                                    			<ul class="pagination"></ul>
+												</div>
+                                    		</td>
+                                    	</tr>
+                                    </tfoot>
+                                </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal inmodal" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+           <div class="modal-dialog modal-lg">
+               <div class="modal-content animated bounceInRight">
+                   <div class="modal-header">
+                       <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span>
+                       </button>
+                       <div class="modal-title"></div>
+                   </div>
+                   <div class="modal-body">
+                   </div>
+                   <div class="modal-footer">
+                       <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <script type="text/javascript">
+		$("#data_5 .input-daterange").datepicker({
+			keyboardNavigation : !1,
+			forceParse : !1,
+			autoclose : !0
+		});
+
+		$(document).ready(function() {
+
+			var sdate = new Date();
+			sdate.setDate(sdate.getDate() - 30);
+
+			$('#start_date').datepicker({
+				dateFormat : "yyyy-mm-dd"
+			}).datepicker("setDate", sdate);
+			$('#end_date').datepicker({
+				dateFormat : "yyyy-mm-dd"
+			}).datepicker("setDate", new Date());
+		});
+
+		
+		
+		function download(type){
+			if(type ==1){
+				window.location.href="sale_statis.php?act=download&start_date="+$('#start_date').val()+"&end_date="+$('#end_date').val(); 
+			}else{
+				window.location.href="sale_statis.php?act=wps&start_date="+$('#start_date').val()+"&end_date="+$('#end_date').val(); 
+			}
+		}
+		
+		
+		</script>
+    </body>
+</html>
+{/if}

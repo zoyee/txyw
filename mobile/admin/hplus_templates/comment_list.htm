@@ -1,0 +1,177 @@
+{if $full_page}
+<!DOCTYPE html>
+<html>
+<!-- zmh 修改 -->
+{include file='head.htm'}
+<script type="text/javascript">
+	$(function(){
+		//初始化页面分页
+		initPagination({
+			record_count : {$record_count},
+			page : 1,
+			page_count : {$page_count}
+		});
+		
+		//搜索框输入查询条件事件
+		$("#keyword").change(function(){
+			var keyword = $.trim($(this).val());
+			if(keyword.match(/^1\d{10}$/) != null){
+				$("#mobile").val(keyword);
+				$("#consignee").val('');
+				$("#order_sn").val('');
+			}else if(keyword.match(/^\d{13}$/) != null){
+				$("#mobile").val('');
+				$("#consignee").val('');
+				$("#order_sn").val(keyword);
+			}else{
+				$("#mobile").val('');
+				$("#consignee").val(keyword);
+				$("#order_sn").val('');
+			}
+		});
+		
+		//搜索框回车提交表单
+		$("#keyword").keypress(function(){
+			if(event.keyCode == 13){
+				$("#query_form button[type=submit]").trigger('click');
+			}
+		});
+		
+		
+	});
+</script>
+
+<body class="gray-bg">
+
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="ibox">
+                    <div class="ibox-title">
+                    	<!-- 数据记录总条数，添加属性id="total_count" -->
+                        <h5>所有商品 (共<span id="total_count"></span>条记录)</h5>
+                        <div class="ibox-tools">
+                        	<!-- 分页大小设置 -->
+                            {include file='page_setting.htm'}
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+						<div class="row m-b-sm m-t-sm">
+                        <!-- <div class="input-group">
+                            <div class="col-md-1">
+                                <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> 刷新</button>
+                            </div>
+                       	</div> -->
+						<!-- 查询表单，ajax查询通常都为act=query，添加属性id="query_form"，submit按钮不可缺少 -->
+						<form action="comment_manage.php?act=query" method="post" class="bs-example bs-example-form" id="query_form">
+						<div class="col-md-12">
+						    <div class="form-group">
+						    	<!-- 刷新 -->
+							    <div class="col-md-1">
+	                                <button type="button" id="loading-example-btn" class="btn btn-white btn-sm"><i class="fa fa-refresh"></i> 刷新</button>
+	                            </div>
+						    	<!-- 分类 -->						        
+						        <!-- <div class="col-sm-2">
+						            <select class="form-control" name="cat_id"><option value="0">{$lang.goods_cat}</option>{$cat_list}</select>
+						        </div>
+						        推荐
+						        <div class="col-sm-2">
+						            <select class="form-control" name="intro_type"><option value="0">{$lang.intro_type}</option>{html_options options=$intro_list selected=$smarty.get.intro_type}</select>
+						        </div>
+						         上架
+						        <div class="col-sm-2">
+						            <select class="form-control" name="is_on_sale"><option value=''>{$lang.intro_type}</option><option value="1">{$lang.on_sale}</option><option value="0">{$lang.not_on_sale}</option></select>
+						        </div> -->
+						        <!-- 关键字-->
+						        <div class="col-sm-2">
+						            <input type="text" name="keyword" size="15" class="form-control" placeholder="关键字" data-form-un="1454381208301.4795">
+						        </div>
+						        <div class="col-sm-2">
+						           <button type="submit" id="search" class="btn btn-sm btn-primary">
+									<i class="fa fa-refresh"></i>&nbsp查询
+								</button>
+						        </div>
+						    </div>
+						</div>
+						<div>
+                       		<input type="hidden" id="page_size" name="page_size" value=""/>
+                          	<input type="hidden" id="page" name="page" value=""/>
+                        </div>
+                   		</form>
+                        </div>
+
+                        <div class="project-list">
+                        	<form action="comment_manage.php?act=operate" method="post" class="bs-example bs-example-form" id="batch_form">
+                            <table class="table table-hover">
+                            	<thead>
+                            		<tr>
+                            			<th><input type="checkbox" id="check_all" />{$lang.record_id}</th>
+                            			<th>{$lang.user_name}</th>
+									    <th class="visible-lg">{$lang.comment_type}</th>
+									    <th>{$lang.comment_obj}</th>
+									    <th>评论</th>
+									    <th>等级</th>
+									    <th class="visible-lg">{$lang.comment_time}</th>
+									    <th class="visible-lg">{$lang.comment_flag}</th>
+									    <th>{$lang.handler}</th>
+                            		</tr>
+                            	</thead>
+                            	<!-- 查询表单查询结果填充的位置，添加属性id="form_table" -->
+                                <tbody id="form_table">
+{/if}
+                                	{foreach from=$comment_list item=comment key=okey}
+                                    <tr>
+                                         <td><input type="checkbox" name="checkboxes[]" value="{$comment.comment_id}" />{$comment.comment_id}</td>
+    									<td class="first-cell"><span>{if $comment.user_name}{$comment.user_name}{else}{$lang.anonymous}{/if}</span></td>
+    									<td  class="project-title visible-lg"><span >{$lang.type[$comment.comment_type]}</span></td>
+    									<td class="first-cell"><a href="../{if $comment.comment_type eq '0'}goods{else}article{/if}.php?id={$comment.id_value}" target="_blank">{$comment.title}</td>
+									    
+									    <td >{$comment.content}</td>
+									    <td >{$comment.comment_rank}</td>
+									    <td  class="project-title visible-lg">{$comment.add_time}</td>
+									    <td  class="project-title visible-lg">{if $comment.status eq 0}{$lang.hidden}{else}{$lang.display}{/if}</td>
+									    <td align="center"><a href="comment_manage.php?act=reply&amp;id={$comment.comment_id}">{$lang.view_content}</a> |
+      <a href="javascript:" onclick="listTable.remove({$comment.comment_id}, '{$lang.drop_confirm}')">{$lang.remove}</a></td>
+									   
+                                    </tr>
+                                    {/foreach}
+{if $full_page}                                                                 
+                                    </tbody>
+                                    <tfoot>
+                                    	<tr>
+                                    		<td colspan="12">
+                                    			<div class="btn-group">
+                                    				<button type="button" class="btn btn-sm btn-primary dropdown-toggle" 
+												      data-toggle="dropdown">
+												      	批量操作
+												      <span class="caret"></span>
+												    </button>
+												    <ul class="dropdown-menu" id="batch_btns">
+												      <li><a href="##" value="remove=1" checkbox_name="comment_id"><i class="glyphicon glyphicon-remove-sign"></i>&nbsp;&nbsp;{$lang.drop_select}</a></li>
+												      <li><a href="##" value="allow=1" checkbox_name="comment_id"><i class="fa fa-arrow-circle-up"></i>&nbsp;&nbsp;{$lang.allow}</a></li>
+												      <li><a href="##" value="deny=1" checkbox_name="comment_id"><i class="fa fa-arrow-circle-down"></i>&nbsp;&nbsp;{$lang.forbid}</a></li>
+												      
+												    </ul>
+												    <input name="batch" type="hidden" value="1" />
+   													<input id="order_id" name="order_id" type="hidden" value="" />
+                                    			</div>
+                                    			<div class="ibox-tools">
+                                    				<!-- 分页标签 -->
+	                                    			<ul class="pagination"></ul>
+												</div>
+                                    		</td>
+                                    	</tr>
+                                    </tfoot>
+                                </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    
+</html>
+{/if}

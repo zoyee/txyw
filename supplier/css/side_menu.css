@@ -1,0 +1,46 @@
+@CHARSET "UTF-8";
+#side-menu .nav-label{margin-left: 20px;}
+#side-menu em{ background:url(../images/allico.png) no-repeat;background-position:18px -528px;POSITION: absolute; top:0px; left:0px; width:45px; height:35px  }
+#side-menu em.h1_02_cat_and_goods {
+background-position:18px -3px;
+}
+#side-menu em.h1_03_promotion {
+background-position:18px -40px;
+}
+#side-menu em.h1_04_order {
+background-position:18px -82px;
+}
+#side-menu em.h1_05_banner {
+background-position:18px -120px;
+}
+#side-menu em.h1_06_stats {
+background-position:18px -160px;
+}
+#side-menu em.h1_07_content {
+background-position:18px -200px;
+}
+#side-menu em.h1_08_members {
+background-position:18px -242px;
+}
+#side-menu em.h1_10_priv_admin {
+background-position:18px -276px;
+}
+#side-menu em.h1_11_system {
+background-position:18px -313px;
+}
+#side-menu em.h1_12_template {
+background-position:18px -352px;
+}
+#side-menu em.h1_13_backup {
+background-position:18px -387px;
+}
+#side-menu em.h1_14_sms {
+background-position:18px -424px;
+}
+#side-menu em.h1_15_rec {
+background-position:18px -458px;
+}
+
+#side-menu em.h1_16_email_manage {
+background-position:18px -493px;
+}

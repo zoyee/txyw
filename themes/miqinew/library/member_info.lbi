@@ -1,0 +1,24 @@
+﻿<div id="append_parent"></div>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+{if $user_info}
+<font style="position:relative; top:10px;">
+{$lang.hello}，
+{if $smarty.cookies.ECS.nickname}
+<!-- {if $smarty.cookies.ECS.qq_figureurl}<img src="{$smarty.cookies.ECS.qq_figureurl}" />{/if} -->
+<font class="f4_b">{$smarty.cookies.ECS.nickname|escape:html}</font>
+{else}
+<font class="f4_b">{$user_info.username}</font>，{/if}{$lang.welcome_return}！
+<a href="user.php">{$lang.user_center}</a>|
+ <a href="user.php?act=logout">{$lang.user_logout}</a>
+</font>
+
+{else}
+ 
+ <!-- <a href="user.php"><img src="images/bnt_log.gif" /></a>
+ <a href="user.php?act=register"><img src="images/bnt_reg.gif" /></a>
+ <a href="api/qqconnect/interface.php"><img src="api/qqconnect/qq_login_120_24.png" /></a> -->
+ <li><a href="user.php">登录</a></li>
+ <li><a href="user.php?act=register">免费注册</a></li>
+ <li><a href="user.php?act=oath&type=qq">使用QQ登录</a></li>
+ <li>{$lang.welcome}</li>
+{/if}

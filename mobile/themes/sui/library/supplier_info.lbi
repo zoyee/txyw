@@ -1,0 +1,25 @@
+<div class="popup popup-supplier">
+	<header class="bar bar-nav">
+		<a class="button button-link button-nav pull-right close-popup">
+			关闭 </a>
+		<h1 class="title">掌柜介绍</h1>
+	</header>
+	<div class="content">
+		<div class="list-block media-list">
+			<div class="item-content">
+				<div class="item-media">
+					<img width="120" src="{$site_url}{$supplier.head_img}">
+				</div>
+				<div class="item-inner">
+					<div class="item-title-row">
+						<div class="item-title">{$supplier.suppliers_name}</div>
+					</div>
+					<div class="item-subtitle">微信号：{$supplier.weixin}</div>
+					<div class="item-text">{$supplier.city_name}{$supplier.district_name}</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="content-block no-margin">{$supplier.suppliers_desc}</div>
+	</div>
+</div>

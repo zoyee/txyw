@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+{include file='head.htm'}
+<script type="text/javascript">
+
+</script>
+<body class="gray-bg">
+
+    <div class="wrapper wrapper-content animated fadeInUp">
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>所有记录</h5>
+                        <div class="ibox-tools">
+                            <a href="haibao.php?act=add" class="btn btn-primary btn-xs" target="tab"><i class="fa fa-plus-square"></i> 新增海报模板</a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <button type="button" id="loading-example-btn" class="btn btn-primary btn-sm"><i class="fa fa-refresh"></i> 刷新</button>	
+
+                        <div class="project-list">
+
+                            <table class="table table-hover dataTable">
+                            	<thead>
+                            		<tr>
+                            			<th sort-by="keyword">类型</th>
+                            			<th sort-by="subject">主题</th>
+                            			<th sort-by="startdate" class="visible-lg">生效日期</th>
+                            			<th class="visible-lg">图片</th>
+                            			<th class="visible-lg">当前海报</th>
+                            			<th></th>
+                            		</tr>
+                            	</thead>
+                                <tbody>
+                                	{foreach from=$listData item=list}
+                                    <tr>
+                                        <td class="project-status">
+                                            {if $list.keyword == 'user_haibao'}个人专属海报{/if}
+                                            {if $list.keyword == 'product_haibao'}产品海报{/if}
+                                        </td>
+                                        <td class="project-title">
+                                            {$list.subject}
+                                        </td>
+                                        <td class="project-title visible-lg">
+                                            {$list.startdate}{if $list.enddate}至{$list.enddate}{/if}
+                                        </td>
+                                        <td class="project-completion visible-lg">
+                                        	{if $list.image}
+		                                    <img src="{$_CFG.site_url}{$list.image}" height="80px"/>
+		                                    {/if}
+                                        </td>
+                                        <td class="project-completion visible-lg">
+                                           	 {if $current_id == $list.id}
+                                           	 <i class="glyphicon glyphicon-ok"></i>
+                                           	 {/if}
+                                           	 {if $prod_current_id == $list.id}
+                                           	 <i class="glyphicon glyphicon-ok"></i>
+                                           	 {/if}
+                                        </td>
+                                        <td class="project-actions">
+                                            <a href="haibao.php?act=edit&id={$list.id}" class="btn btn-info btn-sm" target="tab"><i class="fa fa-pencil"></i> 编辑 </a>
+                                            <a href="haibao.php?act=remove&id={$list.id}" class="btn btn-warning btn-sm btn-del"><i class="fa fa-remove"></i> 删除 </a>
+                                        </td>
+                                    </tr>
+                                    {/foreach}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
