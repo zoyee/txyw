@@ -198,4 +198,5 @@ $_LANG['user_rank']         = '会员等级分成管理';
 $_LANG['questionnaire']  = '调查问卷 ';
 
 $_LANG['goods_original']  = '商品定义 ';
+$_LANG['add_module']  = '添加功能模块';
 ?>

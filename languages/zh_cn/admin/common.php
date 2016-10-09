@@ -346,4 +346,5 @@ $_LANG['alipay_login'] = '<a href="https://www.alipay.com/user/login.htm?goto=ht
 $_LANG['alipay_look'] = '<a href=\"https://www.alipay.com/himalayas/practicality.htm\" target=\"_blank\">请申请成功后登录支付宝账户查看</a>';
 
 $_LANG['goods_original'] = '商品定义';
+$_LANG['add_module']  = '添加功能模块';
 ?>

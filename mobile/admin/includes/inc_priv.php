@@ -212,4 +212,5 @@ if (!defined('IN_ECTOUCH'))
 	
 	
 	$purview['goods_original']           = 'goods_original';
+	$purview['add_module'] = 'add_module';
 ?>

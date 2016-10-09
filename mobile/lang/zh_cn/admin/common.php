@@ -386,4 +386,5 @@ $_LANG['alipay_look'] = '<a href=\"https://www.alipay.com/himalayas/practicality
 $_LANG['special_cat_icons'] = '特殊分类标签';
 $_LANG['questionnaire']  = '调查问卷 ';
 $_LANG['goods_original'] = '商品定义';
+$_LANG['add_module']  = '添加功能模块';
 ?>

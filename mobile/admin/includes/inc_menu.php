@@ -132,6 +132,7 @@ $modules['11_system']['navigator']                  = 'navigator.php?act=list';
 //$modules['11_system']['file_check']                 = 'filecheck.php';
 //$modules['11_system']['fckfile_manage']             = 'fckfile_manage.php?act=list';
 //$modules['11_system']['021_reg_fields']             = 'reg_fields.php?act=list';
+$modules['11_system']['add_module']                  = 'add_module.php';
 
 
 $modules['12_template']['02_template_select']       = 'template.php?act=list';
