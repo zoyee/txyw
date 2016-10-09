@@ -182,6 +182,7 @@ function unicode2utf8($str) {
 	return $str;
 }
 
+
 $text = "你好  hello 123"; //可以为收到的微信消息，可能包含二进制emoji表情字符串 
 $tmpStr = json_encode($text); //暴露出unicode 
 $tmpStr = preg_replace("#(\\\ue[0-9a-f]{3})#ie","addslashes('\\1')",$tmpStr); //将emoji的unicode留下，其他不动 
